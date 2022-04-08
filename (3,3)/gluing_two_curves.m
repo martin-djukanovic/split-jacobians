@@ -20,14 +20,6 @@ P2<X,Y,Z> := ProjectiveSpace(K,2);
 P1<u,v> := ProjectiveSpace(K,1);
 WP := WeightedProjectiveSpace(K,[1,2,3,5]);
 
-// the composition A --> J=A/G --> J/[-1]
-psi := map< P8 -> P3 | [
-  X1^2 + X5^2 + X9^2,
-  X2*X4 + X3*X7 + X6*X8,
-  X2*X3 + X4*X6 + X7*X8,
-  X2*X8 + X3*X6 + X4*X7
-]>;
-
 // our formulas for the Igusa-Clebsch invariants (obtained by interpolation)
 function ComputedInvariants(a,b)
 return [72*(-20 + 16*a^3 + 40*a^6 + 112*a*b + 100*a^4*b - 32*a^7*b -68*a^2*b^2 - 104*a^5*b^2 + a^8*b^2 + 16*b^3 + 44*a^3*b^3 +54*a^6*b^3 + 100*a*b^4 + 65*a^4*b^4 - 30*a^7*b^4 -104*a^2*b^5 - 88*a^5*b^5 + 40*b^6 + 54*a^3*b^6 + 9*a^6*b^6 -32*a*b^7 - 30*a^4*b^7 + a^2*b^8),
@@ -78,7 +70,10 @@ function VerifyInvariants(a,b)
   A21 := Scheme(P8, [ 2*X5^3 + s*X5^2*X8 + X8^3, X1 + X5, X2 - X5, X3, X4 + X5, X6, X7 + X8, X9 ]);
   A22 := Scheme(P8, [ 2*X5^3 + t*X5^2*X6 + X6^3, X1 + X5, X2 + X5, X3 + X6, X4 - X5, X7, X8, X9 ]);
 
-  // psi(D) is a conic contained in Y1 + 2*Y2 = 0 (since X1+X5+X9=0) so we project to IP^2 by dropping the first coordinate
+  // the composition A --> J=A/G --> J/[-1]
+  psi := map< P8 -> P3 | [ X1^2 + X5^2 + X9^2, X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
+  
+  // psi(D) is a conic contained in Y1 + 2*Y2 = 0 (since X1+X5+X9=0 on D) so we project to IP^2 by dropping the first coordinate
   q := map< P8 -> P2 | [ X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
 
   // H is the conic that is the image of C in J/[-1], projected to IP^2
