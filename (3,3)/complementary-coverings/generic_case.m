@@ -35,6 +35,27 @@ I := ideal< RR | [
 
 // print Q(x)
 RR!Q(x);
-
 // print the equations that determine d,e in terms of a,b,c
 Basis(PrimaryDecomposition(EliminationIdeal(I,3))[1]);
+
+
+/* Having found f1(x) and f2(x), up to multiplication by constants, we can determine the j-invariants of E1 and E2.
+   E1 --> E1/[-1] branches above the image of the zero locus of P(x) and Q(x) under f1 and E2 --> E2/[-1] branches
+   above the image under f2.
+  */
+F<a,b,c,d,e> := FunctionField(Rationals(),5);
+R<x,y> := PolynomialRing(F,2);
+R1<X> := PolynomialRing(F,1);
+R2 := PolynomialRing(F);
+h1 := hom<R->R1 | [X, 0] >;
+h2 := hom<R1->R2 | [R2.1] >;
+P := func<u | u^3 + u^2*a + u*b + c >;
+Q := func<u | 4*u^3*c + u^2*b^2 + 2*u*b*c + c^2 >;
+N := func<u | (b*u + 3*c)^2 * ((b^3 - 4*a*b*c + 9*c^2)*u + b^2*c - 3*a*c^2) >;
+A := h1(Resultant(x*P(y) - y^2, Q(y), y));
+A := A/Coefficient(A,X,3);
+j1 := jInvariant(EllipticCurve(h2(A)));
+B := h1(Resultant(x*Q(y) - N(y), P(y), y));
+B := B/Coefficient(B,X,3);
+j2 := jInvariant(EllipticCurve(h2(B)));
+[j1,j2];
