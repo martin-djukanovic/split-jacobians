@@ -1,3 +1,11 @@
+/* w is a primitive third root of unity, i.e. 1 + w + w^2 = 0.
+   The function VerifyInvariants(a,b) will verify that gluing elliptic curves E1: x^3 + y^3 + z^3 + 3 a x y z = 0 and 
+   E2: x^3 + y^3 + z^3 + 3 b x y z = 0, whose identity element is O=[-1:1:0], along the 3-torsion via the isomorphism E1[3] --> E2[3]
+   defined by  [-1:0:1] |--> [-1:0:1] and [-w:0:1] |--> [-w^2:0:1], results in the Jacobian of a genus-2 curve C whose Igusa-Clebsch invariants
+   are given by ComputedInvariants(a,b), unless 3*a^2*b^2 + a^3 + b^3 - 3*a*b + 2 = 0, in which case the isomorphism E1[3] --> E2[3]
+   is the resitriction of a 2-isogeny E1 --> E2.
+*/
+
 // dehomogenize a homogeneous polynomial
 function Dehomogenize(f)
   S := Parent(f);
@@ -11,11 +19,12 @@ function Dehomogenize(f)
   end if;
 end function;
 
+// ambient spaces
 S<y> := PolynomialRing(Rationals());
 K<w> := NumberField(1+y+y^2);
 R<x> := PolynomialRing(K);
 P8<X1,X2,X3,X4,X5,X6,X7,X8,X9> := ProjectiveSpace(K,8);
-P3<Y1,Y2,Y3,Y4> := ProjectiveSpace(K,3);
+//P3<Y1,Y2,Y3,Y4> := ProjectiveSpace(K,3);
 P2<X,Y,Z> := ProjectiveSpace(K,2);
 P1<u,v> := ProjectiveSpace(K,1);
 WP := WeightedProjectiveSpace(K,[1,2,3,5]);
@@ -63,27 +72,27 @@ function VerifyInvariants(a,b)
     X2*X4 - X1*X5
   ]);
 
-  // The effective divisor on A that is linearly equivalent to 3Θ and fixed by [-1] and translation by A[3](K)
+  // The effective divisor on A that is linearly equivalent to 3Θ and fixed by [-1] and translation by A[3]
   D := Scheme(P8, [ X1 + X5 + X9 ]) meet A;
 
-  // points of order 2 on E1 and E2
-  A21 := Scheme(P8, [ 2*X5^3 + s*X5^2*X8 + X8^3, X1 + X5, X2 - X5, X3, X4 + X5, X6, X7 + X8, X9 ]);
-  A22 := Scheme(P8, [ 2*X5^3 + t*X5^2*X6 + X6^3, X1 + X5, X2 + X5, X3 + X6, X4 - X5, X7, X8, X9 ]);
+  // points of A[2] that are the points of order 2 on E1 x {O} and {O} x E2, respectively
+  E12 := Scheme(P8, [ 2*X5^3 + s*X5^2*X8 + X8^3, X1 + X5, X2 - X5, X3, X4 + X5, X6, X7 + X8, X9 ]);
+  E22 := Scheme(P8, [ 2*X5^3 + t*X5^2*X6 + X6^3, X1 + X5, X2 + X5, X3 + X6, X4 - X5, X7, X8, X9 ]);
 
   // the composition A --> J=A/G --> J/[-1]
-  psi := map< P8 -> P3 | [ X1^2 + X5^2 + X9^2, X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
+  // psi := map< P8 -> P3 | [ X1^2 + X5^2 + X9^2, X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
   
-  // psi(D) is a conic contained in Y1 + 2*Y2 = 0 (since X1+X5+X9=0 on D) so we project to IP^2 by dropping the first coordinate
+  // psi(D) is a conic contained in Y1 + 2*Y2 = 0 so we project to IP^2 by dropping the first coordinate
   q := map< P8 -> P2 | [ X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
 
   // H is the conic that is the image of C in J/[-1], projected to IP^2
   H := q(D);
 
   // B is the branch locus of the canonical map C --> H
-  B := q(Union(A21,A22));
+  B := q(Union(E12,E22));
 
   // we find the inverse of the parametrization IP^1 --> H
-  paramStrings := Split(Sprint(Parametrization(Conic(Curve(H)))),"\n");
+  paramStrings := Split(Sprint(Parametrization(Conic(Curve(ReducedSubscheme(H))))),"\n");
   coord1 := eval paramStrings[#paramStrings-1];
   coord2 := eval paramStrings[#paramStrings];
   paraminv := map< P2 -> P1 | [ coord1, coord2 ] >;
@@ -96,3 +105,6 @@ function VerifyInvariants(a,b)
   // we compare the actual Igusa-Clebsch invariants with our formula
   return WP!(IgusaClebschInvariants(HyperellipticCurve(poly))) eq  WP!(ComputedInvariants(a,b));
 end function;
+
+VerifyInvariants(1 + 2*w, 3/2 - w);
+VerifyInvariants(2^20 + 7, 2^20 + 13);
