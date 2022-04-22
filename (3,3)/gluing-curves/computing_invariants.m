@@ -4,6 +4,9 @@
    defined by  [-1:0:1] |--> [-1:0:1] and [-w:0:1] |--> [-w^2:0:1], results in the Jacobian of a genus-2 curve C whose Igusa-Clebsch invariants
    are given by ComputedInvariants(a,b), unless 3*a^2*b^2 + a^3 + b^3 - 3*a*b + 2 = 0, in which case the isomorphism E1[3] --> E2[3]
    is the resitriction of a 2-isogeny E1 --> E2.
+   
+   Given bounds on the degree of the invariants in terms of a and b (which can be obtained by computing them for large integral values
+   of a and b), verifying the formula given by ComputedInvariants(a,b) is correct for sufficiently many cases proves their correctness.
 */
 
 // dehomogenize a homogeneous polynomial
@@ -103,5 +106,6 @@ function VerifyInvariants(a,b)
   return WP!(IgusaClebschInvariants(HyperellipticCurve(poly))) eq  WP!(ComputedInvariants(a,b));
 end function;
 
+//examples
 VerifyInvariants(1 + 2*w, 3/2 - w);
 VerifyInvariants(2^20 + 7, 2^20 + 13);
