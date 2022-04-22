@@ -20,11 +20,11 @@ function Dehomogenize(f)
 end function;
 
 // ambient spaces
-S<y> := PolynomialRing(Rationals());
-K<w> := NumberField(1+y+y^2);
+QQ:=Rationals();
+R<x> := PolynomialRing(QQ);
+K<w> := NumberField(1+x+x^2);
 R<x> := PolynomialRing(K);
 P8<X1,X2,X3,X4,X5,X6,X7,X8,X9> := ProjectiveSpace(K,8);
-//P3<Y1,Y2,Y3,Y4> := ProjectiveSpace(K,3);
 P2<X,Y,Z> := ProjectiveSpace(K,2);
 P1<u,v> := ProjectiveSpace(K,1);
 WP := WeightedProjectiveSpace(K,[1,2,3,5]);
@@ -79,10 +79,7 @@ function VerifyInvariants(a,b)
   E12 := Scheme(P8, [ 2*X5^3 + s*X5^2*X8 + X8^3, X1 + X5, X2 - X5, X3, X4 + X5, X6, X7 + X8, X9 ]);
   E22 := Scheme(P8, [ 2*X5^3 + t*X5^2*X6 + X6^3, X1 + X5, X2 + X5, X3 + X6, X4 - X5, X7, X8, X9 ]);
 
-  // the composition A --> J=A/G --> J/[-1]
-  // psi := map< P8 -> P3 | [ X1^2 + X5^2 + X9^2, X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
-  
-  // psi(D) is a conic contained in Y1 + 2*Y2 = 0 so we project to IP^2 by dropping the first coordinate
+  // the composition A --> J=A/G --> J/[-1], followed by a projection that drops the first coordinate
   q := map< P8 -> P2 | [ X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
 
   // H is the conic that is the image of C in J/[-1], projected to IP^2
