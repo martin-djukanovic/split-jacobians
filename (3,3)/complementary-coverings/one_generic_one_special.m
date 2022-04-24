@@ -5,20 +5,17 @@
 RR<x,y,z,a,b,c,d> := PolynomialRing(Rationals(),7);
 P := func<u | u^2 + a*u + b >;
 D := func<u | u^2*Derivative(P(u),u) - 3*u*P(u)>;
-Q := func<u | Quotrem(Resultant(u^3*P(z) - z^3*P(u), D(z), z),
-Resultant(u^2,P(u),u)*D(u)^2) >;
+Q := func<u | Quotrem(Resultant(u^3*P(z) - z^3*P(u), D(z), z), Resultant(u^2,P(u),u)*D(u)^2) >;
 D2 := func<u | (u+c)*(u+d)*Derivative(Q(u),u) - Q(u)*(3*u + 2*d + c) >;
 R := Resultant((x+c)^2*(x+d)*Q(y) - (y+c)^2*(y+d)*Q(x), D2(y), y);
 R := Quotrem(R, Resultant((x+c)*(x+d),Q(x),x)*D2(x)^2);
 q,r := Quotrem(R, P(x));
 I := ideal< RR | [
-Coefficient(r,x,0),
-Coefficient(r,x,1),
-Coefficient(r,x,2),
-Coefficient(R,x,3), // <-- infinity is a pole of f1, i.e. deg(P)=deg(R)=2
-1 - z * Coefficient(Q(x),x,3) * Resultant((x+c)*(x+d),Q(x),x) *
-Resultant(x,P(x),x) * Discriminant(P(x),x) * Discriminant(Q(x),x) *
-Resultant(x+c,x+d,x)
+    Coefficient(r,x,0),
+    Coefficient(r,x,1),
+    Coefficient(r,x,2),
+    Coefficient(R,x,3), // <-- infinity is a pole of f1, i.e. deg(P)=deg(R)=2
+    1 - z * Coefficient(Q(x),x,3) * Resultant((x+c)*(x+d),Q(x),x) * Resultant(x,P(x),x) * Discriminant(P(x),x) * Discriminant(Q(x),x) * Resultant(x+c,x+d,x)
 ]>;
 // print Q(x) and the equations that determine c,d in terms of a,b
 RR!Q(x);
@@ -57,11 +54,10 @@ R := Resultant((x+d)^3*Q(y) - (y+d)^3*Q(x), D2(y), y);
 R := Quotrem(R, Resultant((x+d)^2,Q(x),x)*D2(x)^2);
 q,r := Quotrem(R, P(x));
 I := ideal< RR | [
-Coefficient(r,x,0),
-Coefficient(r,x,1),
-Coefficient(r,x,2),
-1 - z * Coefficient(Q(x),x,3) * Resultant((x+d),Q(x),x) *
-Resultant(x,P(x),x) * Discriminant(P(x),x) * Discriminant(Q(x),x)
+    Coefficient(r,x,0),
+    Coefficient(r,x,1),
+    Coefficient(r,x,2),
+    1 - z * Coefficient(Q(x),x,3) * Resultant((x+d),Q(x),x) * Resultant(x,P(x),x) * Discriminant(P(x),x) * Discriminant(Q(x),x)
 ]>;
 // print the equations that determine a,d in terms of b,c
 Basis(PrimaryDecomposition(EliminationIdeal(I,3))[1]);
