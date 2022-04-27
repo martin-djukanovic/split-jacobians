@@ -92,7 +92,8 @@ function VerifyInvariants(a,b)
   B := q(Union(E12,E22));
 
   // we find the inverse of the parametrization IP^1 --> H
-  paramStrings := Split(Sprint(Parametrization(Conic(Curve(ReducedSubscheme(H))))),"\n");
+  if IsReduced(H) then H:=Curve(H); end if;    // H is reduced; this is just a kludge to force Magma to actually find the curve.
+  paramStrings := Split(Sprint(Parametrization(Conic(H))),"\n");
   coord1 := eval paramStrings[#paramStrings-1];
   coord2 := eval paramStrings[#paramStrings];
   paraminv := map< P2 -> P1 | [ coord1, coord2 ] >;
