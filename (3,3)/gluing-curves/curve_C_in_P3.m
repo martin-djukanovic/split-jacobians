@@ -26,8 +26,9 @@ D := Scheme(P8, [
 	X1 + X5 + X9
 ]);
 
-// This model of C is the intersection of a cubic F(x2,x3,x4)=0 and a quadric x1^2=G(x2,x3,x4). 
+// This model of C is the intersection of a cubic F(x2,x3,x4) = 0 and a quadric x1^2 = G(x2,x3,x4). 
 // The hyperelliptic involution is given by x1 --> -x1.
+// Replacing (a,b) by (b,a) gives an isomorphic curve (via x4 --> -x4).
 C:=Scheme(P3, [
   // cubic
    (2 - 9*a - 9*b + 9*a^2 + 9*b^2 + 24*a*b + a^3 + b^3 - 9*a^3*b - 9*a*b^3 - 24*a^2*b^2 + 9*a^3*b^2 + 9*a^2*b^3)*x2^3
@@ -43,13 +44,15 @@ C:=Scheme(P3, [
   
   // quadric
    (2 - 3*a*b + a^3 + b^3 + 3*a^2*b^2)*x1^2
-   + 3*(1 - a*b)*x2^2 + 3*(1 + a)*(1 + b)*x4^2
+   + 3*(1 - a*b)*x2^2
+   + 3*(1 + a)*(1 + b)*x4^2
    + 3*(7 + 3*a + 3*b - a*b)*x3^2
    + 9*(b - a)*x2*x4
    + 3*(10 - 3*a - 3*b + 2*a*b)*x2*x3
 ]);
 
-// This map is defined over Q.
+// The (3,3)-isogeny E1 x E2 --> Jac(C), restricted to D, followed by an isomorphism.
+// Note that f is defined over Q and does not depend on a and b. This allowed us to determine C relatively easily, by interpolation.
 f:=map<D -> C | [
 	2*((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),
 	2*((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
@@ -58,8 +61,8 @@ f:=map<D -> C | [
 ]>;
 
 
-/* Where this map comes from:
-   A -> A/G is defined by the cubes of the linear forms that define the hyperplanes that are invariant under translation by points of G, i.e.:
+/* Where this map comes from: E1 x E2 --> (E1 x E2)/G is defined by the cubes of the linear forms that define
+   the hyperplanes that are invariant under translation by the points of G. These are:
   (w*X1 + w^2*X5 + X9)^3, (w^2*X1 + w*X5 + X9)^3, (X3 + X4 + X8)^3, (X2 + X6 + X7)^3, (w*X3 + w^2*X4 + X8)^3
   (w^2*X2 + w*X6 + X7)^3, (w^2*X3 + w*X4 + X8)^3, (w*X2 + w^2*X6 + X7)^3, (X1 + X5 + X9)^3
   Applying a suitable isomorphism and projecting to IP^3 leaves us with the definition of f above.
