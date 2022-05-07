@@ -104,9 +104,8 @@ C1 eq C2 and C1 eq C3 and C1 eq C;
  Case 1: b^2 + 5*b - 2 = 0 and a = (1-b)/4 
  This is covered by the same formula, as is verified by the following:
 ************************************************************************/
-K := Rationals();
-R<x> := PolynomialRing(K);
-K<b> := ext<K|x^2+5*x-2>;
+R<x> := PolynomialRing(QQ);
+K<b> := ext<QQ | x^2+5*x-2>;
 a:=(1-b)/4;
 R<x> := PolynomialRing(K);
 P2<X,Y,Z> := ProjectiveSpace(K,2);
@@ -153,7 +152,6 @@ C := map<P2->P2 | [dd*T*Z, 1/3/(8*b-3)^3 * d^3 * (1-2*b)*b^3*T*Y, Z^2 ]>(C); // 
 /**********************
  Case 2i: a + b = 1
 ***********************/
-QQ := Rationals();
 K<a>:=FunctionField(QQ);
 R<x>:=PolynomialRing(K);
 P2<X,Y,Z> := ProjectiveSpace(K,2);
@@ -208,7 +206,6 @@ C eq Scheme(P2, -Y^2*Z^4 + (X^3 + 6*X^2*Z + 9*X*Z^2 + 36*Z^3)*(X^3 - 6*X^2*Z + 9
 /**************************
  Case 2ii: a*w + b*w^2 = 1
 ***************************/
-QQ := Rationals();
 R<x> := PolynomialRing(QQ);
 K<w> := ext<QQ | 1+x+x^2>;
 K<a> := FunctionField(K);
@@ -240,9 +237,8 @@ C eq Scheme(P2, -Y^2*Z^4 +
 /***************************************
  Case 2ii: a = 1/2*w^2 and b = 1/2*w
 ****************************************/
-QQ := Rationals();
 R<x> := PolynomialRing(QQ);
-K<w> := ext<QQ | 1 + x + x^2>;
+K<w> := ext<QQ | 1+x+x^2>;
 P2<X,Y,Z> := ProjectiveSpace(K,2);
 P3<x1,x2,x3,x4> := ProjectiveSpace(K,3);
 
@@ -257,5 +253,3 @@ C := map<P3 -> P2 | [4*L1, 12*x1, L0]>(CC);
 C := map<P2 -> P2 | [ X + (1 + 2*w)*Z, Y, (1 + 2*w)*Z ]>(C);
 C eq Scheme(P2, -Y^2*Z^4 + X^6 + 6*X^4*Z^2 - 39*X^2*Z^4 + 48*Z^6);
 // This is isomorphic to Y^2*Z^4 = (X^3 + 6*X^2*Z + 9*X*Z^2 + 36*Z^3)*(X^3 - 6*X^2*Z + 9*X*Z^2 - 36*Z^3) over K(w).
-
-
