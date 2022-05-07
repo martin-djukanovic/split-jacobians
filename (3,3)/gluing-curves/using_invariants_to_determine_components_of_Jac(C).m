@@ -1,5 +1,6 @@
 /*  Given a genus-2 curve C: y^2 = f(x), whose Jacobian is known to be (3,3)-isogenous to some E1 x E2, what are the j-invariants E1 and E2?
-    We apply this to an interesting curve, namely C: y^2 = x(2x^2+4x+3)(3x^2+4x+2). This curve has an involution given by (x,y) -> (1/x,y/x^3).
+    We apply this to an interesting curve, namely C: y^2 = x(2x^2+4x+3)(3x^2+4x+2). This curve has an involution given by (x,y) -> (1/x,y/x^3)
+    (Examples 3.7 and 5.11).
 */
 QQ := Rationals());
 R<x> := PolynomialRing(QQ);
