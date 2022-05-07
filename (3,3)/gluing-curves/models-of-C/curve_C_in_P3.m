@@ -1,6 +1,5 @@
-K := Rationals();
-R<x> := PolynomialRing(K);
-K<w> := ext<K | 1+x+x^2>;
+R<x> := PolynomialRing(QQ);
+K<w> := ext<QQ|1+x+x^2>;
 R<x> := PolynomialRing(K);
 K<a,b>:=FunctionField(K,2);
 P2<X,Y,Z> := ProjectiveSpace(K,2);
