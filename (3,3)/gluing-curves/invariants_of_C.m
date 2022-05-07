@@ -23,7 +23,6 @@ function Dehomogenize(f)
 end function;
 
 // ambient spaces
-QQ:=Rationals();
 R<x> := PolynomialRing(QQ);
 K<w> := NumberField(1+x+x^2);
 R<x> := PolynomialRing(K);
