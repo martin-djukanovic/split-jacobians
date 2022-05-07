@@ -1,4 +1,3 @@
-QQ := Rationals();
 R<T,X1,X2,X3,X4,X5,X6,X7,X8,X9,a,b> := PolynomialRing(QQ, 12);
 s := 3*a;
 t := 3*b;
