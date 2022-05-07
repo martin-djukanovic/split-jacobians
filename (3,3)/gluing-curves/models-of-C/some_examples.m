@@ -3,9 +3,8 @@
    [-1:0:1] -> [-1:0:1] [-w:1:0] -> [-w^2:1:0]. A concrete affine plane model is given for C, not just the isomorphism class.
 */
 
-K:=Rationals();
-R<x> := PolynomialRing(K);
-K<w> := ext<K | 1+x+x^2>;
+R<x> := PolynomialRing(QQ);
+K<w> := ext<QQ | 1+x+x^2>;
 R<x> := PolynomialRing(K);
 P8<X1,X2,X3,X4,X5,X6,X7,X8,X9> := ProjectiveSpace(K,8);
 P3<x1,x2,x3,x4> := ProjectiveSpace(K,3);
