@@ -1,9 +1,9 @@
-
+/* A model of C in P3 is an intersection of a cubic and a quadric. We are looking for p and q such that x4 = p*x2 + q*x3 leads to a cubic
+   with two triple roots. */
+   
 QQ := Rationals();
 K<a,b>:=FunctionField(QQ,2);
 R<x2,x3,x4,p,q>:=PolynomialRing(K,5);
-// A model of C in P3 is an intersection of a cubic and a quadric. We are looking for p and q such that x4 = p*x2 + q*x3 leads to a cubic
-// with two triple roots.
 cubic:=func<x2,x3,x4 | (2 - 9*a - 9*b + 9*a^2 + 9*b^2 + 24*a*b + a^3 + b^3 - 9*a^3*b - 9*a*b^3 - 24*a^2*b^2 + 9*a^3*b^2 + 9*a^2*b^3)*x2^3
    + (16 + 63*a + 63*b - 36*a^2 - 36*b^2 + 408*a*b - 19*a^3 - 19*b^3 + 189*a^2*b + 189*a*b^2 + 36*a^3*b + 36*a*b^3 + 24*a^2*b^2 - 9*a^3*b^2 - 9*a^2*b^3)*x3^3 
    + 3*(4 - 27*a - 27*b + 36*a^2 + 36*b^2 + 120*a*b - 7*a^3 - 7*b^3 - 72*a^2*b - 72*a*b^2 + 18*a^3*b + 18*a*b^3 + 24*a^2*b^2 - 9*a^3*b^2 - 9*a^2*b^3)*x2^2*x3 
