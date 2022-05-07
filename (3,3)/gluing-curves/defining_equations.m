@@ -9,7 +9,6 @@
   - translation by P3=[-w^2 : 1 : 0] is given by [x : y : z] |--> [w*x : w^2*y : z]
 */
 
-QQ:=Rationals();
 R<x> := PolynomialRing(QQ);
 K<w> := NumberField(1+x+x^2);
 L<s,t> := FunctionField(K,2);
@@ -76,7 +75,7 @@ A23 := Scheme(P8, [
 H1 := Scheme(P8, [ X1 + X5 + X9 ]);
 D := H1 meet A;
 
-/* D does not contain O, but it contains the order-2 points of E1 and E2 (embedded in A) */
+// D does not contain O, but it contains the order-2 points of E1 and E2 (embedded in A)
 not(A20 subset H1);
 A21 subset H1;
 A22 subset H1;
