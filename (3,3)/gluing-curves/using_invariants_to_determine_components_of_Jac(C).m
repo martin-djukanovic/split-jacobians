@@ -2,7 +2,6 @@
     We apply this to an interesting curve, namely C: y^2 = x(2x^2+4x+3)(3x^2+4x+2). This curve has an involution given by (x,y) -> (1/x,y/x^3)
     (Examples 3.7 and 5.11).
 */
-QQ := Rationals());
 R<x> := PolynomialRing(QQ);
 A<X,Y> := AffineSpace(QQ,2);
 C := HyperellipticCurve(x*(2*x^2 + 4*x + 3)*(3*x^2 + 4*x + 2));
