@@ -1,4 +1,3 @@
-QQ := Rationals();
 K<a,b>:=FunctionField(QQ,2);
 R<x> := PolynomialRing(K);
 P2<X,Y,Z> := ProjectiveSpace(K,2);
