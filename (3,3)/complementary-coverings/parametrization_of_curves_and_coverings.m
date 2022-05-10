@@ -1,4 +1,3 @@
-
 // both coverings generic
 K<a,b,c>:=FunctionField(QQ,3);
 A2<x,y>:=AffineSpace(K,2);
