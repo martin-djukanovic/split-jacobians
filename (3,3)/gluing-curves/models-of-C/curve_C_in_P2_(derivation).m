@@ -222,8 +222,8 @@ CC := Scheme(P3, [
 L0 := 3*(a+w)^2*x2 - 3*(a + 1)^2*x3 - (1+2*w)*(1 + a)^2*x4;
 // S0 := ReducedSubscheme(CC meet Scheme(P3,L0)); Degree(S0) eq 2;
 
-L1 := (a + (2*w - 1))*(x2 - x3) + (2*w + 1)(a + 1)*x4;
-// S := ReducedSubscheme(CC meet Scheme(P3,L1)); Degree(S);
+L1 := (a + (2*w - 1))*(x2 - x3) + (2*w + 1)*(a + 1)*x4;
+// S := ReducedSubscheme(CC meet Scheme(P3,L1)); Degree(S) eq 4;
 
 /* Similarly to a + b = 1, the scheme S will have too few points if a = 1/2*w^2 and b = 1/2*w, so this case needs to considered separately.
 */
