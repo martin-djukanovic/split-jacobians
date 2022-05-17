@@ -139,14 +139,14 @@ C := map<P2->P2 | [dd*T*Z, 1/3/(8*b-3)^3 * d^3 * (1-2*b)*b^3*T*Y, Z^2 ]>(C); // 
 
 
 /***************************************
-  Case 2: a^3 + 3*a*b + b^3 - 1 != 0
+  Case 2: a^3 + 3*a*b + b^3 - 1 = 0
  ***************************************
   a^3 + 3*a*b + b^3 - 1 = 0 splits over K(w) with 1 + w + w^2 = 0.
   One of the following holds:
   i)   a + b = 1
   ii)  a*w + b*w^2 = 1
   iii) a*w^2 + b*w = 1
-  Cases ii) and iii) clearly give isomorphic curves so it suffices to treat only one of them.
+  Cases ii) and iii) can be obtained from one another by swapping a and b or w and w^2 so it suffices to treat only one of them.
 ****************************************/
 
 /**********************
