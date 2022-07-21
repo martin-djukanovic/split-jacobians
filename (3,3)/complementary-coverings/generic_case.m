@@ -1,5 +1,5 @@
 /*  
-  Characteristic of the base field is not 2 or 3.
+  Characteristic of the base field is not 2.
   If a genus-2 curve admits a 3-to-1 map to an elliptic curve E1: y^2 = x^3 + ...., then:
   - C admits another 3-to-1 map C --> E2 to an elliptic curve, and Jac(C) ~ E1 x E2 as ppav.
   - C admits an affine model y^2 = P(x)Q(x) where P(x) and Q(x) are cubic polynomials.
