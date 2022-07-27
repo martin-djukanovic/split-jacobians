@@ -36,7 +36,7 @@ I := ideal< RR | [
 // print Q(x)
 RR!Q(x);
 // print the equations that determine d,e in terms of a,b,c
-Basis(PrimaryDecomposition(EliminationIdeal(I,3))[1]);
+Basis(PrimaryDecomposition(EliminationIdeal(I,3))[1]); //no solutions from the other component
 
 
 /* Having found f1(x) and f2(x), up to multiplication by constants, we can determine the j-invariants of E1 and E2.
