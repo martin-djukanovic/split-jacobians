@@ -36,7 +36,17 @@ I := ideal< RR | [
 // print Q(x)
 RR!Q(x);
 // print the equations that determine d,e in terms of a,b,c
-Basis(PrimaryDecomposition(EliminationIdeal(I,3))[1]); //there is also a 1-dimensional family of solutions from the other component
+Basis(PrimaryDecomposition(EliminationIdeal(I,3))[1]);
+
+/* Note:
+   There is also the second primary component, but it is lower dimensional and it defines a 1-dimensional family of curves, which is
+   already covered by the first primary component. This is a family of curves C: y^2 = P(x)Q(x) with additional involutions that
+   swap the Weierstrass points above the roots of P(x) with those above the roots of Q(x). In the "generic" case of f2(x)=(x+d)^2(x+e)/Q(x),
+   the map obtained from the second component is NOT the complementary one. Instead, it is induced by the additional involution.
+   The cases f2(x)=(x+d)^2/Q(x) and f2(x)=(x+d)/Q(x) also need to be computed (by the same method) and in some cases the complementary
+   f2(x) is obtained. However, all cases arising from the second primary component are covered by the f2(x) that is determined by the first
+   primary component.
+*/
 
 
 /* Having found f1(x) and f2(x), up to multiplication by constants, we can determine the j-invariants of E1 and E2.
