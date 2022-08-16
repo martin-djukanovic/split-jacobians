@@ -57,8 +57,8 @@ f3:=-3*z*(-190879780608*x^6 + 71994998592*a^3*x^6 - 8864508312*a^6*x^6 + 3734608
 f:=map<E1->E2 | [f1, f2, f3]>;
 
 /* The isogeny f induces an isomorphism E1[3] --> E2[3] that inverts the Weil pairing (can be verified easily on Weierstrass models).
-   Therefore f also induces a pair of 3-to-1 coverings C --> E1 and C --> E2 from a genus-2 curve C. We verify that the isomorphism
-   on 3-torsion is the one fixed in Theorem 5.7.
+   Therefore f also induces a pair of 3-to-1 coverings C --> E1 and C --> E2 from a genus-2 curve C. We verify that the 3-torsion 
+   isomorphism is the one fixed in Theorem 5.7.
 */
 f(E1![-1, 0, 1]) eq E2![-1, 0, 1];
 f(E1![-w, 1, 0]) eq E2![-w^2, 1, 0];
