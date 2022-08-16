@@ -10,6 +10,66 @@
     Therefore this is a 1-dimensional family of curves like those in Example 3.7.
 */
 
+/*
+  This family is found as follows. Since (generically), a genus-2 curve C with a (3,3)-split Jacobian admits a model y^2 = P(x)Q(x),
+  where P(x)=x^3 + a*x^2 + b*x + c and Q(x)=4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2, we look for curves with automorphisms that swap the roots
+  of P(x) with the roots of Q(x). To that end, we look for fractional linear transformations M(x)=(px+q)/(rx+s) that accomplish this and we 
+  express this condition via resultants.
+*/
+
+K<p,q,r,s,a,b,c>:=FunctionField(QQ,7);
+R<x,y>:=PolynomialRing(K,9);
+P:=func<x | x^3 + a*x^2 + b*x + c >;
+Q:=func<x | 4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2 >;
+R1 := Resultant((r*y+s)*x - (p*y+q), P(y), y);
+R2 := Resultant((r*y+s)*x - (p*y+q), Q(y), y);
+_,r1 := Quotrem(R1, Q(x));
+_,r2 := Quotrem(R2, P(x));
+
+// r1 and r2 must be zero, which gives the following equations:
+eqns:=[
+  Coefficient(r1,x,0),
+  Coefficient(r1,x,1),
+  Coefficient(r1,x,2),
+  Coefficient(r2,x,0),
+  Coefficient(r2,x,1),
+  Coefficient(r2,x,2)
+];
+
+R<z,p,q,r,s,a,b,c>:=PolynomialRing(QQ,9);
+I := ideal< R | [
+  -4*c*p^3 + 4*b*p^2*q - 4*a*p*q^2 + 4*q^3 - c^2*r^3 + b*c*r^2*s - a*c*r*s^2 + c*s^3, 
+  6*c*p^2*r - 4*b*p*q*r + 2*a*q^2*r - b*c*r^3 - 2*b*p^2*s + 4*a*p*q*s - 6*q^2*s + b^2*r^2*s - a*b*r*s^2 + b*s^3, 
+  -12*c^2*p*r^2 + 4*b*c*q*r^2 - b^2*c*r^3 + 8*b*c*p*r*s - 8*a*c*q*r*s + b^3*r^2*s - 4*a*c*p*s^2 + 12*c*q*s^2 - 
+   a*b^2*r*s^2 + b^2*s^3, (-c^2)*p^3 + 2*b*c*p^2*q - b^2*p*q^2 + 4*c*q^3 - c^3*r^3 + 2*b*c^2*r^2*s - b^2*c*r*s^2 + 
+   4*c^2*s^3, 3*c^2*p^2*r - 4*b*c*p*q*r + b^2*q^2*r - b*c^2*r^3 - 2*b*c*p^2*s + 2*b^2*p*q*s - 12*c*q^2*s + 
+   2*b^2*c*r^2*s - b^3*r*s^2 + 4*b*c*s^3, -3*c^2*p*r^2 + 2*b*c*q*r^2 - a*c^2*r^3 + 4*b*c*p*r*s - 2*b^2*q*r*s + 
+   2*a*b*c*r^2*s - b^2*p*s^2 + 12*c*q*s^2 - a*b^2*r*s^2 + 4*a*c*s^3,
+  
+  // the discriminant of P(x)Q(x) and the determinant of M are non-zero
+  1-z*(p*q-r*s)*c*(b^3 - 27*c^2)*(-a^2*b^2 + 4*b^3 + 4*a^3*c - 18*a*b*c + 27*c^2)
+]>;
+PrimaryDecomposition(EliminationIdeal(I,5));
+
+/*   The two equations above describe genus-0 curves in the weighted projective space P(1,2,3), namely:
+     X1: -a^2*b^5 + 8*b^6 + 4*a^3*b^3*c - 54*a*b^4*c + 108*a^2*b^2*c^2 + 27*b^3*c^2 - 108*a^3*c^3 = 0
+     X3: a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4 = 0
+    
+    The curve X1 is the one from section 3.1.1. It describes genus-2 curves with an additional involution inv and a degree-3 map
+    f:C-->E to an elliptic curve E, such that the composition f∘inv is complementary to f (i.e. Jac(C) ~ E x E).
+    
+    The curve X3 parametrizes the family of curves C we wish to describe in detail.
+*/
+
+// X3 as a curve in the weighted projective space P(1,2,3); curves defined by different representatives of [a:b:c] are isomorphic.
+PP<a,b,c>:=WeightedProjectiveSpace(QQ,[1,2,3]);
+X3:=Scheme(PP, a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4);
+A1<t>:=AffineSpace(QQ,1);
+
+// a parametrization of X3
+map<A1->X3| [-(t - 4)*(t^2 + 1), 2*(t + 2)*(t^2 + 1), 2*(t^2 + 1)^2]>;
+
+// taking [a,b,c] = [4 - t, 2*(t + 2)/(t^2 + 1), 2/(t^2 + 1)] gives the following family
 K<t>:=FunctionField(QQ);
 A2<x,y>:=AffineSpace(K,2);
 C:=Curve(A2, -y^2 + ((t^2 + 1)*x^3 - (t - 4)*(t^2 + 1)*x^2 + 2*(t + 2)*x + 2)*(2*(t^2 + 1)*x^3 + (t+2)^2*x^2 + 2*(t + 2)*x + 1));
