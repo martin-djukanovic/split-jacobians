@@ -8,13 +8,11 @@
     said isogeny to the 3-torsion.
     
     Therefore this is a 1-dimensional family of curves like those in Example 3.7.
-*/
 
-/*
-  This family is found as follows. Since (generically), a genus-2 curve C with a (3,3)-split Jacobian admits a model y^2 = P(x)Q(x),
-  where P(x)=x^3 + a*x^2 + b*x + c and Q(x)=4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2, we look for curves with automorphisms that swap the roots
-  of P(x) with the roots of Q(x). To that end, we look for fractional linear transformations M(x)=(px+q)/(rx+s) that accomplish this and we 
-  express this condition via resultants.
+    This family is found as follows. Since (generically), a genus-2 curve C with a (3,3)-split Jacobian admits a model y^2 = P(x)Q(x),
+    where P(x)=x^3 + a*x^2 + b*x + c and Q(x)=4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2, we look for curves with automorphisms that swap the roots
+    of P(x) with the roots of Q(x). To that end, we look for fractional linear transformations M(x)=(px+q)/(rx+s) that accomplish this and we 
+    express this condition via resultants.
 */
 
 K<p,q,r,s,a,b,c>:=FunctionField(QQ,7);
@@ -36,6 +34,8 @@ eqns:=[
   Coefficient(r2,x,2)
 ];
 
+
+// we eliminate all variables but a,b,c
 R<z,p,q,r,s,a,b,c>:=PolynomialRing(QQ,9);
 I := ideal< R | [
   -4*c*p^3 + 4*b*p^2*q - 4*a*p*q^2 + 4*q^3 - c^2*r^3 + b*c*r^2*s - a*c*r*s^2 + c*s^3, 
@@ -55,10 +55,10 @@ PrimaryDecomposition(EliminationIdeal(I,5));
      X1: -a^2*b^5 + 8*b^6 + 4*a^3*b^3*c - 54*a*b^4*c + 108*a^2*b^2*c^2 + 27*b^3*c^2 - 108*a^3*c^3 = 0
      X3: a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4 = 0
     
-    The curve X1 is the one from section 3.1.1. It describes genus-2 curves with an additional involution inv and a degree-3 map
-    f:C-->E to an elliptic curve E, such that the composition f∘inv is complementary to f (i.e. Jac(C) ~ E x E).
+    The curve X1 is the one from section 3.1.1. It describes genus-2 curves with an additional involution h:C->C and a degree-3 map
+    f:C-->E to an elliptic curve E, such that the composition f∘h is complementary to f (i.e. Jac(C) ~ E x E).
     
-    The curve X3 parametrizes the family of curves C we wish to describe in detail.
+    The curve X3 parametrizes the new family of curves C that we wish to describe in detail.
 */
 
 // X3 as a curve in the weighted projective space P(1,2,3); curves defined by different representatives of [a:b:c] are isomorphic.
@@ -69,17 +69,17 @@ A1<t>:=AffineSpace(QQ,1);
 // a parametrization of X3
 map<A1->X3| [-(t - 4)*(t^2 + 1), 2*(t + 2)*(t^2 + 1), 2*(t^2 + 1)^2]>;
 
-// taking [a,b,c] = [4 - t, 2*(t + 2)/(t^2 + 1), 2/(t^2 + 1)] gives the following family
+// taking the representative (a,b,c) = (4 - t, 2*(t + 2)/(t^2 + 1), 2/(t^2 + 1)) gives the following family
 K<t>:=FunctionField(QQ);
 A2<x,y>:=AffineSpace(K,2);
 C:=Curve(A2, -y^2 + ((t^2 + 1)*x^3 - (t - 4)*(t^2 + 1)*x^2 + 2*(t + 2)*x + 2)*(2*(t^2 + 1)*x^3 + (t+2)^2*x^2 + 2*(t + 2)*x + 1));
 E1:=Curve(A2, - y^2 + (t - 1)^6*(2*t - 11)*(t^2 + 1)*x^3 + 2*(t - 1)^3*(3*t - 14)*(t^2 + 1)*x^2 + (6*t^3 - 23*t^2 + 10*t - 20)*x + 2);
 E2:=Curve(A2, - y^2 + (t^2 + 1)*x^3 - 2*(t - 1)*(t + 32)*(2*t - 11)*(t^2 + 1)*x^2 + (t - 1)^2*(2*t - 11)^2*(108*t^3 + 1233*t^2 + 386*t + 1204)*x - 2*(t - 1)^3*(2*t - 11)^3*(9*t + 13)^3);
 
-// the additional involution
+// the additional involution on C
 inv:=map<C->C | [-(t*x + 1)/((2*t - 1)*x + t), (t - 1)^3*y/((2*t - 1)*x + t)^3]>;
 
-// the degree-3 maps
+// the degree-3 maps to elliptic curves E1 and E2
 f1:=map<C->E1|[
   x^2/((t^2 + 1)*x^3 - (t - 4)*(t^2 + 1)*x^2 + 2*(t + 2)*x + 2),
   ((t^2 + 1)*x^3 - 2*(t + 2)*x - 4)*y/((t^2 + 1)*x^3 - (t - 4)*(t^2 + 1)*x^2 + 2*(t + 2)*x + 2)^2
