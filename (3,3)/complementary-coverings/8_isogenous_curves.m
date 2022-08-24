@@ -45,7 +45,7 @@ isog8:=map<E1->E2|[
 ]>;
 
 // the j-invariants of the two elliptic curves
-h:=hom<CoordinateRing(A2)->R|[ PolynomialRing(K).1, 0 ]>;
+h:=hom<CoordinateRing(A2)->PolynomialRing(K)|[PolynomialRing(K).1, 0]>;
 j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
 j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
 j1 eq 2*(47*t^4 + 660*t^3 + 970*t^2 - 780*t - 1153)^3/((t - 1)*(t + 1)*(t + 3)^2*(3*t + 1)^8);
