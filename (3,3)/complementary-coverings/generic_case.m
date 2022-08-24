@@ -13,7 +13,7 @@
   - We find Q(x) in terms of P(x) by computing the fibres of f1(x) that contain the ramification
   - Applying the same method to f2(x), we should P(x) back. This determines d and e.
 */
-RR<x,y,z,a,b,c,d,e> := PolynomialRing(Rationals(),8);
+RR<x,y,z,a,b,c,d,e> := PolynomialRing(QQ,8);
 P := func<u | u^3 + a*u^2 + b*u + c >;
 // D is the numerator of f1’(x)/x
 D := func<u | u*Derivative(P(u),u) - 2*P(u)>;
@@ -53,7 +53,7 @@ Basis(PrimaryDecomposition(EliminationIdeal(I,3))[1]);
    E1 --> E1/[-1] branches above the image of the zero locus of P(x) and Q(x) under f1 and E2 --> E2/[-1] branches
    above the image under f2.
   */
-F<a,b,c,d,e> := FunctionField(Rationals(),5);
+F<a,b,c,d,e> := FunctionField(QQ,5);
 R<x,y> := PolynomialRing(F,2);
 R1<X> := PolynomialRing(F,1);
 R2 := PolynomialRing(F);
