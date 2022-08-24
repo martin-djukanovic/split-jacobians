@@ -16,7 +16,7 @@
 */
 
 K<p,q,r,s,a,b,c>:=FunctionField(QQ,7);
-R<x,y>:=PolynomialRing(K,9);
+R<x,y>:=PolynomialRing(K,2);
 P:=func<x | x^3 + a*x^2 + b*x + c >;
 Q:=func<x | 4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2 >;
 R1 := Resultant((r*y+s)*x - (p*y+q), P(y), y);
