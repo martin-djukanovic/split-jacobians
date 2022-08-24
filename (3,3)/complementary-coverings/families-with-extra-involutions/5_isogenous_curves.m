@@ -9,7 +9,7 @@
     
     Therefore this is a 1-dimensional family of curves like those in Example 3.7.
 
-    This family is found as follows. Since (generically), a genus-2 curve C with a (3,3)-split Jacobian admits a model y^2 = P(x)Q(x),
+    This family can be found as follows. Since (generically), a genus-2 curve C with a (3,3)-split Jacobian admits a model y^2 = P(x)Q(x),
     where P(x)=x^3 + a*x^2 + b*x + c and Q(x)=4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2, we look for curves with automorphisms that swap the roots
     of P(x) with the roots of Q(x). To that end, we look for fractional linear transformations M(x)=(px+q)/(rx+s) that accomplish this and we 
     express this condition via resultants.
@@ -53,21 +53,21 @@ PrimaryDecomposition(EliminationIdeal(I,5));
 
 /*   The resulting equation describe two genus-0 curves (which we can view in in the weighted projective space P(1,2,3)), namely:
      X1: -a^2*b^5 + 8*b^6 + 4*a^3*b^3*c - 54*a*b^4*c + 108*a^2*b^2*c^2 + 27*b^3*c^2 - 108*a^3*c^3 = 0
-     X3: a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4 = 0
+     X5: a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4 = 0
     
     The curve X1 is the one from section 3.1.1. It describes genus-2 curves with an additional involution h:C->C and a degree-3 map
     f:C-->E to an elliptic curve E, such that the composition f∘h is complementary to f (i.e. Jac(C) ~ E x E).
     
-    The curve X3 parametrizes the new family of curves C that we wish to describe in detail.
+    The curve X5 parametrizes the new family of curves C that we wish to describe in detail.
 */
 
-// X3 as a curve in the weighted projective space P(1,2,3); curves defined by different representatives of [a:b:c] are isomorphic.
+// X5 as a curve in the weighted projective space P(1,2,3); curves defined by different representatives of [a:b:c] are isomorphic.
 PP<a,b,c>:=WeightedProjectiveSpace(QQ,[1,2,3]);
-X3:=Scheme(PP, a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4);
+X5:=Scheme(PP, a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4);
 A1<t>:=AffineSpace(QQ,1);
 
-// a parametrization of X3
-p:=map<A1->X3| [-(t - 4)*(t^2 + 1), 2*(t + 2)*(t^2 + 1), 2*(t^2 + 1)^2] >;
+// a parametrization of X5
+p:=map<A1->X5| [-(t - 4)*(t^2 + 1), 2*(t + 2)*(t^2 + 1), 2*(t^2 + 1)^2] >;
 
 // taking the representative (a,b,c) = (4 - t, 2*(t + 2)/(t^2 + 1), 2/(t^2 + 1)) gives the following family
 K<t>:=FunctionField(QQ);
