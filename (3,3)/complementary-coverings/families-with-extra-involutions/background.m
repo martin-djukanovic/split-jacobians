@@ -32,3 +32,24 @@ Factorization(Basis(J)[1]);
    
    The family of genus-2 curves C with a Jacobian that is (3,3)-isogenous to E1 x E2 that is parametrized by X1 (resp. X5, resp. X8) is
    such that E1 and E2 are isomorphic (resp. 5-isogenous, resp. 8-isogenous). */
+
+
+
+/* The family defined by X5 is also precisely the family determined by the second primary component of the final elimination ideal computed
+   when analysing the generic case. */
+RR<x,y,z,d,e,a,b,c> := PolynomialRing(QQ,8);
+P := func<u | u^3 + a*u^2 + b*u + c >;
+D := func<u | u*Derivative(P(u),u) - 2*P(u)>;
+Q := func<u | Quotrem(Resultant(u^2*P(z) - z^2*P(u), D(z), z), Resultant(u,P(u),u)*D(u)^2) >;
+D2 := func<u | (u+e)*(u+d)*Derivative(Q(u),u) - Q(u)*(2*(u+e) + (u+d)) >;
+R := Resultant((x+d)^2*(x+e)*Q(y) - (y+d)^2*(y+e)*Q(x), D2(y), y);
+R := Quotrem(R, Resultant((x+d)*(x+e),Q(x),x)*D2(x)^2);
+q,r := Quotrem(R,P(x));
+I := ideal< RR | [
+  Coefficient(r,x,0),
+  Coefficient(r,x,1),
+  Coefficient(r,x,2),
+  1 - z * Resultant((x+d)*(x+e),Q(x),x) * Resultant(x,P(x),x) * Discriminant(P(x),x) * Discriminant(Q(x),x) * Resultant(x+d,x+e,x)
+]>;
+J := PrimaryDecomposition(EliminationIdeal(I,3))[2];
+Basis(EliminationIdeal(J,5))[1];
