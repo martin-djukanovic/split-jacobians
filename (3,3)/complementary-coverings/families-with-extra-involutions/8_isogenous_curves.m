@@ -4,16 +4,16 @@
     (and sends one root of Q(x) to a root of P(x) and swaps the other two roots of Q(x)).
     In this case, Jac(C) is (3,3)-split as E1 x E2, where E1 and E2 are elliptic curves that are 8-isogenous.
     
-    The family is parametrized by a genus-0 curve X4 that we determined previously; a point [a:b:c] in P(1,2,3) determines
+    The family is parametrized by a genus-0 curve X8 that we determined previously; a point [a:b:c] in P(1,2,3) determines
     the coefficients of P(x) and Q(x), and the curve C up to isomorphism.
 */
 
 PP<a,b,c>:=WeightedProjectiveSpace(QQ,[1,2,3]);
-X4:=Scheme(PP, -16*a^4*b^10 + 81*a^2*b^11 - 324*b^12 + 32*a^5*b^8*c + 54*a^3*b^9*c + 2250*a*b^10*c + 320*a^4*b^7*c^2 - 16535*a^2*b^8*c^2 + 16929*b^9*c^2 - 1280*a^5*b^5*c^3 + 24624*a^3*b^6*c^3 - 69300*a*b^7*c^3 - 10864*a^4*b^4*c^4 + 443087*a^2*b^5*c^4 - 333187*b^6*c^4 + 11168*a^5*b^2*c^5 - 781106*a^3*b^3*c^5 + 274410*a*b^4*c^5 + 128*a^6*c^6 + 374040*a^4*b*c^6 - 1503225*a^2*b^2*c^6 + 3459375*b^3*c^6 + 2092500*a^3*c^7 - 1215000*a*b*c^7 - 11390625*c^8);
+X8:=Scheme(PP, -16*a^4*b^10 + 81*a^2*b^11 - 324*b^12 + 32*a^5*b^8*c + 54*a^3*b^9*c + 2250*a*b^10*c + 320*a^4*b^7*c^2 - 16535*a^2*b^8*c^2 + 16929*b^9*c^2 - 1280*a^5*b^5*c^3 + 24624*a^3*b^6*c^3 - 69300*a*b^7*c^3 - 10864*a^4*b^4*c^4 + 443087*a^2*b^5*c^4 - 333187*b^6*c^4 + 11168*a^5*b^2*c^5 - 781106*a^3*b^3*c^5 + 274410*a*b^4*c^5 + 128*a^6*c^6 + 374040*a^4*b*c^6 - 1503225*a^2*b^2*c^6 + 3459375*b^3*c^6 + 2092500*a^3*c^7 - 1215000*a*b*c^7 - 11390625*c^8);
 A1<t>:=AffineSpace(QQ,1);
 
-// a parametrization of X4
-p:=map<A1->X4| [3*t^4 + 6*t^3 - 16*t^2 + 18*t + 5, (t - 1)*(t + 1)^5*(3*t^2 - 11), (t - 1)^2*(t + 1)^8*(t^2 + 7)] >;
+// a parametrization of X8
+p:=map<A1->X8| [3*t^4 + 6*t^3 - 16*t^2 + 18*t + 5, (t - 1)*(t + 1)^5*(3*t^2 - 11), (t - 1)^2*(t + 1)^8*(t^2 + 7)] >;
 
 // the point defined by the parameter t defines the following family up to isomorphism
 K<t>:=FunctionField(QQ);
