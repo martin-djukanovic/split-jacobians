@@ -24,6 +24,7 @@ E2:=Curve(A2, -y^2 + c*x^3 + 2*D*x^2 - 27*c*D*x);
 f1:=map<C->E1 | [x^2/((3*c + b*x)*(3*b*c + 2*b^2*x + 9*c*x^2)), -((9*b*c*(-2*c - b*x + x^3)*y)/((3*c + b*x)^2*(3*b*c + 2*b^2*x + 9*c*x^2)^2))]>;
 f2:=map<C->E2 | [(3*c + b*x)^3/(c^2 + 2*b*c*x + b^2*x^2 + 4*c*x^3), -(((3*c + b*x)*(3*b*c^2 + 2*b^2*c*x - b^3*x^2 + 36*c^2*x^2)*y)/(c^2 + 2*b*c*x + b^2*x^2 + 4*c*x^3)^2)]>;
 
+
 // both coverings special
 K<b>:=FunctionField(QQ);
 A2<x,y>:=AffineSpace(K,2);
