@@ -36,7 +36,7 @@ Factorization(Basis(J)[1]);
 
 
 /* The family defined by X5 is also precisely the family determined by the second primary component of the final elimination ideal computed
-   when analysing the generic case. */
+   when analysing the generic case. This is verified by the following: */
 RR<x,y,z,d,e,a,b,c> := PolynomialRing(QQ,8);
 P := func<u | u^3 + a*u^2 + b*u + c >;
 D := func<u | u*Derivative(P(u),u) - 2*P(u)>;
@@ -46,10 +46,28 @@ R := Resultant((x+d)^2*(x+e)*Q(y) - (y+d)^2*(y+e)*Q(x), D2(y), y);
 R := Quotrem(R, Resultant((x+d)*(x+e),Q(x),x)*D2(x)^2);
 q,r := Quotrem(R,P(x));
 I := ideal< RR | [
-  Coefficient(r,x,0),
-  Coefficient(r,x,1),
-  Coefficient(r,x,2),
+  Coefficient(r,x,0), Coefficient(r,x,1), Coefficient(r,x,2),
   1 - z * Resultant((x+d)*(x+e),Q(x),x) * Resultant(x,P(x),x) * Discriminant(P(x),x) * Discriminant(Q(x),x) * Resultant(x+d,x+e,x)
 ]>;
 J := PrimaryDecomposition(EliminationIdeal(I,3))[2];
 Basis(EliminationIdeal(J,5))[1];
+
+
+/* The curve X1 does not cover all the cases with j(E1)=j(E2). By equating the formulas for the j-invariants of E1 and E2 obtained in
+   the generic case, we find that there is another 1-dimensional family of such curves C. */
+R<j1,j2,a,b,c>:=PolynomialRing(QQ,5);
+I:=ideal<R|[
+ j1*(b^3 - 27*c^2)^3*(a^2*b^2 - 4*b^3 - 4*a^3*c + 18*a*b*c - 27*c^2)^2 - 16*(a^2*b^4 + 12*b^5 - 126*a*b^3*c + 216*a^2*b*c^2 + 405*b^2*c^2 - 972*a*c^3)^3,
+ j2*(a^2*b^2 - 4*a^3*c + 18*a*b*c - 4*b^3 - 27*c^2) - 256*(a^2 - 3*b)^3,
+ j1 - j2
+]>;
+J:=EliminationIdeal(I,2);
+PrimaryDecomposition(J);
+
+/* The equations define a union of X1 and another genus-0 curve, namely
+    Y1: 16*a^6*b^6 - 864*a^6*b^3*c^2 + 11664*a^6*c^4 - 324*a^5*b^5*c + 8748*a^5*b^2*c^3 - 81*a^4*b^7 + 14580*a^4*b^4*c^2 - 157464*a^4*b*c^4 - 864*a^3*b^6*c -
+    215784*a^3*b^3*c^3 + 78732*a^3*c^5 + 324*a^2*b^8 + 30618*a^2*b^5*c^2 + 2125764*a^2*b^2*c^4 - 5832*a*b^7*c - 314928*a*b^4*c^3 - 6377292*a*b*c^5 +
+    37908*b^6*c^2 + 255879*b^3*c^4 + 8503056*c^6 = 0
+    
+    The genus-2 curves parametrized by X1,Y1,X5,X8 are further analysed in the other three files of the directory.
+*/
