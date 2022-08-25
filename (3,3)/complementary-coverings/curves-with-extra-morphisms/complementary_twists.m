@@ -24,8 +24,9 @@ p:=map<A1->X1|[(t-3)*(t-9), -16*(t-3)*t^2, 64*(t-1)*t^3]>;  // t |--> [-3*(t-3),
 K<t>:=FunctionField(QQ);
 A2<x,y>:=AffineSpace(K,2);
 C:=Curve(A2, -y^2 + (4*t*x^3 + (t - 9)*(t - 3)*x^2 - 4*(t - 3)*t*x + 4*t*(t - 1))*(4*(t - 1)*x^3 + (t - 3)^2*x^2 - 2*(t - 3)*(t - 1)*x + (t - 1)^2));
-E1:=Curve(A2, -y^2 + x^3 + (t - 3)/t*x^2 + (2*t^3 - 33*t^2 + 108*t - 81)/(t^4 + 18*t^3 - 27*t^2)*x + (t -1)/t^3);
-E2:=Curve(A2, -(t^2 + 18*t - 27)*y^2 + x^3 + (t - 3)/t*x^2 + (2*t^3 - 33*t^2 + 108*t - 81)/(t^4 + 18*t^3 - 27*t^2)*x + (t - 1)/t^3);
+E1:=Curve(A2, -y^2 + x^3 + (t - 3)/t*x^2 + (t - 3)*(2*t^2 - 27*t + 27)/(t^2*(t^2 + 18*t - 27))*x + (t -1)/t^3);
+E2:=Curve(A2, -(t^2 + 18*t - 27)*y^2 + x^3 + (t - 3)/t*x^2 + (t - 3)*(2*t^2 - 27*t + 27)/(t^2*(t^2 + 18*t - 27))*x + (t - 1)/t^3);
+// note that E1 and E2 are clearly twists of each other
 
 f1:=map<C->E1|[
   -(t^2 + 18*t - 27)/t * x^2/(4*t*x^3 + (t - 9)*(t - 3)*x^2 - 4*(t - 3)*t*x + 4*t*(t - 1)),
@@ -38,10 +39,8 @@ f2:=map<C->E2|[
 
 R<X>:=PolynomialRing(K);
 h:=hom<CoordinateRing(A2)->R | [X,0]>;
-j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
-j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
-j1 eq -(t - 3)^3*(t + 9)^3/t^3;
-j2 eq -(t - 3)^3*(t + 9)^3/t^3;
+j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
+j eq -(t - 3)^3*(t + 9)^3/t^3;
 
 // After extending K if necessary, C admits a non-hyperelliptic involution and E1 and E2 are isomorphic, via (x,y) |--> (x,q*y).
 R<X>:=PolynomialRing(K);
