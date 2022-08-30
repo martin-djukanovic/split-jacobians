@@ -31,7 +31,7 @@ Factorization(Basis(J)[1]);
    X8: -16*a^4*b^10 + 81*a^2*b^11 - 324*b^12 + 32*a^5*b^8*c + 54*a^3*b^9*c + 2250*a*b^10*c + 320*a^4*b^7*c^2 - 16535*a^2*b^8*c^2 + 16929*b^9*c^2 - 1280*a^5*b^5*c^3 + 24624*a^3*b^6*c^3 - 69300*a*b^7*c^3 - 10864*a^4*b^4*c^4 +443087*a^2*b^5*c^4 - 333187*b^6*c^4 + 11168*a^5*b^2*c^5 - 781106*a^3*b^3*c^5 + 274410*a*b^4*c^5 + 128*a^6*c^6 + 374040*a^4*b*c^6 - 1503225*a^2*b^2*c^6 + 3459375*b^3*c^6 + 2092500*a^3*c^7 - 1215000*a*b*c^7 - 11390625*c^8 = 0
    
    The family of genus-2 curves C with a Jacobian that is (3,3)-isogenous to E1 x E2 that is parametrized by X1 (resp. X5, resp. X8) is
-   such that E1 and E2 are isomorphic (resp. 5-isogenous, resp. 8-isogenous). */
+   such that E1 and E2 are twists (resp. 5-isogenous, resp. 8-isogenous). */
 
 
 
@@ -64,10 +64,13 @@ I:=ideal<R|[
 J:=EliminationIdeal(I,2);
 PrimaryDecomposition(J);
 
-/* The equations define a union of X1 and another genus-0 curve, namely
+/*  The equations define a union of X1 and another genus-0 curve, namely
     Y1: 16*a^6*b^6 - 864*a^6*b^3*c^2 + 11664*a^6*c^4 - 324*a^5*b^5*c + 8748*a^5*b^2*c^3 - 81*a^4*b^7 + 14580*a^4*b^4*c^2 - 157464*a^4*b*c^4 - 864*a^3*b^6*c -
     215784*a^3*b^3*c^3 + 78732*a^3*c^5 + 324*a^2*b^8 + 30618*a^2*b^5*c^2 + 2125764*a^2*b^2*c^4 - 5832*a*b^7*c - 314928*a*b^4*c^3 - 6377292*a*b*c^5 +
     37908*b^6*c^2 + 255879*b^3*c^4 + 8503056*c^6 = 0
+    
+    In characteristic 3, Y1 reduces to a*b=0. However, C is then singular if b=0, so we can assume that b is non-zero so that Y1 is defined
+    by a=0. Similarly, in characteristic 3 we can take X1: 2*a^2*b^2 + 2*b^3 + a^3*c=0.
     
     The genus-2 curves parametrized by X1,Y1,X5,X8 are further analysed in the other three files of the directory.
 */
