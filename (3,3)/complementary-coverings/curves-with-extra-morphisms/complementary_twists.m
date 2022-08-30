@@ -60,7 +60,7 @@ inv:=map<C->C|[
 
 /***************************
  The family defined by Y1. To find a K-rational point and a suitable parametrization for Y1, we might have to extend the ground field.
- We will suppose that K contains a primitive third root of unity w.
+ We first suppose that K is not of characeristic 3 and contains a primitive third root of unity w.
 ****************************/
 R<X>:=PolynomialRing(QQ);
 K<w>:=ext<QQ|X^2+X+1>;
