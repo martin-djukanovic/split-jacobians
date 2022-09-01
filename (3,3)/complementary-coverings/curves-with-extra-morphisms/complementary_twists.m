@@ -18,40 +18,41 @@ A1<t>:=AffineSpace(QQ,1);
 X1:=Scheme(PP, 4*a^3*b^3*c - 108*a^3*c^3 - a^2*b^5 + 108*a^2*b^2*c^2 - 54*a*b^4*c + 8*b^6 + 27*b^3*c^2);
 
 // a parametrization of X1
-p:=map<A1->X1|[(t-3)*(t-9), -16*(t-3)*t^2, 64*(t-1)*t^3]>;  // t |--> [-3*(t-3), -6*(t-2)*t^2, 2*(t+1)*(t-2)^2*t^3] also works but not in characteristic 3
+p:=map<A1->X1|[(t+3)*(t+9), 16*(t+3)*t^2, 64*(t+1)*t^3]>;
+// t |--> [-3*(t-3), -6*(t-2)*t^2, 2*(t+1)*(t-2)^2*t^3] also works but not in characteristic 3
 
 // This choice leads to the following choice of parametrizations of the curves (with the obvious modifications for their quadratic twists).
 K<t>:=FunctionField(QQ);
 A2<x,y>:=AffineSpace(K,2);
-C:=Curve(A2, -y^2 + (4*t*x^3 + (t - 9)*(t - 3)*x^2 - 4*(t - 3)*t*x + 4*t*(t - 1))*(4*(t - 1)*x^3 + (t - 3)^2*x^2 - 2*(t - 3)*(t - 1)*x + (t - 1)^2));
-E1:=Curve(A2, -y^2 + x^3 + (t - 3)/t*x^2 + (t - 3)*(2*t^2 - 27*t + 27)/(t^2*(t^2 + 18*t - 27))*x + (t -1)/t^3);
-E2:=Curve(A2, -(t^2 + 18*t - 27)*y^2 + x^3 + (t - 3)/t*x^2 + (t - 3)*(2*t^2 - 27*t + 27)/(t^2*(t^2 + 18*t - 27))*x + (t - 1)/t^3);
+C:=Curve(A2, -y^2 + (4*t*x^3 - (t + 9)*(t + 3)*x^2 + 4*(t + 3)*t*x - 4*t*(t + 1))*(4*(t + 1)*x^3 - (t + 3)^2*x^2 + 2*(t + 3)*(t + 1)*x - (t + 1)^2));
+E1:=Curve(A2, -y^2 + x^3 + (t + 3)/t*x^2 - (t + 3)*(2*t^2 + 27*t + 27)/(t^2*(t^2 - 18*t - 27))*x + (t + 1)/t^3);
+E2:=Curve(A2, -(t^2 - 18*t - 27)*y^2 + x^3 + (t + 3)/t*x^2 - (t + 3)*(2*t^2 + 27*t + 27)/(t^2*(t^2 - 18*t - 27))*x + (t + 1)/t^3);
 // note that E1 and E2 are clearly twists of each other
 
+// complementary degree-3 maps
 f1:=map<C->E1|[
-  -(t^2 + 18*t - 27)/t * x^2/(4*t*x^3 + (t - 9)*(t - 3)*x^2 - 4*(t - 3)*t*x + 4*t*(t - 1)),
-  4 * y*(x^3 + (t - 3)*x - 2*(t - 1))/(4*t*x^3 + (t - 9)*(t - 3)*x^2 - 4*(t - 3)*t*x + 4*t*(t - 1))^2
+  -(t^2 - 18*t - 27)/t * x^2/(4*t*x^3 - (t + 9)*(t + 3)*x^2 + 4*(t + 3)*t*x - 4*t*(t + 1)),
+  4 * y*(x^3 - (t + 3)*x + 2*(t + 1))/(4*t*x^3 - (t + 9)*(t + 3)*x^2 + 4*(t + 3)*t*x - 4*t*(t + 1))^2
 ]>;
 f2:=map<C->E2|[
-  -1/(t^2 + 18*t - 27)/t * ((t - 3)*x - 3*(t - 1))^2*(4*(2*t - 3)*x + (t - 3)*(t - 1))/(4*(t - 1)*x^3 + (t - 3)^2*x^2 - 2*(t - 3)*(t - 1)*x + (t - 1)^2), 
-  4/(t^2 + 18*t - 27)^2 * y*((t^3 + 35*t^2 - 109*t + 81)*x^3 + (t - 3)*(t - 1)*(7*t - 9)*x^2 + t*(t - 3)*(t - 1)^2*x - t*(t - 1)^3)/(4*(t - 1)*x^3 + (t - 3)^2*x^2 - 2*(t - 3)*(t - 1)*x + (t - 1)^2)^2
+  1/(t^2 - 18*t - 27)/t * ((t + 3)*x - 3*(t + 1))^2*(4*(2*t + 3)*x - (t + 3)*(t + 1))/(4*(t + 1)*x^3 - (t + 3)^2*x^2 + 2*(t + 3)*(t + 1)*x - (t + 1)^2), 
+  4/(t^2 - 18*t - 27)^2 * y*((t^3 - 35*t^2 - 109*t - 81)*x^3 + (t + 3)*(t + 1)*(7*t + 9)*x^2 - t*(t + 3)*(t + 1)^2*x + t*(t + 1)^3)/(4*(t + 1)*x^3 - (t + 3)^2*x^2 + 2*(t + 3)*(t + 1)*x - (t + 1)^2)^2
 ]>;
 
 R<X>:=PolynomialRing(K);
 h:=hom<CoordinateRing(A2)->R | [X,0]>;
 j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
-j eq -(t - 3)^3*(t + 9)^3/t^3;
+j eq (t + 3)^3*(t - 9)^3/t^3;
 
 // After extending K if necessary, C admits a non-hyperelliptic involution and E1 and E2 are isomorphic, via (x,y) |--> (x,q*y).
-R<X>:=PolynomialRing(K);
-K<q>:=ext<K|X^2 - (t^2 + 18*t - 27)>;
+K<q>:=ext<K|X^2 - (t^2 - 18*t - 27)>;
 A2<x,y>:=AffineSpace(K,2);
-C:=Curve(A2, -y^2 + (4*t*x^3 + (t - 9)*(t - 3)*x^2 - 4*(t - 3)*t*x + 4*t*(t - 1))*(4*(t - 1)*x^3 + (t - 3)^2*x^2 - 2*(t - 3)*(t - 1)*x + (t - 1)^2));
+C:=Curve(A2, -y^2 + (4*t*x^3 - (t + 9)*(t + 3)*x^2 + 4*(t + 3)*t*x - 4*t*(t + 1))*(4*(t + 1)*x^3 - (t + 3)^2*x^2 + 2*(t + 3)*(t + 1)*x - (t + 1)^2));
 
 // an involution on C
 inv:=map<C->C|[
-  -(t - 1)*((t - 3)*x - 3*(t - 1))/(4*(2*t - 3)*x + (t - 3)*(t - 1)),
-  y*(q*(t - 1)/(4*(2*t - 3)*x + (t - 3)*(t - 1)))^3
+  (t + 1)*((t + 3)*x - 3*(t + 1))/(4*(2*t + 3)*x - (t + 3)*(t + 1)),
+  y*(q*(t + 1)/(4*(2*t + 3)*x - (t + 3)*(t + 1)))^3
 ]>;
 
 // The composition f1∘inv is the same map as f2 post-composed with the isomorphism (x,y) |--> (x,q*y).
