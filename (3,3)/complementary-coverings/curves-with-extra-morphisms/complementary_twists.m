@@ -57,7 +57,6 @@ inv:=map<C->C|[
 // The composition f1∘inv is the same map as f2 post-composed with the isomorphism (x,y) |--> (x,q*y).
 
 
-
 /***************************
  The family defined by Y1. To find a K-rational point and a suitable parametrization for Y1, we might have to extend the ground field.
  We first suppose that K is not of characeristic 3 and contains a primitive third root of unity w.
@@ -104,3 +103,16 @@ h:=hom<Parent(x)->R | [X,0] >;
 j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
 j eq -(t - 3)^3*(t + 9)^3/t^3;
 // note that this is the same formula in terms of t as the one we obtained for the curves parametrized by X1
+
+
+/********************************************
+ The case of base field of characteristic 3.
+ In this case the curve C is singular if b=0 so we have the following two curves parametrizing the two kinds of curves C considered above:
+ X1: a^3*c + 2*a^2*b^2 + 2*b^3=0
+ Y1: a=0
+ A parametrization of X1 is given by t |--> [t:-t:t-1]  or  [t:t:t+1] after replacing t by -t.
+ A parametrization of Y1 is given by t |--> [0:t:1]
+*********************************************/
+
+
+
