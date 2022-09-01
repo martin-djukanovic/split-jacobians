@@ -103,3 +103,4 @@ R<X>:=PolynomialRing(K);
 h:=hom<Parent(x)->R | [X,0] >;
 j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
 j eq -(t - 3)^3*(t + 9)^3/t^3;
+// note that this is the same formula in terms of t as the one we obtained for the curves parametrized by X1
