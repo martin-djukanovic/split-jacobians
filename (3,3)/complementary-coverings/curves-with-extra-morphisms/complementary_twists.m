@@ -72,48 +72,81 @@ Y1:=Scheme(PP, 16*a^6*b^6 - 864*a^6*b^3*c^2 + 11664*a^6*c^4 - 324*a^5*b^5*c + 87
 
 // a parametrization of Y1
 p:=map<A1->Y1|[
-   -w*(t^2 + 3*t*w - 27*w^2)*(t^2 + 18*t - 27),
-   48*t^2*(t^2 - 9*t*w - 27*w^2)*(t^2 + 18*t - 27),
-   -64*t^3*(t^2 - 9*t - 27)*(t^2 + 18*t - 27)^2
+   -w*(t^2 - 3*t*w - 27*w^2)*(t^2 - 18*t - 27),
+   48*t^2*(t^2 + 9*t*w - 27*w^2)*(t^2 - 18*t - 27),
+   64*t^3*(t^2 + 9*t - 27)*(t^2 - 18*t - 27)^2
 ]>;
 /* also good is: t |--> [-3*w*(t^2 - w*t - 3*w^2)*(t^2 - 6*t - 3), 48*t^2*(t^2 + 3*w*t - 3*w^2)*(t^2 - 6*t - 3), 64*t^3*(t^2 + 3*t - 3)*(t^2 - 6*t - 3)^2],
    but we are aiming for a specific j-invariant */
 
-// for the representative obtained by rescaling by 1/(4*t*(t^2+ 18 t - 27)) we obtain the following family (up to twists):
+// for the representative obtained by rescaling by 1/(4*t*(t^2 - 18 t - 27)) we obtain the following family (and its twists):
 K<t>:=FunctionField(F);
 A2<x,y>:=AffineSpace(K,2);
-C:=Curve(A2, -y^2 + (4*t*(t^2 + 18*t - 27)*x^3 - w*(t^2 + 18*t - 27)*(t^2 + 3*t*w - 27*w^2)*x^2 + 12*t*(t^2 - 9*t*w - 27*w^2)*x - 4*t*(t^2 - 9*t - 27))*(-4*(t^2 - 9*t - 27)*(t^2 + 18*t - 27)*x^3 + 9*(t^2 - 9*t*w - 27*w^2)^2*x^2 - 6*(t^2 - 9*t - 27)*(t^2 - 9*t*w - 27*w^2)*x + (t^2 - 9*t - 27)^2));
-E1:=Curve(A2, -t/(t^2 + 18*t - 27)*y^2 + x^3 + (-3*t^2 + (-9*w + 9)*t - 81*w)/(t^2 + (3*w + 6)*t - 27*w - 27)*x^2 + (3*t^6 + (18*w + 36)*t^5 + (162*w - 405)*t^4 - 1458*w*t^3 + (-15309*w - 10935)*t^2 + (-13122*w - 26244)*t + 59049*w + 59049)/(t^6 + (6*w + 30)*t^5 + (81*w + 162)*t^4 + (-972*w - 972)*t^3 + (-4374*w - 2187)*t^2 + (21870*w + 4374)*t - 19683*w)*x + (-t^2 + 9*t + 27)/(t^2 + 18*t - 27));
-E2:=Curve(A2, -t*(t^2 + (3*w + 6)*t + 27*w^2)*y^2/(t^2 + 18*t - 27) + x^3 - 3*(t^2 - (3*w + 6)*t + 27*w^2)*x^2 + (3/(t^2 + 18*t - 27))*(t^6 + (-6*w + 6)*t^5 + (-54*w - 189)*t^4 + (486*w + 486)*t^3 + (5103*w + 1458)*t^2 + (4374*w - 4374)*t - 19683*w)*x - (1/(t^2 + 18*t - 27))*(t^2 - 9*t - 27)*(t^2 + (-3*w + 3)*t + 27*w)^3);
+C:=Curve(A2, -y^2 + (4*t*(t^2 - 18*t - 27)*x^3 + w*(t^2 - 18*t - 27)*(t^2 - 3*t*w - 27*w^2)*x^2 + 12*t*(t^2 + 9*t*w - 27*w^2)*x - 4*t*(t^2 + 9*t - 27))*(4*(t^2 + 9*t - 27)*(t^2 - 18*t - 27)*x^3 - 9*(t^2 + 9*t*w - 27*w^2)^2*x^2 + 6*(t^2 + 9*t - 27)*(t^2 + 9*t*w - 27*w^2)*x - (t^2 + 9*t - 27)^2));
+E1:=Curve(A2, -t/(t^2 - 18*t - 27)*y^2 + x^3 - (-3*t^2 + (9*w - 9)*t - 81*w)/(t^2 - (3*w + 6)*t + 27*w^2)*x^2 + (3*t^6 - (18*w + 36)*t^5 + (162*w - 405)*t^4 + 1458*w*t^3 + (-15309*w - 10935)*t^2 + (13122*w + 26244)*t + 59049*w + 59049)/(t^6 - (6*w + 30)*t^5 + (81*w + 162)*t^4 + (972*w + 972)*t^3 + (-4374*w - 2187)*t^2 - (21870*w + 4374)*t - 19683*w)*x - (-t^2 - 9*t + 27)/(t^2 - 18*t - 27));
+E2:=Curve(A2, -t*(t^2 - (3*w + 6)*t + 27*w^2)*y^2/(t^2 - 18*t - 27) + x^3 + 3*(t^2 + (3*w + 6)*t + 27*w^2)*x^2 + (3/(t^2 - 18*t - 27))*(t^6 + (6*w - 6)*t^5 + (-54*w - 189)*t^4 - (486*w + 486)*t^3 + (5103*w + 1458)*t^2 - (4374*w - 4374)*t - 19683*w)*x + (1/(t^2 - 18*t - 27))*(t^2 + 9*t - 27)*(t^2 + (3*w - 3)*t + 27*w)^3);
 
 // complementary degree-3 maps
 f1:=map<C->E1|[
-	-w*(t^2 + (3*w + 6)*t + 27*w^2)^2*x^2/(4*t*(t^2 + 18*t - 27)*x^3 - w*(t^2 + 18*t - 27)*(t^2 + 3*t*w - 27*w^2)*x^2 + 12*t*(t^2 - 9*t*w - 27*w^2)*x - 4*t*(t^2 - 9*t - 27)), 
-	4*t*((t^2 + 18*t - 27)*x^3 - 3*x*(t^2 - 9*t*w - 27*w^2) + 2*(t^2 - 9*t - 27))*y/(4*t*(t^2 + 18*t - 27)*x^3 - w*(t^2 + 18*t - 27)*(t^2 + 3*t*w - 27*w^2)*x^2 + 12*t*(t^2 - 9*t*w - 27*w^2)*x - 4*t*(t^2 - 9*t - 27))^2
+	-w*(t^2 - (3*w + 6)*t + 27*w^2)^2*x^2/(4*t*(t^2 - 18*t - 27)*x^3 + w*(t^2 - 18*t - 27)*(t^2 - 3*t*w - 27*w^2)*x^2 + 12*t*(t^2 + 9*t*w - 27*w^2)*x - 4*t*(t^2 + 9*t - 27)), 
+	4*t*((t^2 - 18*t - 27)*x^3 - 3*x*(t^2 + 9*t*w - 27*w^2) + 2*(t^2 + 9*t - 27))*y/(4*t*(t^2 - 18*t - 27)*x^3 + w*(t^2 - 18*t - 27)*(t^2 - 3*t*w - 27*w^2)*x^2 + 12*t*(t^2 + 9*t*w - 27*w^2)*x - 4*t*(t^2 + 9*t - 27))^2
 ]>;
 f2:=map<C->E2|[
-	-1/(t^2 + (3*w + 6)*t + 27*w^2)*((t^2 - 9*w*t + 27*w + 27)*x - (t^2 - 9*t - 27))^2*(4*(t^2 - 9*w*t - 27)*(t^2 - 9*w^2*t - 27)*x - (t^2 - 9*t - 27)*(t^2 - 9*w^2*t - 27*w))/(-4*(t^2 - 9*t - 27)*(t^2 + 18*t - 27)*x^3 + 9*(t^2 - 9*t*w - 27*w^2)^2*x^2 - 6*(t^2 - 9*t - 27)*(t^2 - 9*t*w - 27*w^2)*x + (t^2 - 9*t - 27)^2), 
-	(1+2*w)*4*81*t/(t^2 + (3*w + 6)*t + 27*w^2)^2 * (x^3*(3*t^8*w + t^7*(45*w - 17) + t^6*(243*w - 81) + t^5*(243*w + 891) + t^3*(6561*w - 17496) + t^2*(-(177147*w) - 236196) + 14580*t^4 + t*(885735*w + 1220346) - 1594323*w - 1594323) - w*(t^2 - 9*t - 27)*(t^3 + 9*t^2 + t*(-(81*w) - 108) + 243*w)*(t^2*(12*w + 9) + t^3 + 27*t*w - 81*w)*x^2 + 3*t*(t^2 - 9*t - 27)^2*(t^2 - 9*t*w + 27*w + 27)*x - t*(t^2 - 9*t - 27)^3)*y/(-4*(t^2 - 9*t - 27)*(t^2 + 18*t - 27)*x^3 + 9*(t^2 - 9*t*w - 27*w^2)^2*x^2 - 6*(t^2 - 9*t - 27)*(t^2 - 9*t*w - 27*w^2)*x + (t^2 - 9*t - 27)^2)^2
+	1/(t^2 - (3*w + 6)*t + 27*w^2)*((t^2 + 9*w*t - 27*w^2)*x - (t^2 + 9*t - 27))^2*(4*(t^2 + 9*w*t - 27)*(t^2 + 9*w^2*t - 27)*x - (t^2 + 9*t - 27)*(t^2 + 9*w^2*t - 27*w))/(-4*(t^2 + 9*t - 27)*(t^2 - 18*t - 27)*x^3 + 9*(t^2 + 9*t*w - 27*w^2)^2*x^2 - 6*(t^2 + 9*t - 27)*(t^2 + 9*t*w - 27*w^2)*x + (t^2 + 9*t - 27)^2), 
+	(1+2*w)*4*81*t/(t^2 - (3*w + 6)*t + 27*w^2)^2 * (x^3*(3*t^8*w - t^7*(45*w - 17) + t^6*(243*w - 81) - t^5*(243*w + 891) + 14580*t^4 - t^3*(6561*w - 17496) - (177147*w + 236196)*t^2 - (885735*w + 1220346)*t - 1594323*w - 1594323) - w*(t^2 + 9*t - 27)*(-t^3 + 9*t^2 + t*(81*w + 108) + 243*w)*(t^2*(12*w + 9) - t^3 - 27*t*w - 81*w)*x^2 - 3*t*(t^2 + 9*t - 27)^2*(t^2 + 9*t*w - 27*w^2)*x + t*(t^2 + 9*t - 27)^3)*y/(-4*(t^2 + 9*t - 27)*(t^2 - 18*t - 27)*x^3 + 9*(t^2 + 9*t*w - 27*w^2)^2*x^2 - 6*(t^2 + 9*t - 27)*(t^2 + 9*t*w - 27*w^2)*x + (t^2 + 9*t - 27)^2)^2
 ]>;
 
 // an isomorphism between the two elliptic curves
-iso:=map<E1->E2|[ w^2*(t^2 + (3*w + 6)*t + 27*w^2)*x + (1 - w^2)*(t - 9)*(t + 3), (t^2 + (3*w + 6)*t + 27*w^2)*y ]>;
+iso:=map<E1->E2|[ w^2*(t^2 - (3*w + 6)*t + 27*w^2)*x + (w^2-1)*(t + 9)*(t - 3), (t^2 - (3*w + 6)*t + 27*w^2)*y ]>;
 
 R<X>:=PolynomialRing(K);
 h:=hom<Parent(x)->R | [X,0] >;
 j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
-j eq -(t - 3)^3*(t + 9)^3/t^3;
+j eq (t + 3)^3*(t - 9)^3/t^3;
 // note that this is the same formula in terms of t as the one we obtained for the curves parametrized by X1
 
 
 /********************************************
  The case of base field of characteristic 3.
- In this case the curve C is singular if b=0 so we have the following two curves parametrizing the two kinds of curves C considered above:
- X1: a^3*c + 2*a^2*b^2 + 2*b^3=0
- Y1: a=0
- A parametrization of X1 is given by t |--> [t:-t:t-1]  or  [t:t:t+1] after replacing t by -t.
- A parametrization of Y1 is given by t |--> [0:t:1]
 *********************************************/
+/* In this case the curve C is singular if b=0 so we have the following two curves parametrizing the two kinds of curves C considered above:
+   X1: a^3*c + 2*a^2*b^2 + 2*b^3=0
+   Y1: a=0
+   A parametrization of X1 is given by t |-->  [t:t:t+1], which can be obtained by reducing the general one considered above
+   A parametrization of Y1 is given by t |--> [0:t:1]  */
 
+/* First we consider the family parametrized by X1, i.e. curves C with a degree-3 map C->E such that the complementary covering is
+   obtained by pre-composing with an involution of C. This can all be obtained by everything reducing modulo 3 in the family defined
+   by X1 in the general case. */
+K<t>:=FunctionField(GF(9));
+A2<x,y>:=AffineSpace(K,2);
+C:=Curve(A2, -y^2 + (x^3 + t*x^2 + t*x + t + 1)*((t + 1)*x^3 + t^2*x^2 - t*(t + 1)*x + (t + 1)^2));
+E:=Curve(A2, -y^2 + x^3 + t*x^2 + t*x + t + 1);
+f1:=map<C->E|[
+	t*x^2/(x^3 + t*x^2 + t*x + t + 1),
+	((x^3 - t*x + t + 1)*y)/(x^3 + t*x^2 + t*x + t + 1)^2
+]>;
+f2:=map<C->E|[
+	-((t*x^2*(x - t - 1))/((t + 1)*x^3 + t^2*x^2 - t*(t + 1)*x + (t + 1)^2)),
+	(((t^2 + t - 1)*x^3 - t*(1 + t)*x^2 - t*(t + 1)^2*x - (t + 1)^3)*y)/((t + 1)*x^3 + t^2*x^2 - t*(t + 1)*x + (t + 1)^2)^2
+]>;
 
+// an involution on C, such that f2 = f1∘inv
+inv:=map<C->C|[ ((t + 1)*x)/(x - t - 1), y*(t + 1)^3/(x - t - 1)^3 ]>;
+
+R<X>:=PolynomialRing(K);
+h:=hom<CoordinateRing(A2)->R | [X,0]>;
+j:=jInvariant(EllipticCurve(h(Basis(Ideal(E))[1])));
+j eq t^3;
+
+/* The family parametrized by Y1 is behaves differently in characteristic 3 */
+C:=Curve(A2, -y^2 + (x^3 + t*x + 1)*(x^3 + t^2*x^2 - t*x + 1));
+E1:=Curve(A2, -y^2 + x^3 - t*x + 1);
+E2:=Curve(A2, -y^2 + x^3 + t*x + 1);
+f1:=map<C->E1|[-t*x^2/(x^3 + t*x + 1), y*(x^3 - t*x + 1)/(x^3 + t*x + 1)^2]>;
+f2:=map<C->E2|[(t*x^2*(t*x + 1))/(x^3 + t^2*x^2 - t*x + 1), y*((t - 1)^3*x^3 + t^2*x^2 - t*x - 1)/(x^3 + t^2*x^2 - t*x + 1)^2]>;
+R<X>:=PolynomialRing(K);
+h:=hom<CoordinateRing(A2)->R | [X,0]>;
+j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
+j eq 0;
 
