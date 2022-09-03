@@ -34,7 +34,6 @@ Factorization(Basis(J)[1]);
    such that E1 and E2 are twists (resp. 5-isogenous, resp. 8-isogenous). */
 
 
-
 /* The family defined by X5 is also precisely the family determined by the second primary component of the final elimination ideal computed
    when analysing the generic case. This is verified by the following: */
 RR<x,y,z,d,e,a,b,c> := PolynomialRing(QQ,8);
@@ -72,5 +71,154 @@ PrimaryDecomposition(J);
     In characteristic 3, Y1 reduces to a*b=0. However, C is then singular if b=0, so we can assume that b is non-zero so that Y1 is defined
     by a=0. Similarly, in characteristic 3 we can take X1: 2*a^2*b^2 + 2*b^3 + a^3*c=0.
     
-    The genus-2 curves parametrized by X1,Y1,X5,X8 are further analysed in the other three files of the directory.
+    The genus-2 curves parametrized by X1,Y1,X5,X8 are further analysed in the other three files of the directory. The curves C defined by X1
+    have additional involutions (after extending K if necessary) such that pre-composing a degree-3 map C->E with such an involution gives
+    a complementary covering C->E. The curves defined by Y1 do not have this property, except for the three points of intersection with X1,
+    which define curves C that cover a pair of elliptic curves with j(E)=0 or j(E)=1728. We verify this below.
+*/
+
+R<x>:=PolynomialRing(QQ);
+K<i,w,u>:=ext<QQ|[x^2+1, x^2+x+1, x^2+19]>;  // not all such curves are defined over QQ (but their invariants are)
+F<p,q,r,a,b,c>:=FunctionField(K,6);
+R<x,y>:=PolynomialRing(F,2);
+P:=func<x | x^3 + a*x^2 + b*x + c >;
+Q:=func<x | 4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2 >;
+
+/* We look for curves C:y^2=P(x)Q(x) such that there exists a fractional linear transformation M(x)=(p*x+q)/(r*x-p) that sends the roots
+of P(x) to the roots of Q(x) and vice versa. Such curves could potentially have complementary degree-3 maps to elliptic curves that are
+obtained from one another by pre-composing with the involution. */
+res1:=Resultant((r*y-p)*x - (p*y+q), P(y), y);
+res2:=Resultant((r*y-p)*x - (p*y+q), Q(y), y);
+_,rem1:=Quotrem(res1, Q(x));
+_,rem2:=Quotrem(res2, P(x));
+rem1:=rem1*4*c;
+eqns:=[Coefficient(rem1,x,k) : k in [0..2]] cat [Coefficient(rem2,x,k) : k in [0..2]];
+R<z,p,q,r,a,b,c>:=PolynomialRing(K,7);
+h:=hom<F->R|[p,q,r,a,b,c]>;
+eqns:=[h(g) : g in eqns] cat [
+   // the equation of Y1
+   16*a^6*b^6 - 864*a^6*b^3*c^2 + 11664*a^6*c^4 - 324*a^5*b^5*c + 8748*a^5*b^2*c^3 - 81*a^4*b^7 + 14580*a^4*b^4*c^2
+     - 157464*a^4*b*c^4 - 864*a^3*b^6*c - 215784*a^3*b^3*c^3 + 78732*a^3*c^5 + 324*a^2*b^8 + 30618*a^2*b^5*c^2
+     + 2125764*a^2*b^2*c^4 - 5832*a*b^7*c - 314928*a*b^4*c^3 - 6377292*a*b*c^5 + 37908*b^6*c^2 + 255879*b^3*c^4 + 8503056*c^6,
+   // the equation that guarantees that the Disc(P(x)Q(x)) and Det(M) are non-zero
+   1 - z*(p^2+q*r)*c*(b^3 - 27*c^2)*(-a^2*b^2 + 4*b^3 + 4*a^3*c - 18*a*b*c + 27*c^2)];
+I:=ideal<R | eqns >;
+J:=Radical(EliminationIdeal(I,4));
+
+PP<a,b,c>:=WeightedProjectiveSpace(K,[1,2,3]);
+h:=hom<R->CoordinateRing(PP)|[0,0,0,0,a,b,c]>;
+S:=Scheme(PP,[h(g) : g in Basis(J)]);
+comps:=IrreducibleComponents(S);
+Degree(S) eq 7;
+pts:=[
+   // These are intersections with X1, defining C from Examples 3.3 and 5.10, that cover E with j(E)=0 and j(E)=1728, respectively.
+   [6, 12, 10], [3, 6 + 6*w, 4 + 6*w],  [3, 6 + 6*w^2, 4 + 6*w^2],
+   
+   // These define the class of C: y^2 = x^6 + 3*x^4 - 6*x^2 - 8, that is a 3-cover of E with j(E)=287496 (CM by sqrt(-4))
+   [3*(4 + 17*i), 4*(7 + 3*i), 24*(1 + i)],  [3*(4 - 17*i), 4*(7 - 3*i), 24*(1 - i)],
+   
+    // These define the class of C: y^2 = 8*x^6 - 2040*x^5 - 2244*x^4 - 5840*x^3 - 4230*x^2 - 4014*x - 837, that is a 3-cover of E with j(E)=-884736 (CM by (1+sqrt(-19))/2)
+   [-21 + 9*u, -6 + 2*u, 6],  [-21 - 9*u, -6 - 2*u, 6]   
+ ];
+&and[PP!p in S : p in pts];
+
+///////////////////////////////////////////////////////
+// 1) the isomorphism class of C, covering j(E)=287496
+///////////////////////////////////////////////////////
+R<X>:=PolynomialRing(QQ);
+K<i,q>:=ext<QQ|X^2+1,X^2-2>;
+R<x>:=PolynomialRing(K);
+a:=3*(4 + 17*i);
+b:= 4*(7 + 3*i);
+c:=24*(1 + i);
+C:=HyperellipticCurve((x^3 + a*x^2 + b*x + c)*(4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2));
+C1:=HyperellipticCurve(x^6 + 3*x^4 - 6*x^2 - 8); // or x^5 + x^3 + 81/196*x
+AbsoluteInvariants(C1) eq AbsoluteInvariants(C);
+#Factorization((x^3 + a*x^2 + b*x + c)*(4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2)) eq 6; // we added sqrt(2) to K to make P(x)Q(x) split completely
+
+// the complementary degree-3 maps
+A2<x,y>:=AffineSpace(K,2);
+C:=Curve(A2, -y^2 + (x - i)*(x^2 + 4*(3 + 13*i)*x - 24*(1 - i)) * ((1 - i)*x + 3)*(3*x^2 + 4*(4 - i)*x + 12)); //bad primes: (1 + i),(1 + 2*i),3,(4 + i) above 2,5,17
+E1:=Curve(A2, -y^2 + x^3 + 1/85*(-111*i + 393)*x^2 + 1/7225*(-28686*i + 48223)*x - 3*i + 3);
+E2:=Curve(A2, -85*y^2 + x^3 + 1/85*(111*i + 393)*x^2 + 1/7225*(28686*i + 48223)*x + 3*i + 3);
+f1:=map<C->E1|[ 
+	i*(1 + 2*i)^2*(4 + i)^2 * x^2/((x - i)*(x^2 + 4*(3 + 13*i)*x - 24*(1 - i))), 
+	(x + 4)*(x^2 - 4*x - 12*(1 + i))*y/((x - i)*(x^2 + 4*(3 + 13*i)*x - 24*(1 - i)))^2
+]>;
+f2:=map<C->A2|[
+   -1/5/17 * ((5 - 2*i)*x + 18)^2*(19*x + 3*(5 + 2*i))/(((1 - i)*x + 3)*(4*(4 - i)*x + 3*x^2 + 12)),
+   1/5^2/17^2 * y*((5 - 14*i)*x + 6)*(77*x^2 + 72*x - 36*i)/(((1 - i)*x + 3)*(4*(4 - i)*x + 3*x^2 + 12))^2
+]>;
+
+// the isomorphism class of E
+R<X>:=PolynomialRing(K);
+h:=hom<Parent(x)->R|[X,0]>;
+jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1]))) eq 287496;
+
+// involutions of C
+CC:=HyperellipticCurve((X - i)*(X^2 + 4*(3 + 13*i)*X - 24*(1 - i)) * ((1 - i)*X + 3)*(3*X^2 + 4*(4 - i)*X + 12)); // =P(x)*Q(x)/32
+G,r,_:=AutomorphismGroup(CC);
+L:=[];
+for g in G do if Order(g) eq 2 then Append(~L, r(g)); end if; end for;
+L;
+
+/* Modulo the hyperelliptic one, there are two extra involutions and neither of them gives a complementary degree-3 covering by 
+pre-composing with a given degree-3 covering. */
+inv1:=map<C->C|[ 3*((1 + 10*i)*x - 6*(1 - 2*i))/((1 - 6*i)*x - 3*(1 + 10*i)), 27*(478 + 621*i)*y/((1 - 6*i)*x - 3*(1 + 10*i))^3 ]>;
+inv2:=map<C->C|[ -3*((1 + 4*i)*x - 12*(1 - i))/((17 + 6*i)*x + 3*(1 + 4*i)), 27*(621 - 478*i)*y/((17 + 6*i)*x + 3*(1 + 4*i))^3 ]>;
+
+
+///////////////////////////////////////////////////////
+// 2) the isomorphism class of C, covering j(E)=-884736
+///////////////////////////////////////////////////////
+R<X>:=PolynomialRing(QQ);
+K<u>:=ext<QQ|X^2+19>;
+R<x>:=PolynomialRing(K);
+K<v>:=ext<K|x^3 + (9*u - 21)*x^2 + (2*u - 6)*x + 6>;
+R<x>:=PolynomialRing(K);
+a:=9*u - 21;
+b:=2*u - 6;
+c:=6;
+C:=HyperellipticCurve((x^3 + a*x^2 + b*x + c)*(4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2));
+C2:=HyperellipticCurve(8*x^6 - 2040*x^5 - 2244*x^4 - 5840*x^3 - 4230*x^2 - 4014*x - 837);
+AbsoluteInvariants(C2) eq AbsoluteInvariants(C);
+#Factorization((x^3 + a*x^2 + b*x + c)*(4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2)) eq 6;
+
+A2<x,y>:=AffineSpace(K,2);
+C:=Curve(A2, -y^2 + (x^3 + (9*u - 21)*x^2 + (2*u - 6)*x + 6) * (6*x^3 - 2*(5 + 3*u)*x^2 - 6*(3 - u)*x + 9));
+E1:=Curve(A2, - y^2 + x^3 + 1/83*(90*u - 222)*x^2 + 1/6889*(-13448*u - 34512)*x + 6);
+E2:=Curve(A2, -83*y^2 + x^3 + 1/83*(90*u + 222)*x^2 + 1/6889*(13448*u - 34512)*x  - 6
+);
+f1:=map<C->E1|[
+   (u+8)^2 * x^2/(x^3 + (9*u - 21)*x^2 + (2*u - 6)*x + 6),
+   y * (x^3 + 2*(3 - u)*x - 12)/(x^3 + (9*u - 21)*x^2 + (2*u - 6)*x + 6)^2
+]>;
+f2:=map<C->E2|[
+   1/83 * (37*x - 3*(u + 3))*((u - 3)*x + 9)^2/(6*x^3 - 2*(5 + 3*u)*x^2 - 6*(3 - u)*x + 9), 
+   1/6889 * y*(4*(74*u + 207)*x^3 - 12*(15*u - 29)*x^2 - 9*(u - 3)*x - 27)/(6*x^3 - 2*(5 + 3*u)*x^2 - 6*(3 - u)*x + 9)^2
+]>;
+
+// the isomorphism class of E
+R<X>:=PolynomialRing(K);
+h:=hom<Parent(x)->R|[X,0]>;
+jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1]))) eq -884736;
+
+// involutions of C
+CC:=HyperellipticCurve((X^3 + (9*u - 21)*X^2 + (2*u - 6)*X + 6) * (6*X^3 - 2*(5 + 3*u)*X^2 - 6*(3 - u)*X + 9)); // =6*P(x)*Q(x)
+G,r,_:=AutomorphismGroup(CC);
+L:=[];
+for g in G do if Order(g) eq 2 then Append(~L, r(g)); end if; end for;
+L;
+
+// Modulo the hyperelliptic one, there is one extra involution and it does not give a complementary degree-3 covering by 
+pre-composing with a given degree-3 covering.
+inv:=map<C->C|[-6*(50*x - 21 - 6*u)/((19*u - 21)*x + 300), y*216*(93548 + 3103*u)/((19*u - 21)*x + 300)^3]>;
+
+
+/*  A somewhat relevant remark;
+    If we search for all curves defined by Y1 that have additional involutions, we will also find curves defined by:
+    1) [(801 + 513*u)/8, -(27+19*u)/2, 30], where  u^2 = -7
+    2) [(1/152909827803677200)*(36035280094210030858 - 29586707794230106601379*u + 8695840690351755182659359*u^2 - 
+    944599229397032231472484257*u^3 + 14789245937239768014634305578*u^4 - 90309903009272480067639633717*u^5), u, -3*u^2], where
+     653294184733*u^6 - 109474575246*u^5 + 7241041409*u^4 - 88962570*u^3 + 454394*u^2 - 1080*u + 1 = 0
 */
