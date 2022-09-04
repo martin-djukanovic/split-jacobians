@@ -120,7 +120,7 @@ j eq 27*(t - 3)^3*(t + 1)^3/t^3;
 /* First we consider the family parametrized by X1, i.e. curves C with a degree-3 map C->E such that the complementary covering is
    obtained by pre-composing with an involution of C. This can all be obtained by everything reducing modulo 3 in the family defined
    by X1 in the general case. */
-K<t>:=FunctionField(GF(9));
+K<t>:=FunctionField(GF(3));
 A2<x,y>:=AffineSpace(K,2);
 C:=Curve(A2, -y^2 + (x^3 + t*x^2 + t*x + t + 1)*((t + 1)*x^3 + t^2*x^2 - t*(t + 1)*x + (t + 1)^2));
 E:=Curve(A2, -y^2 + x^3 + t*x^2 + t*x + t + 1);
