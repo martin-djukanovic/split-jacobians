@@ -141,7 +141,7 @@ h:=hom<CoordinateRing(A2)->R | [X,0]>;
 j:=jInvariant(EllipticCurve(h(Basis(Ideal(E))[1])));
 j eq t^3;
 
-/* The family parametrized by Y1 is behaves differently in characteristic 3 */
+/* The family parametrized by Y1 behaves differently in characteristic 3 */
 C:=Curve(A2, -y^2 + (x^3 + t*x + 1)*(x^3 + t^2*x^2 - t*x + 1));
 E1:=Curve(A2, -y^2 + x^3 - t*x + 1);
 E2:=Curve(A2, -y^2 + x^3 + t*x + 1);
@@ -151,4 +151,3 @@ R<X>:=PolynomialRing(K);
 h:=hom<CoordinateRing(A2)->R | [X,0]>;
 j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
 j eq 0;
-
