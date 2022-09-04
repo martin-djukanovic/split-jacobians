@@ -114,7 +114,7 @@ j eq 27*(t - 3)^3*(t + 1)^3/t^3;
 /* In this case the curve C is singular if b=0 so we have the following two curves parametrizing the two kinds of curves C considered above:
    X1: a^3*c + 2*a^2*b^2 + 2*b^3=0
    Y1: a=0
-   A parametrization of X1 is given by t |-->  [t:t:t+1].
+   A parametrization of X1 is given by t |--> [t:t:t+1].
    A parametrization of Y1 is given by t |--> [0:t:1].  */
 
 /* First we consider the family parametrized by X1, i.e. curves C with a degree-3 map C->E such that the complementary covering is
@@ -151,3 +151,18 @@ R<X>:=PolynomialRing(K);
 h:=hom<CoordinateRing(A2)->R | [X,0]>;
 j:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
 j eq 0;
+
+// The curve y^2 =  (x^3 + t*x + 1)*(x^3 + t^2*x^2 - t*x + 1) = P(x)*Q(x) does not have additional involutions.
+K<p,q,r,t>:=FunctionField(GF(3),4);
+R<x,y>:=PolynomialRing(K,2);
+P:=func<x | x^3 + t*x + 1 >;
+Q:=func<x | x^3 + t^2*x^2 - t*x + 1 >;
+res:=Resultant((r*y-p)*x - (p*y+q), P(y)*Q(y), y);
+_,rem:=Quotrem(res, P(x)*Q(x));
+eqns:=[Coefficient(rem,x,k) : k in [0..5]];
+R<z,p,q,r,t>:=PolynomialRing(GF(3),5);
+h:=hom<K->R|[p,q,r,t]>;
+eqns:=[h(g) : g in eqns] cat [1-z*(p^2+q*r)*t];
+I:=ideal<R | eqns >;
+J:=Radical(EliminationIdeal(I,4));
+J;
