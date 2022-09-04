@@ -20,5 +20,5 @@ I:=ideal<R|[
   27*a^3*(-8 + a^3)^3 + j1 * (1 + a^3)^3,
   27*b^3*(-8 + b^3)^3 + j2 * (1 + b^3)^3
 ]>;
-J:=EliminationIdeal(I,3);
+J:=Radical(EliminationIdeal(I,3));
 Basis(PrimaryDecomposition(J)[1]);
