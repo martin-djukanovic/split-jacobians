@@ -185,7 +185,7 @@ AbsoluteInvariants(C2) eq AbsoluteInvariants(C);
 #Factorization((x^3 + a*x^2 + b*x + c)*(4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2)) eq 6;
 
 A2<x,y>:=AffineSpace(K,2);
-C:=Curve(A2, -y^2 + (x^3 + (9*u - 21)*x^2 + (2*u - 6)*x + 6) * (6*x^3 - 2*(5 + 3*u)*x^2 - 6*(3 - u)*x + 9));
+C:=Curve(A2, -y^2 + (x^3 + (9*u - 21)*x^2 + (2*u - 6)*x + 6) * (6*x^3 - 2*(5 + 3*u)*x^2 - 6*(3 - u)*x + 9)); //bad primes: 2, 3, u+8 (above 83)
 E1:=Curve(A2, - y^2 + x^3 + 1/83*(90*u - 222)*x^2 + 1/6889*(-13448*u - 34512)*x + 6);
 E2:=Curve(A2, -83*y^2 + x^3 + 1/83*(90*u + 222)*x^2 + 1/6889*(13448*u - 34512)*x  - 6
 );
