@@ -98,6 +98,6 @@ isog5:=map<E2->E1|[
 // the j-invariants of the two elliptic curves
 h:=hom<CoordinateRing(A2)->PolynomialRing(K)|[PolynomialRing(K).1, 0]>;
 j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])/((t - 1)^6*(2*t - 11)*(t^2 + 1))));
-j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])/(t^2 + 1)));
-j1 eq 64*(t^2 - 6*t + 4)^3/(2*t - 11);
-j2 eq 64*(t^2 + 114*t + 124)^3/(2*t - 11)^5;
+j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
+j1 eq 64*(t^2 + 114*t + 124)^3/(2*t - 11)^5;
+j2 eq 64*(t^2 - 6*t + 4)^3/(2*t - 11);
