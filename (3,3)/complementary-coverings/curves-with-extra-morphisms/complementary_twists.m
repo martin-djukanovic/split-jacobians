@@ -51,16 +51,18 @@ C:=Curve(A2, -y^2 + (4*t*x^3 + 3*(t + 1)*(t + 3)*x^2 + 12*t*(t + 1)*x + 4*t*(3*t
 
 // an involution on C
 inv:=map<C->C|[
--(3*t + 1)*((t + 1)*x + 3*t + 1)/(4*(2*t + 1)*x + (3*t + 1)*(t + 1)),
+ -(3*t + 1)*((t + 1)*x + 3*t + 1)/(4*(2*t + 1)*x + (3*t + 1)*(t + 1)),
  -y*q*(3*t + 1)^3*(t^2 - 6*t - 3)/(4*(2*t + 1)*x + (3*t + 1)*(t + 1))^3
 ]>;
-// The composition f1∘inv is the same map as f2 post-composed with the isomorphism (x,y) |--> (x,q*y).
 
+/* The composition f1∘inv is the same map as f2 post-composed with the isomorphism (x,y) |--> (x,q*y).
+   Note: if s is a K-rational parameter, we can set t:=-(s^2 + s + 1)/(2*s^2 + s) so that q:=(s^2+ 4*s + 1)/(2*s^2 + s)
+   to generate a 1-dimensional family of examples over K. */
 
-// after applying an isomorphism, the extra involution becomes x->-x, so that degree-2 coverings becomes x->x^2 and x->1/x^2
-// iso:=map<C->A2|[(1 - q + 4*t - 3*q*t + 3*t^2 + 4*x + 8*t*x)/(1 + 3*t + x - q*x + t*x), y/(1 + 3*t + x - q*x + t*x)^3]>;
-// C2:=iso(C);
-// map<C2->C2|[-x,y]>;
+/* After applying an isomorphism, the extra involution becomes x->-x, so that degree-2 coverings becomes x->x^2 and x->1/x^2
+   iso:=map<C->A2|[(1 - q + 4*t - 3*q*t + 3*t^2 + 4*x + 8*t*x)/(1 + 3*t + x - q*x + t*x), y/(1 + 3*t + x - q*x + t*x)^3]>;
+   C2:=iso(C);
+   map<C2->C2|[-x,y]>; */
 
 // The involution on C induces degree-2 coverings of (isogenous) elliptic curves, defined over K(q).
 F1:=Curve(A2, -(-3*(t - 3)*(3*t + 1)*(t^2 - 6*t - 3) + 3*q*(3*t + 1)*(t^2 - 6*t + 3))*y^2
@@ -79,7 +81,17 @@ F2:=Curve(A2, -(-3*(t - 3)*(3*t + 1)*(t^2 - 6*t - 3) - 3*q*(3*t + 1)*(t^2 - 6*t 
 g1:=map<C->F1|[6 * (3*t + 1 + (t + 1 - q)*x)^2/(3*t + 1 + (t + 1 + q)*x)^2, 8*(3*t+1) * y/(3*t + 1 + (t + 1 + q)*x)^3]>;
 g2:=map<C->F2|[6 * (3*t + 1 + (t + 1 + q)*x)^2/(3*t + 1 + (t + 1 - q)*x)^2, 8*(3*t+1) * y/(3*t + 1 + (t + 1 - q)*x)^3]>;
 
-
+/* F1 and F2 are 9-isogenous. The kernel polynomial of the isogeny F1->F2 when t=-(s^2 + s + 1)/(2*s^2 + s) and q=(s^2+ 4*s + 1)/(2*s^2 + s)
+   is given by
+   x^8 - 96*(s^2 + 2*s + 3)*(s^3 - 7*s^2 - 6*s - 9)*(s^2 + 4*s + 1)/s^7 * x^7
+       - 576*(s^2 + 2*s + 3)^2*(17*s^6 + 218*s^5 + 104*s^4 + 174*s^3 - 360*s^2 - 216*s - 324)*(s^2 + 4*s + 1)^2/s^14 * x^6
+       + 124416*(s^2 + 2*s + 3)^3*(9*s^8 + 19*s^7 - 214*s^6 - 555*s^5 - 1336*s^4 - 1544*s^3 - 1644*s^2 - 864*s - 432)*(s^2 + 4*s + 1)^3/s^20 * x^5
+       + 124416*(s^2 + 2*s + 3)^4*(49*s^10 + 5236*s^9 + 30880*s^8 + 77372*s^7 + 158096*s^6 + 203120*s^5 + 237480*s^4 + 183168*s^3 + 143424*s^2 + 62208*s + 31104)*(s^2 + 4*s + 1)^4/s^26 * x^4
+       - 5971968*(s^2 + 2*s + 3)^5*(509*s^11 + 6441*s^10 + 23586*s^9 + 43607*s^8 + 48048*s^7 - 25008*s^6 - 140488*s^5 - 299712*s^4 - 337248*s^3 - 304128*s^2 - 155520*s - 62208)*(s^2 + 4*s + 1)^5/s^31 * x^3
+       + 107495424*(s^2 + 2*s + 3)^6*(935*s^12 + 6914*s^11 + 13208*s^10 - 5434*s^9 - 92200*s^8 - 277912*s^7 - 448228*s^6 - 511360*s^5 - 300352*s^4 - 43776*s^3 + 183168*s^2 + 152064*s + 82944)*(s^2 + 4*s + 1)^6/s^36 * x^2
+       - 2579890176*(s - 4)*(s + 2)*(s^2 + 2*s + 3)^7*(37*s^4 + 78*s^3 + 156*s^2 + 116*s + 72)*(13*s^6 + 47*s^5 + 30*s^4 - 7*s^3 - 176*s^2 - 168*s - 144)*(s^2 + 4*s + 1)^7/s^40 * x
+       + (3869835264*(s - 4)^2*(s + 2)^2*(s^2 + 2*s + 3)^8*(37*s^4 + 78*s^3 + 156*s^2 + 116*s + 72)^2*(s^2 + 4*s + 1)^8)/s^44
+*/
 
 /***************************
  The family defined by Y1: To find a K-rational point and a suitable parametrization for Y1, we might have to extend the ground field.
