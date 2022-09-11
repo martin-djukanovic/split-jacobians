@@ -2,7 +2,7 @@
    E1: x^3 + y^3 + z^3 + 3*a*x*y*z = 0
    E2: x^3 + y^3 + z^3 + 3*b*x*y*z = 0  */
 
-// the invariants of C whose Jacobian (3,3) splits as E1 x E2 are as follows
+// the Igusa-Clebsch invariants of C whose Jacobian (3,3) splits as E1 x E2
 function InvariantsOfC(a,b)
 	return [
 	72*(-20 + 16*a^3 + 40*a^6 + 112*a*b + 100*a^4*b - 32*a^7*b -
@@ -38,7 +38,7 @@ F<w>:=ext<QQ|x^2+x+1>;
 K<a>:=FunctionField(F);
 WP:=WeightedProjectiveSpace(K,[1,2,3,5]);
 
-// elements of the Hesse pencil that are isomorphic to E1 are defined by these 12 parameters (and there are no other twists of E1 in the pencil)
+// elements of the Hesse pencil that are isomorphic to E1 are defined by these 12 parameters
 allParams:=func<a|[a,a*w,a*w^2,(2 - a)/(1 + a),(2 - a)/(1 + a)*w,(2 - a)/(1 + a)*w^2,(2 - a*w^2)/(1 + a*w^2),(2 - a*w^2)/(1 + a*w^2)*w,(2 - a*w^2)/(1 + a*w^2)*w^2,(2 - a*w)/(1 + a*w),(2 - a*w)/(1 + a*w)*w,(2 - a*w)/(1 + a*w)*w^2]>;
 
 /* Gluing E1 with these 12 curves gives all possibile isomorphism classes of Jac(C) as a ppav (or, equivalently, isomorphism classes of C) 
@@ -73,7 +73,7 @@ C:=func<a,b|Curve(A2, -3*(2 + a^3 - 3*a*b + 3*a^2*b^2 + b^3)*y^2 + ((2 + a^3 - 3
 
 // case 1:
 C1:=C(a, (2 - a*w^2)/(1 + a*w^2)*w);
-C2:=C(a,  (2- a*w)/(1 + a*w)*w^2);
+C2:=C(a, (2- a*w)/(1 + a*w)*w^2);
 v1:= -w^2*(a^6 - 3*a^5 - 3*a^4 + 11*a^3 + 60*a^2 + 15*a + 19) / (a^2 + 2*a - 2) / (a^4 - 5*a^3 - 8*a - 5);
 v2:= 3*(w-1)*(a + w)^5*(a^2 - a - 3*w - 2)^3*(a^2 - a + 3*w + 1)^3*(a^2 + (-3*w - 1)*a + 1)^3 / (a + w^2)^5 / (a^2 + 2*a - 2)^3 / (a^4 - 5*a^3 - 8*a - 5)^3;
 v3:= w^2*(4*a^6 - 3*a^5 + 15*a^4 - 19*a^3 + 6*a^2 + 6*a + 13) / (a^2 + 2*a - 2) / (a^4 - 5*a^3 - 8*a - 5);
