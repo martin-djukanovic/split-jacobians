@@ -54,12 +54,35 @@ inv:=map<C->C|[
 -(3*t + 1)*((t + 1)*x + 3*t + 1)/(4*(2*t + 1)*x + (3*t + 1)*(t + 1)),
  -y*q*(3*t + 1)^3*(t^2 - 6*t - 3)/(4*(2*t + 1)*x + (3*t + 1)*(t + 1))^3
 ]>;
-
 // The composition f1∘inv is the same map as f2 post-composed with the isomorphism (x,y) |--> (x,q*y).
 
 
+// after applying an isomorphism, the extra involution becomes x->-x, so that degree-2 coverings becomes x->x^2 and x->1/x^2
+// iso:=map<C->A2|[(1 - q + 4*t - 3*q*t + 3*t^2 + 4*x + 8*t*x)/(1 + 3*t + x - q*x + t*x), y/(1 + 3*t + x - q*x + t*x)^3]>;
+// C2:=iso(C);
+// map<C2->C2|[-x,y]>;
+
+// The involution on C induces degree-2 coverings of (isogenous) elliptic curves, defined over K(q).
+F1:=Curve(A2, -(-3*(t - 3)*(3*t + 1)*(t^2 - 6*t - 3) + 3*q*(3*t + 1)*(t^2 - 6*t + 3))*y^2
+	+ x^3
+	+ 3*(q*(9*t^3 - 33*t^2 - 3*t - 1) - (9*t^4 - 60*t^3 + 42*t^2 + 44*t + 3))*x^2
+	- 12*(q*(3*t^3 + 13*t^2 - 33*t - 3) - t*(t + 6)*(3*t^2 - 14*t - 6))*x
+	+ 12*(q*(t - 3)*(t^2 - 6*t + 3) - (t^4 - 12*t^3 + 42*t^2 - 36*t - 9))
+);
+// The curve F2 is obtained by replacing q by -q.
+F2:=Curve(A2, -(-3*(t - 3)*(3*t + 1)*(t^2 - 6*t - 3) - 3*q*(3*t + 1)*(t^2 - 6*t + 3))*y^2
+	+ x^3
+	+ 3*(-q*(9*t^3 - 33*t^2 - 3*t - 1) - (9*t^4 - 60*t^3 + 42*t^2 + 44*t + 3))*x^2
+	- 12*(-q*(3*t^3 + 13*t^2 - 33*t - 3) - t*(t + 6)*(3*t^2 - 14*t - 6))*x
+	+ 12*(-q*(t - 3)*(t^2 - 6*t + 3) - (t^4 - 12*t^3 + 42*t^2 - 36*t - 9))
+);
+g1:=map<C->F1|[6 * (3*t + 1 + (t + 1 - q)*x)^2/(3*t + 1 + (t + 1 + q)*x)^2, 8*(3*t+1) * y/(3*t + 1 + (t + 1 + q)*x)^3]>;
+g2:=map<C->F2|[6 * (3*t + 1 + (t + 1 + q)*x)^2/(3*t + 1 + (t + 1 - q)*x)^2, 8*(3*t+1) * y/(3*t + 1 + (t + 1 - q)*x)^3]>;
+
+
+
 /***************************
- The family defined by Y1. To find a K-rational point and a suitable parametrization for Y1, we might have to extend the ground field.
+ The family defined by Y1: To find a K-rational point and a suitable parametrization for Y1, we might have to extend the ground field.
  We first suppose that K is not of characeristic 3 and contains a primitive third root of unity w.
 ****************************/
 R<X>:=PolynomialRing(QQ);
