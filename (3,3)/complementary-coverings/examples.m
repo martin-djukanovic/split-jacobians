@@ -1,7 +1,7 @@
 /***********************************/
 /********** Example 3.2 ************/
 /***********************************/
-R<x>:=PolynomialRing(Rationals());
+R<x>:=PolynomialRing(QQ);
 K<q,r>:=NumberField([x^3-4, x^2+3]);
 R<x>:=PolynomialRing(K);
 C:=HyperellipticCurve((x^3+1)*(4*x^3+1));
@@ -43,18 +43,7 @@ f2:=map<C->E2 | [-3*(2*x + 5)^2*(7*x + 10)/(10*x^3 + 36*x^2 + 60*x + 25), 27*y*(
 inv:=map<C->C | [-5*(2*x+5)/(7*x+10), y*375*r/(7*x+10)^3, 1]>;
 
 // the 2-coverings induced by the extra involution
-P2<X,Y,Z>:=ProjectiveSpace(K,2);
-iso:=map<C->P2 | [(7*x + 5*(2 + r))/(7*x + 5*(2 - r)), 70*r*y/(7*x + 5*(2 - r))^3, 1]>;
-g1:=map<P2->P2 | [X^2, Y*Z, Z^2]>;
-g2:=map<P2->P2 | [X*Z^2, Y*Z^2, X^3]>;
-F1:=g1(iso(C)); F1:=EllipticCurve(F1,F1![0,1,0]);
-F2:=g2(iso(C)); F2:=EllipticCurve(F2,F2![0,1,0]);
-IsIsomorphic(F1,F2);
-jInvariant(F1);
-
-// we can simplify the models slightly
 R<x>:=PolynomialRing(K);
-C:=HyperellipticCurve((x^3 + 6*x^2 + 12*x + 10)*(10*x^3 + 36*x^2 + 60*x + 25));
 F1:=EllipticCurve(x^3 + 1/2*(15*r + 3795)*x^2 + 1/2*(18975*r + 225)*x + 375*r);
 F2:=EllipticCurve(x^3 + 1/2*(-15*r + 3795)*x^2 + 1/2*(-18975*r + 225)*x - 375*r);
 L<x,y>:=FunctionField(C);
@@ -63,6 +52,13 @@ g2:=map<C->F2|[-5*r*(5*r + 11)/2 * ((2-r)*x + 5)^2/(7*x + 10 - 5*r)^2,   2^3*3*5
 _,f:=IsIsomorphic(F1,F2);
 f;
 
+// there is a separable 3-isogeny E1 --> F1 over K(r), which we can write as a composition of a 3-isogeny E1-->F over K and an isomorphism F-->F1 over K(r)
+R<x>:=PolynomialRing(K);
+F:=EllipticCurve(x^3 + 12*x^2 - 1032*x - 17918);
+L<x,y>:=FunctionField(E1);
+isog3:=map<E1->F|[(x^3 - 4*x^2 + 220*x + 216) / (x^2 - 4*x + 4),  (x^3*y - 6*x^2*y - 204*x*y - 872*y) / (x^3 - 6*x^2 + 12*x - 8), 1]>;
+_,f:=IsIsomorphic(F,F1);
+f;
 
 
 /***********************************/
