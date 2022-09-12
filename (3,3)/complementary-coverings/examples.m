@@ -31,7 +31,7 @@ iso2:=map<E2->F2 | [-12*q^2*x - 30, 96*r*y, 1]>;
 /***********************************/
 /********** Example 3.3 ************/
 /***********************************/
-R<x>:=PolynomialRing(Rationals());
+R<x>:=PolynomialRing(QQ);
 K<r>:=NumberField(x^2+3);
 R<x>:=PolynomialRing(K);
 C:=HyperellipticCurve((x^3 + 6*x^2 + 12*x + 10)*(10*x^3 + 36*x^2 + 60*x + 25));
