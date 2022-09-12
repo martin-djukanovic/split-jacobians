@@ -52,6 +52,17 @@ F2:=g2(iso(C)); F2:=EllipticCurve(F2,F2![0,1,0]);
 IsIsomorphic(F1,F2);
 jInvariant(F1);
 
+// we can simplify the models slightly
+R<x>:=PolynomialRing(K);
+C:=HyperellipticCurve((x^3 + 6*x^2 + 12*x + 10)*(10*x^3 + 36*x^2 + 60*x + 25));
+F1:=EllipticCurve(x^3 + 1/2*(15*r + 3795)*x^2 + 1/2*(18975*r + 225)*x + 375*r);
+F2:=EllipticCurve(x^3 + 1/2*(-15*r + 3795)*x^2 + 1/2*(-18975*r + 225)*x - 375*r);
+L<x,y>:=FunctionField(C);
+g1:=map<C->F1|[5*r*(11 - 5*r)/98 * ((7*x + 10 - 5*r)/((2 - r)*x + 5))^2, 2^3*3*5^3*y/((2 - r)*x + 5)^3, 1]>;
+g2:=map<C->F2|[-5*r*(5*r + 11)/2 * ((2-r)*x + 5)^2/(7*x + 10 - 5*r)^2,   2^3*3*5^3*(9*r + 10) * y/(7*x + 10 - 5*r)^3, 1]>;
+_,f:=IsIsomorphic(F1,F2);
+f;
+
 
 
 /***********************************/
