@@ -26,6 +26,12 @@ L<x,y>:=FunctionField(E2);
 iso1:=map<E2->E1 | [q*x, 2*y, 1]>;
 iso2:=map<E2->F2 | [-12*q^2*x - 30, 96*r*y, 1]>;
 
+x:=R.1;
+_,h1:=IsIsomorphic(F2, IsogenyFromKernel(F2,(x + 30)^2)); // cyclic order 3
+_,h2:=IsIsomorphic(F1, IsogenyFromKernel(F2,(x + 30)^2*(x^3 + 234*x^2 + 11340*x + 46008)^2)); // cyclic order 9
+_,h3:=IsIsomorphic(F1, IsogenyFromKernel(F2,(x - 18)^2)); // cyclic order 3
+
+// the isogeny degree-9 isogeny F2-->F1 is defined over Q, while the degree-3 isogeny requires r^2=-3.
 
 
 /***********************************/
