@@ -6,7 +6,7 @@ K<q,r>:=NumberField([x^3-4, x^2+3]);
 R<x>:=PolynomialRing(K);
 C:=HyperellipticCurve((x^3+1)*(4*x^3+1));
 
-// these curves are isogenous over Q(q,r)
+// these curves are isogenous; F1 and F2 are 9-isogenous over Q, and E1,E2,F2 are isomorphic over Q(q,r)
 E1:=EllipticCurve(x^3+4);
 E2:=EllipticCurve(x^3+1);
 F1:=EllipticCurve(x^3 + 150*x^2 - 180*x + 72);
