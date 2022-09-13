@@ -31,7 +31,7 @@ _,h1:=IsIsomorphic(F2, IsogenyFromKernel(F2,(x + 30)^2)); // cyclic order 3
 _,h2:=IsIsomorphic(F1, IsogenyFromKernel(F2,(x + 30)^2*(x^3 + 234*x^2 + 11340*x + 46008)^2)); // cyclic order 9
 _,h3:=IsIsomorphic(F1, IsogenyFromKernel(F2,(x - 18)^2)); // cyclic order 3
 
-// the isogeny degree-9 isogeny F2-->F1 is defined over Q, while the degree-3 isogeny requires r^2=-3.
+// the degree-9 isogeny F2-->F1 is defined over Q, while the degree-3 isogeny is defined over Q(r).
 
 
 /***********************************/
