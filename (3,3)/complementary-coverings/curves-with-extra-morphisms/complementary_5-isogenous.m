@@ -101,12 +101,28 @@ isog5:=map<E2->E1|[
   (-(t - 1)^6*(2*t - 11)^6*(19525536*t^7 - 486414261*t^6 + 966558244*t^5 - 2428404320*t^4 + 2893703760*t^3 - 3061281408*t^2 + 1980853248*t - 1084423552) + 10*(t - 1)^5*(2*t - 11)^5*(t^2 + 1)*(279936*t^5 - 9148615*t^4 + 11307640*t^3 - 24072520*t^2 + 17917680*t - 11027648)*x - 3*(t - 1)^4*(2*t - 11)^4*(t^2 + 1)*(50112*t^5 - 2507805*t^4 + 1619080*t^3 - 4726740*t^2 + 1955360*t - 1901216)*x^2 + 4*(t - 1)^3*(2*t - 11)^3*(t^2 + 1)^2*(896*t^3 - 87409*t^2 + 20812*t - 60822)*x^3 - (t - 1)^2*(2*t - 11)^2*(t^2 + 1)^2*(32*t^3 - 9683*t^2 + 484*t - 8044)*x^4 - 150*(t - 1)*(2*t - 11)*(t^2 + 1)^3*x^5 + (t^2 + 1)^3*x^6)*y/((t - 1)^3*(2*t - 11)^4*((t - 1)^2*(2*t - 11)^2*(621*t^2 + 44*t + 504) - 50*(t - 1)*(2*t - 11)*(t^2 + 1)*x + (t^2 + 1)*x^2)^3)
 ]>;
 
+
+/* A model of C on which an involution is given by (x,y)->(-x,y) is defined by x -> ((2*t - 1)*x + 1)/(x + 1).
+   Composing with (x,y)->(x^2,y) or (x,y)->(1/x^2,y/x^3) gives the compolementary degree-2 covering maps.
+   As it turns out, C covers 2-to-1 the same two curves that it covers 3-to-1.  */
+g1:=map<C->E1|[
+   -(2*(2*t + 1)*(t^2 + 1)*x^2 + (4*t^2 + 4*t + 7)*x + t + 2)/((t - 1)^2*(t^2 + 1)*((2*t - 1)*x + 1)^2),
+   (2*t - 11)*y/((t - 1)*(t^2 + 1)*((2*t - 1)*x + 1)^3)
+]>;
+g2:=map<C->E2|[
+   ((t - 1)*(2*t - 11)*(2*(t + 7)*(t^2 + 1)*x^2 + (56*t^2 - 31*t + 39)*x + 27*t^2 - 9*t + 14))/((t^2 + 1)*(x + 1)^2),
+   ((t - 1)^2*(2*t - 11)^3*y)/((t^2 + 1)*(x + 1)^3)
+]>;
+
+
 // the j-invariants of the two elliptic curves
-h:=hom<CoordinateRing(A2)->PolynomialRing(K)|[PolynomialRing(K).1, 0]>;
+R:=PolynomialRing(K);
+h:=hom<CoordinateRing(A2)->R|[R.1, 0]>;
 j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])/((t - 1)^6*(2*t - 11)*(t^2 + 1))));
 j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
 j1 eq 64*(t^2 + 114*t + 124)^3/(2*t - 11)^5;
 j2 eq 64*(t^2 - 6*t + 4)^3/(2*t - 11);
+
 
 
 /*******************************
@@ -134,8 +150,13 @@ f2:=map<C->A2|[
 // a 5-isogeny between the two elliptic curves
 isog5:=map<E2->E1|[ 1/(t^3+3)^10 * x^5 - t*(t^15 + t^9 + 3)/(t^3+3)^5, 1/(t^3+3)^15 * y^5 ]>;
 
+// degree-2 coverings to the same two elliptic curves
+C2:=map<A2->A2|[-2*x/(2 + t*x), y/(2 + t*x)^3]>(C);
+g1:=map<C2->E1|[-(t^6 + t^3 - 1)*x^2 - t*(t^3 + 3), 2*(t^2 + 3*t - 1)^2*(2*t-1)^2*y]>;
+g2:=map<C2->E2|[(t^3 + 3)^2/x^2 + t^8 + 2*t^5 + 2*t^2, (t^3 + 3)^3*y/x^3]>;
+
+// the j-invariants of the two elliptic curves
 h:=hom<Parent(x)->PolynomialRing(K)|[PolynomialRing(K).1,0]>;
 j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
 j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
-j2 eq 3*t^3/(t^3 + 3);
-j1 eq j2^5;
+j2 eq 3*t^3/(t^3 + 3) and j1 eq j2^5;
