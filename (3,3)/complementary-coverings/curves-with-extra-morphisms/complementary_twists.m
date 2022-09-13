@@ -47,6 +47,7 @@ j eq 27*(t - 3)^3*(t + 1)^3/t^3;
 K<q>:=ext<K|X^2 - (t^2 - 6*t - 3)>;
 A2<x,y>:=AffineSpace(K,2);
 R<X>:=PolynomialRing(K);
+h:=hom<CoordinateRing(A2)->R | [X,0]>;
 C:=Curve(A2, -y^2 + (4*t*x^3 + 3*(t + 1)*(t + 3)*x^2 + 12*t*(t + 1)*x + 4*t*(3*t + 1))*(4*(3*t + 1)*x^3 + 9*(t + 1)^2*x^2 + 6*(t + 1)*(3*t + 1)*x + (3*t + 1)^2));
 
 // an involution on C
@@ -56,8 +57,8 @@ inv:=map<C->C|[
 ]>;
 
 /* The composition f1∘inv is the same map as f2 post-composed with the isomorphism (x,y) |--> (x,q*y).
-   Note: if s is a K-rational parameter, we can set t:=-(s^2 + s + 1)/(2*s^2 + s) so that q:=(s^2+ 4*s + 1)/(2*s^2 + s)
-   to generate a 1-dimensional family of examples over K. */
+   Note: if s is a K-rational parameter, we can set t=-(s^2+3)/(2*(s+3)) so that q=-(s^2+6*s-3)/(2*(s+3)).
+   to generate a 1-dimensional family of examples over K, without extending to K(q). We can use this for purposes of interpolation over Q or Fp. */
 
 /* After applying an isomorphism, the extra involution becomes x->-x, so that degree-2 coverings becomes x->x^2 and x->1/x^2
    iso:=map<C->A2|[(1 - q + 4*t - 3*q*t + 3*t^2 + 4*x + 8*t*x)/(1 + 3*t + x - q*x + t*x), y/(1 + 3*t + x - q*x + t*x)^3]>;
@@ -81,17 +82,31 @@ F2:=Curve(A2, -(-3*(t - 3)*(3*t + 1)*(t^2 - 6*t - 3) - 3*q*(3*t + 1)*(t^2 - 6*t 
 g1:=map<C->F1|[6 * (3*t + 1 + (t + 1 - q)*x)^2/(3*t + 1 + (t + 1 + q)*x)^2, 8*(3*t+1) * y/(3*t + 1 + (t + 1 + q)*x)^3]>;
 g2:=map<C->F2|[6 * (3*t + 1 + (t + 1 + q)*x)^2/(3*t + 1 + (t + 1 - q)*x)^2, 8*(3*t+1) * y/(3*t + 1 + (t + 1 - q)*x)^3]>;
 
-/* F1 and F2 are 9-isogenous. The kernel polynomial of the isogeny F1->F2 when t=-(s^2 + s + 1)/(2*s^2 + s) and q=(s^2+ 4*s + 1)/(2*s^2 + s)
-   is given by
-   x^8 - 96*(s^2 + 2*s + 3)*(s^3 - 7*s^2 - 6*s - 9)*(s^2 + 4*s + 1)/s^7 * x^7
-       - 576*(s^2 + 2*s + 3)^2*(17*s^6 + 218*s^5 + 104*s^4 + 174*s^3 - 360*s^2 - 216*s - 324)*(s^2 + 4*s + 1)^2/s^14 * x^6
-       + 124416*(s^2 + 2*s + 3)^3*(9*s^8 + 19*s^7 - 214*s^6 - 555*s^5 - 1336*s^4 - 1544*s^3 - 1644*s^2 - 864*s - 432)*(s^2 + 4*s + 1)^3/s^20 * x^5
-       + 124416*(s^2 + 2*s + 3)^4*(49*s^10 + 5236*s^9 + 30880*s^8 + 77372*s^7 + 158096*s^6 + 203120*s^5 + 237480*s^4 + 183168*s^3 + 143424*s^2 + 62208*s + 31104)*(s^2 + 4*s + 1)^4/s^26 * x^4
-       - 5971968*(s^2 + 2*s + 3)^5*(509*s^11 + 6441*s^10 + 23586*s^9 + 43607*s^8 + 48048*s^7 - 25008*s^6 - 140488*s^5 - 299712*s^4 - 337248*s^3 - 304128*s^2 - 155520*s - 62208)*(s^2 + 4*s + 1)^5/s^31 * x^3
-       + 107495424*(s^2 + 2*s + 3)^6*(935*s^12 + 6914*s^11 + 13208*s^10 - 5434*s^9 - 92200*s^8 - 277912*s^7 - 448228*s^6 - 511360*s^5 - 300352*s^4 - 43776*s^3 + 183168*s^2 + 152064*s + 82944)*(s^2 + 4*s + 1)^6/s^36 * x^2
-       - 2579890176*(s - 4)*(s + 2)*(s^2 + 2*s + 3)^7*(37*s^4 + 78*s^3 + 156*s^2 + 116*s + 72)*(13*s^6 + 47*s^5 + 30*s^4 - 7*s^3 - 176*s^2 - 168*s - 144)*(s^2 + 4*s + 1)^7/s^40 * x
-       + (3869835264*(s - 4)^2*(s + 2)^2*(s^2 + 2*s + 3)^8*(37*s^4 + 78*s^3 + 156*s^2 + 116*s + 72)^2*(s^2 + 4*s + 1)^8)/s^44
-*/
+/* The elliptic curves F1 and F2 are 3-isogenous to E1 and E2, over K(q).  We give the kernel polynomials below.
+   Of course, E1 and E2 are isomorphic over K(q). */
+s := -q-t;
+p1 := (2*(s + 3)^2*(s^2 + 6*s - 3)*X + 5*s^5 - 15*s^4 + 18*s^3 - 54*s^2 + 9*s - 27)^2; // kernel of the 3-isogeny E1-->F1
+p2 := (2*(s^3 + 9*s^2 + 15*s - 9)*X + 2*s^5 - s^4 + 6*s^3 + 9)^2;                      // kernel of the 3-isogeny E1-->F2
+
+// E1 as an EllipticCurve over K(q)
+E1:=EllipticCurve(h(Basis(Ideal(E1))[1]));
+
+// F1 as an EllipticCurve over K(q)
+yCoeff:=Coefficient(Basis(Ideal(F1))[1],y,2);
+F1:=map<F1->A2|[-1/yCoeff*x, 1/yCoeff*y]>(F1);
+F1:=EllipticCurve(h(Basis(Ideal(F1))[1]));
+
+// F2 as an EllipticCurve over K(q)
+yCoeff:=Coefficient(Basis(Ideal(F2))[1],y,2);
+F2:=map<F2->A2|[-1/yCoeff*x, 1/yCoeff*y]>(F2);
+F2:=EllipticCurve(h(Basis(Ideal(F2))[1]));
+
+// We verify the isogenies defined by p1 and p2:
+IsIsomorphic(F1, IsogenyFromKernel(E1,p1)) and IsIsomorphic(F2, IsogenyFromKernel(E1,p2)) ;
+
+
+
+
 
 /***************************
  The family defined by Y1: To find a K-rational point and a suitable parametrization for Y1, we might have to extend the ground field.
