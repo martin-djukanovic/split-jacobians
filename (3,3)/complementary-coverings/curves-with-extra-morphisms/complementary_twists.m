@@ -102,8 +102,11 @@ F2:=map<F2->A2|[-1/yCoeff*x, 1/yCoeff*y]>(F2);
 F2:=EllipticCurve(h(Basis(Ideal(F2))[1]));
 
 // We verify the isogenies defined by p1 and p2:
-IsIsomorphic(F1, IsogenyFromKernel(E1,p1)) and IsIsomorphic(F2, IsogenyFromKernel(E1,p2)) ;
+IsIsomorphic(F1, IsogenyFromKernel(E1,p1)) and IsIsomorphic(F2, IsogenyFromKernel(E1,p2));
 
+// We verify the j-invariants of F1 and F2
+jInvariant(F1) eq  -3*(s-3)^3*(s^3-153*s^2+27*s-459)^3/(2*(s+3)^9*(s^2+3));
+jInvariant(F2) eq -27*(s+1)^3*(9*s^3+27*s^2+27*s+73)^3/(512*(s+3)*(s^2+3));
 
 
 
@@ -166,7 +169,7 @@ j eq 27*(t - 3)^3*(t + 1)^3/t^3;
 /* First we consider the family parametrized by X1, i.e. curves C with a degree-3 map C->E such that the complementary covering is
    obtained by pre-composing with an involution of C. This can all be obtained by everything reducing modulo 3 in the family defined
    by X1 in the general case. */
-K<t>:=FunctionField(GF(3));
+K<t>:=FunctionField(GF(3)); // K<s>:=FunctionField(GF(3)); t:=s^2;
 A2<x,y>:=AffineSpace(K,2);
 C:=Curve(A2, -y^2 + (x^3 + t*x^2 + t*x + t + 1)*((t + 1)*x^3 + t^2*x^2 - t*(t + 1)*x + (t + 1)^2));
 E:=Curve(A2, -y^2 + x^3 + t*x^2 + t*x + t + 1);
@@ -182,10 +185,29 @@ f2:=map<C->E|[
 // an involution on C, such that f2 = f1∘inv
 inv:=map<C->C|[ ((t + 1)*x)/(x - t - 1), y*(t + 1)^3/(x - t - 1)^3 ]>;
 
+// a model of C on which the involution is given by (x,y)->(-x,y)
+C2:=map<C->A2|[ t*x/(x-2*(t+1)), t^2*y/(x-2*(t+1))^3 ]>(C); 
+
+// complementary coverings of degree 2
+F1:=map<C2->A2|[-1/(t^3+1)*x^2, y/(t^3+1)]>(C2);
+F2:=map<C2->A2|[t^2/(t^3+1)/x^2, t/(t^3+1)*y/x^3]>(C2);
+
 R<X>:=PolynomialRing(K);
 h:=hom<CoordinateRing(A2)->R | [X,0]>;
-j:=jInvariant(EllipticCurve(h(Basis(Ideal(E))[1])));
-j eq t^3;
+F1:=EllipticCurve(h(Basis(Ideal(F1))[1]));
+F2:=EllipticCurve(h(Basis(Ideal(F2))[1]));
+E:=EllipticCurve(h(Basis(Ideal(E))[1]));
+j:=jInvariant(E);
+j1:=jInvariant(F1);
+j2:=jInvariant(F2);
+j eq t^3 and j1 eq t^9 and j2 eq t;
+
+// (-1,s) where s^2=t are points of order 3 on E and they define the kernel of an isogeny E-->F2
+F:=EllipticCurve(h(Basis(Ideal(F))[1]));
+G:=IsogenyFromKernel(E,(X+1)^2);
+IsIsomorphic(G,F2) and IsIsomorphic(F,F1);
+
+
 
 /* The family parametrized by Y1 behaves differently in characteristic 3 */
 C:=Curve(A2, -y^2 + (x^3 + t*x + 1)*(x^3 + t^2*x^2 - t*x + 1));
