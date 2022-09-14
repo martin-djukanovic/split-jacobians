@@ -65,9 +65,9 @@ PrimaryDecomposition(EliminationIdeal(I,5));
 */
 
 
-/**********************************
+/******************************
  CASE 1: SEPARABLE 5-ISOGENY
-/**********************************/
+/******************************/
 PP<a,b,c>:=WeightedProjectiveSpace(QQ,[1,2,3]);
 X5:=Scheme(PP, a^2*b^5 - 18*a*b^4*c - 28*a^2*b^2*c^2 + 85*b^3*c^2 + 4*a^3*c^3 + 468*a*b*c^3 - 2160*c^4);
 A1<t>:=AffineSpace(QQ,1);
@@ -129,34 +129,46 @@ j2 eq 64*(t^2 - 6*t + 4)^3/(2*t - 11);
  CASE 2: INSEPARABLE 5-ISOGENY
 /*******************************/
 K<t>:=FunctionField(GF(5));
+
+K<q>:=GF(5^6); t:=Random(K);
 A2<x,y>:=AffineSpace(K,2);
 C:=Curve(A2, -y^2 + (x^3 + t*x + 1)*(x^3 - t^2*x^2 + 3*t*x - 1));
-E1:=Curve(A2, - y^2 + x^3 + 3*t*x^2 + t^2*(t^3+3)*x + (t^3 + 3)^2);
-E2:=Curve(A2, - y^2 + x^3 + 2*t^2*(t^3 + 3)*x^2 + t*(t^3+3)^2*(t^3+2)^2*x + 3*(t^3+3)^3*(t^3+1)^3);
+E1:=Curve(A2, -y^2 + x^3 + 3*t*x^2 + t^2*(t^3+3)*x + (t^3 + 3)^2);
+E2:=Curve(A2, -y^2 + x^3 + 2*t^2*(t^3 + 3)*x^2 + t*(t^3+3)^2*(t^3+2)^2*x + 3*(t^3+3)^3*(t^3+1)^3);
 
 // an additional involution on C
 inv:=map<C->C|[ -x/(t*x + 1), y/(t*x + 1)^3 ]>;
 
 // the degree-3 maps to elliptic curves E1 and E2
 f1:=map<C->E1|[
-	-(t^3 + 3) * x^2/(x^3 + t*x + 1),
-	(t^3 + 3) * y*((x^3 - t*x + 3)/(x^3 + t*x + 1)^2)
+    -(t^3 + 3) * x^2/(x^3 + t*x + 1), 
+     (t^3 + 3) * y*((x^3 - t*x + 3)/(x^3 + t*x + 1)^2)
 ]>;
 f2:=map<C->A2|[
-	(t^3 + 3) * (t*x - 2)^2*((t^3 - 1)*x + t^2)/(x^3 - t^2*x^2 + 3*t*x - 1),
-	(t^3 + 3)^2 * y*((t^6 + t^3 - 1)*x^3 + t^2*(t^3 + 3)*x^2 + 2*t*(2*t^3 + 1)*x + 2*(2*t^3 + 1))/(x^3 - t^2*x^2 + 3*t*x - 1)^2
+    (t^3 + 3) * (t*x - 2)^2*((t^3 - 1)*x + t^2)/(x^3 - t^2*x^2 + 3*t*x - 1),
+    (t^3 + 3)^2 * y*((t^6 + t^3 - 1)*x^3 + t^2*(t^3 + 3)*x^2 + 2*t*(2*t^3 + 1)*x + 2*(2*t^3 + 1))/(x^3 - t^2*x^2 + 3*t*x - 1)^2
 ]>;
 
-// a 5-isogeny between the two elliptic curves
-isog5:=map<E2->E1|[ 1/(t^3+3)^10 * x^5 - t*(t^15 + t^9 + 3)/(t^3+3)^5, 1/(t^3+3)^15 * y^5 ]>;
 
-// degree-2 coverings to the same two elliptic curves
-C2:=map<A2->A2|[-2*x/(2 + t*x), y/(2 + t*x)^3]>(C);
-g1:=map<C2->E1|[-(t^6 + t^3 - 1)*x^2 - t*(t^3 + 3), 2*(t^2 + 3*t - 1)^2*(2*t-1)^2*y]>;
+// a separable 5-isogeny E1-->E2
+isog1:=map<E1->E2|[
+  -(t^3 + 3)*(((t^3 + 3)*x^5 + 3*t*x^4 - t^2*(t^3 + 3)^2*x^3 - t^3*(t^3 + 3)^2*x^2 - t*(t^3 + 3)^4*x + t^2*(t^3 + 3)^4)/(t*x^2 + 3*(t^3 + 3)^2)^2), 
+   (t^3 + 3)^3 * y * ((2*x^6 + 2*t^2*(t^3 + 3)*x^4 - (t^3 + 3)^2*x^3 + 3*t*(t^3 + 3)^3*x^2 - (t^3 + 3)^5)/(t*x^2 + 3*(t^3 + 3)^2)^3)
+]>;
+
+// and its inseparable dual 5-isogeny E2-->E1
+isog2:=map<E2->E1|[ 1/(t^3+3)^10 * x^5 - t*(t^15 + t^9 + 3)/(t^3+3)^5, 1/(t^3+3)^15 * y^5 ]>;
+
+
+// the degree-2 maps to the same two elliptic curves
+C2:=map<A2->A2|[-2*x/(t*x + 2), y/(t*x + 2)^3]>(C);
+g1:=map<C2->E1|[-(t^6 + t^3 - 1)*x^2 - t*(t^3 + 3), 2*(t^2 + 3*t - 1)^2*(2*t - 1)^2*y]>;
 g2:=map<C2->E2|[(t^3 + 3)^2/x^2 + t^8 + 2*t^5 + 2*t^2, (t^3 + 3)^3*y/x^3]>;
 
+
 // the j-invariants of the two elliptic curves
-h:=hom<Parent(x)->PolynomialRing(K)|[PolynomialRing(K).1,0]>;
+R:=PolynomialRing(K);
+h:=hom<Parent(x)->R|[R.1,0]>;
 j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
 j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
 j2 eq 3*t^3/(t^3 + 3) and j1 eq j2^5;
