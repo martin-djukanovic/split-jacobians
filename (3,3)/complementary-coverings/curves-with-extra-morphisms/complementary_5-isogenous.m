@@ -129,8 +129,6 @@ j2 eq 64*(t^2 - 6*t + 4)^3/(2*t - 11);
  CASE 2: INSEPARABLE 5-ISOGENY
 /*******************************/
 K<t>:=FunctionField(GF(5));
-
-K<q>:=GF(5^6); t:=Random(K);
 A2<x,y>:=AffineSpace(K,2);
 C:=Curve(A2, -y^2 + (x^3 + t*x + 1)*(x^3 - t^2*x^2 + 3*t*x - 1));
 E1:=Curve(A2, -y^2 + x^3 + 3*t*x^2 + t^2*(t^3+3)*x + (t^3 + 3)^2);
