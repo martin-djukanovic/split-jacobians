@@ -1,9 +1,9 @@
 function MyCurve(a,b)
-  // Check for basic errors and initialize the setup.
   K1 := Parent(a);
   K2 := Parent(b);
-  if a in Integers() then K1:=Rationals(); end if;
-  if b in Integers() then K2:=Rationals(); end if;
+  // Check for basic errors and initialize the setup.
+  if Type(a) eq RngIntElt then K1:=Rationals(); end if;
+  if Type(b) eq RngIntElt then K2:=Rationals(); end if;
   if IsField(K1) and IsField(K2) then
     if K1 eq K2 then
       K:=K1;
