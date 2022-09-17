@@ -7,7 +7,7 @@ function MyCurve(a,b)
   if IsField(K1) and IsField(K2) then
     if K1 eq K2 then
       K:=K1;
-    elif IsSubfield(K1,K2) then
+    elif IsSubfield(K1,K2) then  // this does not work as intended if e.g. K1 is FldNum and K2 is FldRat
       K:=K2;
     elif IsSubfield(K2,K1) then
       K:=K1;
@@ -38,6 +38,7 @@ function MyCurve(a,b)
   else
     L<w> := ext<K | x^2 + x + 1>;
   end if;
+  a:=L!a; b:=L!b;
   R<x> := PolynomialRing(K);
   if a eq 1/2 and b eq 1/2 then
     return HyperellipticCurve((x^3 + 6*x^2 + 9*x + 36)*(x^3 - 6*x^2 + 9*x - 36));
