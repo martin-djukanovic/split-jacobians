@@ -7,29 +7,34 @@ function MyCurve(a,b)
   if IsField(K1) and IsField(K2) then
     if K1 eq K2 then
       K:=K1;
-    elif IsSubfield(K1,K2) then  // this does not work as intended if e.g. K1 is FldNum and K2 is FldRat
-      K:=K2;
-    elif IsSubfield(K2,K1) then
-      K:=K1;
     else
-      print("Error: Bad input.");
-      return false;
+	e1:=false; e2:=false;
+	try
+	  if IsSubfield(K1,K2) then K:=K2; end if;
+	catch e
+	  e1:=true;
+	end try;
+	try
+	  if IsSubfield(K2,K1) then K:=K1; end if;
+	catch e
+	  e2:=true;
+	end try;
+	if e1 and e2 then
+	  error "Cannot compare fields: ", K1, " and ", K2;
+	end if;
     end if;
+  else	
+    error "Bad input type for parameters a and b ", "(", Type(a), ", ", Type(b), ")";
   end if;
   if a^3 + 1 eq 0 and b^3 + 1 eq 0 then
-    print("Error: The curves defined by both parameters are singular.");
-    return false;
+    error "The curves defined by both parameters are singular.";
   elif a^3 + 1 eq 0 then
-    print("Error: The curve defined by the first parameter is singular.");
-    return false;
+    error "The curve defined by the first parameter is singular.";
   elif b^3 + 1 eq 0 then
-    print("Error: The curve defined by the second parameter is singular.");
-    return false;
+    error "The curve defined by the second parameter is singular.";
   elif 3*a^2*b^2 + a^3 + b^3 - 3*a*b + 2 eq 0 then
-    print("Error: The 3-torsion isomorphism is induced by a 2-isogeny.");
-    return false;
+    error "The 3-torsion isomorphism is induced by a 2-isogeny.";
   end if;
-  
   R<x> := PolynomialRing(K);
   f := Factorization(x^2+x+1);
   if #f eq 2 then
