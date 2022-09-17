@@ -39,7 +39,7 @@ function MyCurve(a,b)
     L<w> := ext<K | x^2 + x + 1>;
   end if;
   a:=L!a; b:=L!b;
-  R<x> := PolynomialRing(K);
+  R<x> := PolynomialRing(L);
   if a eq 1/2 and b eq 1/2 then
     return HyperellipticCurve((x^3 + 6*x^2 + 9*x + 36)*(x^3 - 6*x^2 + 9*x - 36));
   elif (a eq 1/2*w and b eq 1/2*w^2) or (a eq 1/2*w^2 and b eq 1/2*w) then
