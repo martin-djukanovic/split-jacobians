@@ -5,6 +5,7 @@
   From the formulas in the Appendix, we have the following on E1 and E2:
   - the automorphism [-1] is given by [x : y : z] |--> [y : x : z]
   - translation by  P1=[-1 : 0 : 1] is given by   [x : y : z] |--> [y : z : x]
+  - translation by -P1=[0 : -1 : 1] is given by   [x : y : z] |--> [z : x : y]
   - translation by  P2=[-w : 1 : 0] is given by   [x : y : z] |--> [w^2*x : w*y : z]
   - translation by -P2=[-w^2 : 1 : 0] is given by [x : y : z] |--> [w*x : w^2*y : z]
 */
