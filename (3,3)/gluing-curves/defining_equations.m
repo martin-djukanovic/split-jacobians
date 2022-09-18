@@ -4,9 +4,9 @@
   E2: x^3 + y^3 + z^3 + t*x*y*z = 0
   From the formulas in the Appendix, we have the following on E1 and E2:
   - the automorphism [-1] is given by [x : y : z] |--> [y : x : z]
-  - translation by P1=[-1 : 0 : 1] is given by   [x : y : z] |--> [y : z : x]
-  - translation by P2=[-w : 1 : 0] is given by   [x : y : z] |--> [w^2*x : w*y : z]
-  - translation by P3=[-w^2 : 1 : 0] is given by [x : y : z] |--> [w*x : w^2*y : z]
+  - translation by  P1=[-1 : 0 : 1] is given by   [x : y : z] |--> [y : z : x]
+  - translation by  P2=[-w : 1 : 0] is given by   [x : y : z] |--> [w^2*x : w*y : z]
+  - translation by -P2=[-w^2 : 1 : 0] is given by [x : y : z] |--> [w*x : w^2*y : z]
 */
 
 R<x> := PolynomialRing(QQ);
@@ -37,7 +37,7 @@ A := Scheme(P8, [
 Hence on A we have:
 - the automorphism [-1] is given by  [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X5,X4,X6,X2,X1,X3,X8,X7,X9]
 - translation by (P1,P1) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X5,X6,X4,X8,X9,X7,X2,X3,X1]
-- translation by (P2,P3) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X1,w*X2,w^2*X3,w^2*X4,X5,w*X6,w*X7,w^2*X8,X9]
+- translation by (P2,-P2) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X1,w*X2,w^2*X3,w^2*X4,X5,w*X6,w*X7,w^2*X8,X9]
 - all three morphisms fix the hyperplane section X1 + X5 + X9 = 0
 - A[2] consists of the points fixed by [-1] so it is the union of the schemes
   S1 := Scheme(P8, [X1-X5, X2-X4, X3-X6, X7-X8]) meet A;
