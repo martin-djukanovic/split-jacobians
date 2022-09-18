@@ -75,14 +75,14 @@ function VerifyInvariants(a,b)
   ]);
 
   // The effective divisor on A that is linearly equivalent to 3Θ and fixed by [-1] and translation by A[3]
-  D := Scheme(P8, [ X1 + X5 + X9 ]) meet A;
+  D := Scheme(P8, [ X1 + X5 + X9 ]) meet A;  // or X2 + X4 + X9
 
   // points of A[2] that are the points of order 2 on E1 x {O} and {O} x E2, respectively
   E12 := Scheme(P8, [ 2*X5^3 + s*X5^2*X8 + X8^3, X1 + X5, X2 - X5, X3, X4 + X5, X6, X7 + X8, X9 ]);
   E22 := Scheme(P8, [ 2*X5^3 + t*X5^2*X6 + X6^3, X1 + X5, X2 + X5, X3 + X6, X4 - X5, X7, X8, X9 ]);
 
   // the composition A --> J=A/G --> J/[-1], followed by a projection that drops the first coordinate
-  q := map< P8 -> P2 | [ X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>;
+  q := map< P8 -> P2 | [ X2*X4 + X3*X7 + X6*X8, X2*X3 + X4*X6 + X7*X8, X2*X8 + X3*X6 + X4*X7 ]>; // or [X1*X3 + X5*X6 + X7*X8, X1*X7 + X3*X6 + X5*X8, X1*X5 + X3*X8 + X6*X7]
 
   // H is the conic that is the image of C in J/[-1], projected to IP^2
   H := q(D);
