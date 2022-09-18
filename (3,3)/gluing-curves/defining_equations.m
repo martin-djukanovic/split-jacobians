@@ -4,10 +4,10 @@
   E2: x^3 + y^3 + z^3 + t*x*y*z = 0
   From the formulas in the Appendix, we have the following on E1 and E2:
   - the automorphism [-1] is given by [x : y : z] |--> [y : x : z]
-  - translation by  P1=[-1 : 0 : 1] is given by   [x : y : z] |--> [y : z : x]
-  - translation by -P1=[0 : -1 : 1] is given by   [x : y : z] |--> [z : x : y]
-  - translation by  P2=[-w : 1 : 0] is given by   [x : y : z] |--> [w^2*x : w*y : z]
-  - translation by -P2=[-w^2 : 1 : 0] is given by [x : y : z] |--> [w*x : w^2*y : z]
+  - translation by  S=[-1 : 0 : 1] is given by   [x : y : z] |--> [y : z : x]
+  - translation by -S=[0 : -1 : 1] is given by   [x : y : z] |--> [z : x : y]
+  - translation by  T=[-w : 1 : 0] is given by   [x : y : z] |--> [w^2*x : w*y : z]
+  - translation by -T=[-w^2 : 1 : 0] is given by [x : y : z] |--> [w*x : w^2*y : z]
 */
 
 R<x> := PolynomialRing(QQ);
@@ -36,10 +36,20 @@ A := Scheme(P8, [
 
 /*
 Hence on A we have:
-- the automorphism [-1] is given by  [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X5,X4,X6,X2,X1,X3,X8,X7,X9]
-- translation by (P1,P1) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X5,X6,X4,X8,X9,X7,X2,X3,X1]
-- translation by (P2,-P2) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X1,w*X2,w^2*X3,w^2*X4,X5,w*X6,w*X7,w^2*X8,X9]
-- all three morphisms fix the hyperplane section X1 + X5 + X9 = 0
+- the automorphism [-1] is given by  [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X5, X4, X6, X2, X1, X3, X8, X7, X9]
+- translation by (S,S) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X5, X6, X4, X8, X9, X7, X2, X3, X1]
+- translation by (T,-T) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X1, w*X2, w^2*X3, w^2*X4, X5, w*X6, w*X7, w^2*X8 ,X9]
+- the latter two determine the subgroup G oF A[3] that is the graph of E1[3]-->E2[3] given by S |--> S and T |--> -T 
+- the action of G (via point translation) fixes hyperplanes defined by the linear forms:
+  X1+X5+X9, X3+X4+X8, X2+X6+X7, w*X1+w^2*X5+X9, w*X3+w^2*X4+X8, w*X2+w^2*X6+X7, w^2*X1+w*X5+X9, w^2*X3+w*X4+X8, w^2*X2+w*X6+X7
+- among these nine hyperplane section, the one defined by X1+X5+X9=0 is the one that is also fixed by [-1]
+
+- if we wish to glue via E1[3]-->E2[3] given by S |--> -S and T |--> T then we have the following:
+- translation by (S,-S) is given by [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [X6, X4, X5, X9, X7, X8, X3, X1, X2]
+- translation by (T,T) is given by  [X1,X2,X3,X4,X5,X6,X7,X8,X9] |--> [w X1, X2, w^2 X3, X4, w^2 X5, w X6, w^2 X7, w X8, X9]
+- these two fix the hyperplane sections defined by X2+X4+X9, w*X2+w^2*X4+X9, w^2*X2+w*X4+X9, X3+X5+X7, w*X3+w^2*X5+X7, w^2*X3+w*X5+X7, X1+X6+X8, w*X1+w^2*X6+X8, w^2*X1+w*X6+X8
+- the hyperplane section defined by X2+X4+X9 is the one that is also fixed by [-1]
+
 - A[2] consists of the points fixed by [-1] so it is the union of the schemes
   S1 := Scheme(P8, [X1-X5, X2-X4, X3-X6, X7-X8]) meet A;
   S2 := Scheme(P8, [X1+X5, X2+X4, X3+X6, X7+X8, X9]) meet A;
