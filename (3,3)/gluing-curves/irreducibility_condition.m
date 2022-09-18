@@ -17,8 +17,8 @@ I := ideal < R | [
   X3 - X6,
   X4 - X5,
   X7 - X8,
-  // equation that defines the effective divisor D, that is linearly equivalent to E1+E2, and fixed by [-1] and translation by A[3]
-  X1 + X5 + X9,
+  // equation that defines the effective divisor D, that is linearly equivalent to E1+E2, and fixed by [-1] and translation by G < A[3]
+  X1 + X5 + X9, // or X2 + X4 + X9
   // dehomogenize by setting X9=1 (none of the nine points lies on X9=0)
   X9*T - 1
 ]>;
