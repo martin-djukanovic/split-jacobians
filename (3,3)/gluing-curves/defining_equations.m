@@ -73,7 +73,7 @@ A23 := Scheme(P8, [
 ]);
 
 // the hyperplane section on A invariant under the actions of G and [-1]
-H1 := Scheme(P8, [ X1 + X5 + X9 ]);
+H1 := Scheme(P8, [ X1 + X5 + X9 ]);  // or X2 + X4 + X9 if G is the graph of the same isomorphism composed with [-1]
 D := H1 meet A;
 
 // D does not contain O, but it contains the order-2 points of E1 and E2 (embedded in A)
