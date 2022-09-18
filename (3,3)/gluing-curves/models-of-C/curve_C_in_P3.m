@@ -6,7 +6,7 @@ P2<X,Y,Z> := ProjectiveSpace(K,2);
 P8<X1,X2,X3,X4,X5,X6,X7,X8,X9> := ProjectiveSpace(K,8);
 P3<x1,x2,x3,x4> := ProjectiveSpace(K,3);
 
-D := Scheme(P8, [
+D := func<P|Scheme(P8, [
 	X3^3 + X6^3 + X9^3 + 3*a*X3*X6*X9,
 	X2^3 + X5^3 + X8^3 + 3*a*X2*X5*X8,
 	X1^3 + X4^3 + X7^3 + 3*a*X1*X4*X7,
@@ -22,8 +22,8 @@ D := Scheme(P8, [
 	X3*X5 - X2*X6,
 	X3*X4 - X1*X6,
 	X2*X4 - X1*X5,
-	X1 + X5 + X9
-]);
+	P
+])>;
 
 // This model of C is the intersection of a cubic F(x2,x3,x4) = 0 and a quadric x1^2 = G(x2,x3,x4). 
 // The hyperelliptic involution is given by x1 --> -x1.
@@ -52,17 +52,23 @@ C:=Scheme(P3, [
 
 // The (3,3)-isogeny E1 x E2 --> Jac(C), restricted to D, followed by an isomorphism.
 // Note that f is defined over Q and does not depend on a and b. This allowed us to determine C relatively easily, by interpolation.
-f:=map<D -> C | [
+f:=map<D(X1+X5+X9) -> C | [
 	2*((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),
 	2*((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
 	(w*X3 + w^2*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 + (w^2*X3 + w*X4 + X8)^3 - (w*X2 + w^2*X6 + X7)^3,
 	3/(w-w^2)*((w*X3 + w^2*X4 + X8)^3-(w^2*X2 + w*X6 + X7)^3 - (w^2*X3 + w*X4 + X8)^3 + (w*X2 + w^2*X6 + X7)^3)
 ]>;
 
-
 /* Where this map comes from: E1 x E2 --> (E1 x E2)/G is defined by the cubes of the linear forms that define
    the hyperplanes that are invariant under translation by the points of G. These are:
   (w*X1 + w^2*X5 + X9)^3, (w^2*X1 + w*X5 + X9)^3, (X3 + X4 + X8)^3, (X2 + X6 + X7)^3, (w*X3 + w^2*X4 + X8)^3
   (w^2*X2 + w*X6 + X7)^3, (w^2*X3 + w*X4 + X8)^3, (w*X2 + w^2*X6 + X7)^3, (X1 + X5 + X9)^3
-  Applying a suitable isomorphism and projecting to IP^3 leaves us with the definition of f above.
-*/
+  Applying a suitable isomorphism and projecting to IP^3 leaves us with the definition of f above. */
+  
+// When gluing along the E1[3]-->E2[3] determined by S |--> -S and T |--> -T we similarly have
+g:=map<D(X2+X4+X9) -> C | [
+	2*((w*X2 + w^2*X4 + X9)^3 + (w^2*X2 + w*X4 + X9)^3),
+	2*((X3 + X5 + X7)^3 - (X1 + X6 + X8)^3),
+	(w*X3 + w^2*X5 + X7)^3 - (w^2*X1 + w*X6 + X8)^3 + (w^2*X3 + w*X5 + X7)^3 - (w*X1 + w^2*X6 + X8)^3,
+	3/(w-w^2)*((w*X3 + w^2*X5 + X7)^3-(w^2*X1 + w*X6 + X8)^3 - (w^2*X3 + w*X5 + X7)^3 + (w*X1 + w^2*X6 + X8)^3)
+]>;
