@@ -1,5 +1,5 @@
-/* Here we determine by direct computation that if E1 and E2 are glued along the 3-torsion via an isomorphism E1[3]-->E2[3] that is induced by a 2-isogeny,
-   then the abelian surface so obtained is isomorphic to A = E1 x E2.  By G we mean the graph of the isomorphism E1[3]-->E2[3]. */
+/* Here we verify by direct computation that if E1 and E2 are glued along the 3-torsion via an isomorphism E1[3]-->E2[3] that is induced by a 2-isogeny,
+   then the abelian surface so obtained is isomorphic to A = E1 x E2. We denote by G the graph of the isomorphism E1[3]-->E2[3]. */
 R<x> := PolynomialRing(QQ);
 K<w> := ext<QQ|1+x+x^2>;
 K<t> := FunctionField(K);
@@ -85,7 +85,7 @@ D2 := Scheme(P8,[
 	X1 + X5 + X9
 ]);
 
-IsSubscheme(D1,D) and IsSubscheme(D2,D) and IsIrreducible(D1) and IsIrreducible(D2);
+Union(D1,D2) eq D and IsIrreducible(D1) and IsIrreducible(D2);
 P := P8![-2*t, 1, 1, -2*t^2, t, t, -2*t^2, t, t]; // one of 9 pts of the kernel of the isogeny A -> A/G
 P in D1 meet D2;
 
@@ -106,7 +106,7 @@ F2 := Curve(P2,[
 	- 72*t^5*(2*t + 1)^2*(t - 1)^4*Z^3
 ]);
 
-// the isogeny A -> A/G, followed by a projection to P2, resitricted to D1 (resp. D2); see models-of-C/curve_C_in_P3.m
+// the isogeny A -> A/G, followed by a projection to P2, restricted to D1 (resp. D2); see models-of-C/curve_C_in_P3.m
 f := map<D1->F1|[
 	2*((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),
 	2*((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
