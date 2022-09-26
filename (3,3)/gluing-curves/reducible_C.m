@@ -1,5 +1,6 @@
 /* Here we verify by direct computation that if E1 and E2 are glued along the 3-torsion via an isomorphism E1[3]-->E2[3] that is induced by a 2-isogeny,
    then the abelian surface so obtained is isomorphic to A = E1 x E2. We denote by G the graph of the isomorphism E1[3]-->E2[3]. */
+QQ:=Rationals();
 R<x> := PolynomialRing(QQ);
 K<w> := ext<QQ|1+x+x^2>;
 K<t> := FunctionField(K);
@@ -16,8 +17,10 @@ b := (1-4*t^3)/(3*t);
 E1 := Curve(P2, X^3 + Y^3 + Z^3 + 3*a*X*Y*Z);
 E2 := Curve(P2, X^3 + Y^3 + Z^3 + 3*b*X*Y*Z);
 
-// the reducible divisor on E1 x E2 that is fixed by translation by elements of G and by [-1], carved by the hyperplane X1 + X5 + X9 = 0
-D := Scheme(P8, [
+// T1=[t,t,1] generates the kernel of the isogeny f:E1->E2 and T2=[1,1,-2*t] generates the kernel of the dual f`:E2->E1.
+
+// the reducible divisor D=D1+D2 on E1 x E2 that is fixed by translation by elements of G and by [-1], carved by the hyperplane X1 + X5 + X9 = 0
+D := Curve(P8, [
 	X3^3 + X6^3 + X9^3 + 3*a*X3*X6*X9,
 	X2^3 + X5^3 + X8^3 + 3*a*X2*X5*X8,
 	X1^3 + X4^3 + X7^3 + 3*a*X1*X4*X7,
@@ -36,8 +39,8 @@ D := Scheme(P8, [
 	X1 + X5 + X9
 ]);
 
-// the two irreducible components of D
-D1 := Scheme(P8,[
+// this is the translation by (T1,T2) of the divisor consisting of points (P,f(P)) with P in E1
+D1 := Curve(P8,[
 	t*X4*X7^2 + t*X5*X8^2 + (-4*t^3 + 1)*X4*X8*X9 + t*X6*X9^2,
 	t*X7^3 + t*X8^3 + (-4*t^3 + 1)*X7*X8*X9 + t*X9^3,
 	t*X4*X7*X8 - t*X2*X8^2 + t*X7^2*X9 + (-4*t^3 + 1)*X5*X8*X9 - t*X3*X9^2 + (-4*t^3 + 1)*X8*X9^2,
@@ -61,7 +64,9 @@ D1 := Scheme(P8,[
 	X6*X8 - X5*X9,
 	X1 + X5 + X9
 ]);
-D2 := Scheme(P8,[
+
+// this is the translation by (T1,T2) of the divisor consisting of points (-f`(Q),Q) with Q in E2
+D2 := Curve(P8,[
 	-(4*t^3 - 1)*t*X2*X8*X9 + 2*t^4*X3*X6*X9 + (4*t^3 - 1)*t^2*X4*X6*X9 + (t^3 - 1)*X5*X9^2 - (4*t^3 - 1)*t^2*X7*X8*X9 - t^3*X8^3 + (2*t^3 - 1)*X9^3 + t*X2*X5*X8,
 	t*X2*X8^2 + t^2*X7*X8^2 + (2*t^3 - 1)*X5*X8*X9 + t*X3*X9^2 + t^2*X4*X9^2 + (2*t^3 - 1)*X8*X9^2, 
 	t*X2^2 + 2*t^3*X2*X6 + t^2*X6^2 - t^2*X5*X8 - X3*X9 - 2*t^2*X8*X9,
@@ -86,40 +91,34 @@ D2 := Scheme(P8,[
 ]);
 
 Union(D1,D2) eq D and IsIrreducible(D1) and IsIrreducible(D2);
-P := P8![-2*t, 1, 1, -2*t^2, t, t, -2*t^2, t, t]; // one of 9 pts of the kernel of the isogeny A -> A/G
-P in D1 meet D2;
+P:=P8![t, t, -2*t^2, t, t, -2*t^2, 1, 1, -2*t];		// this is the point (T1,T2)
+P in D1 meet D2; 	 // the intersection of D1 and D2 is G + (T1,T2)
 
-F1 := Curve(P2,[
-	(t - 1)^2*(4*t^2 - 2*t + 1)*(16*t^7 - 4*t^6 + 48*t^5 + 16*t^4 + 2*t^3 + 6*t^2 - 5*t + 2)*(2*t + 1)^4*X^2*Y
-	- 2*(t - 1)^4*(4*t^2 - 2*t + 1)*(2*t^3 + 6*t^2 + 1)*(2*t + 1)^6*X^2*Z
-	- 108*(t - 1)*t^4*(16*t^4 + 26*t^3 - 21*t^2 + 8*t - 2)*(2*t + 1)*Y^2*Z
-	+ 36*(t - 1)^3*t^4*(4*t - 1)*(8*t^2 - t + 2)*Y^3
-	+ 108*t^4*(8*t^4 + 10*t^3 + 12*t^2 - 5*t + 2)*(2*t + 1)^2*Y*Z^2
-	- 72*(t - 1)^2*t^4*(2*t + 1)^4*Z^3
-]);
-F2 := Curve(P2,[
-	(2*t + 1)^2*(t^2 + t + 1)*(32*t^7 + 40*t^6 + 24*t^5 - 4*t^4 + 16*t^3 - 24*t^2 - t - 2)*(t - 1)^4*X^2*Y
-	- 2*(2*t + 1)^4*(t^2 + t + 1)*(4*t^3 + 6*t - 1)*(t - 1)^6*X^2*Z
-	- 54*t^5*(2*t + 1)*(8*t^4 + 16*t^3 + 21*t^2 + 13*t - 4)*(t - 1)*Y^2*Z
-	+ 9*t^5*(t + 2)*(2*t + 1)^3*(4*t^2 + t + 4)*Y^3
-	+ 108*t^5*(8*t^4 + 10*t^3 + 12*t^2 - 5*t + 2)*(t - 1)^2*Y*Z^2
-	- 72*t^5*(2*t + 1)^2*(t - 1)^4*Z^3
-]);
 
-// the isogeny A -> A/G, followed by a projection to P2, restricted to D1 (resp. D2); see models-of-C/curve_C_in_P3.m
-f := map<D1->F1|[
-	2*((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),
-	2*((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
-	(w*X3 + w^2*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 + (w^2*X3 + w*X4 + X8)^3 - (w*X2 + w^2*X6 + X7)^3
+// the isogeny A -> A/G
+g := map<P8->P8|[
+        2*(X1+X5+X9)^3,
+	2*((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),   
+        3/(w-w^2)*((w*X1 + w^2*X5 + X9)^3 - (w^2*X1 + w*X5 + X9)^3),
+        2*((X3 + X4 + X8)^3 + (X2 + X6 + X7)^3),     
+        2*((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
+        (w*X3 + w^2*X4 + X8)^3 + (w^2*X3 + w*X4 + X8)^3 + (w^2*X2 + w*X6 + X7)^3 + (w*X2 + w^2*X6 + X7)^3,
+        (w*X3 + w^2*X4 + X8)^3 + (w^2*X3 + w*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 - (w*X2 + w^2*X6 + X7)^3,
+        3/(w-w^2)*((w*X3 + w^2*X4 + X8)^3 - (w^2*X3 + w*X4 + X8)^3 + (w*X2 + w^2*X6 + X7)^3 - (w^2*X2 + w*X6 + X7)^3),
+        3/(w-w^2)*((w*X3 + w^2*X4 + X8)^3 - (w^2*X3 + w*X4 + X8)^3 - (w*X2 + w^2*X6 + X7)^3 + (w^2*X2 + w*X6 + X7)^3)
 ]>;
-g := map<D2->F2|[
-	2*((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),
-	2*((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
-	(w*X3 + w^2*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 + (w^2*X3 + w*X4 + X8)^3 - (w*X2 + w^2*X6 + X7)^3
-]>;
+/* g is defined by linear combinations of 
+   (X1 + X5 + X9)^3, (w*X1 + w^2*X5 + X9)^3, (w^2*X1 + w*X5 + X9)^3,
+   (X3 + X4 + X8)^3, (w*X3 + w^2*X4 + X8)^3, (w^2*X3 + w*X4 + X8)^3,
+   (X2 + X6 + X7)^3, (w*X2 + w^2*X6 + X7)^3,  (w^2*X2 + w*X6 + X7)^3
+   The scalars can be chosen so that it is defined over QQ (or Fp in characteristic p), e.g. as above.
+*/
+F1:=g(D1);
+F2:=g(D2);
+Degree(F1 meet F2) eq 1;
 
 E1 := EllipticCurve(E1, P2![-1,1,0]);
 E2 := EllipticCurve(E2, P2![-1,1,0]);
-F1 := EllipticCurve(Curve(F1), f(P));
-F2 := EllipticCurve(Curve(F2), g(P));
+F1 := EllipticCurve(F1, g(P));
+F2 := EllipticCurve(F2, g(P));
 IsIsomorphic(E1,F1) and IsIsomorphic(E2,F2);
