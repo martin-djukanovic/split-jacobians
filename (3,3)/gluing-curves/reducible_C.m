@@ -119,6 +119,8 @@ Degree(F1 meet F2) eq 1;
 
 E1 := EllipticCurve(E1, P2![-1,1,0]);
 E2 := EllipticCurve(E2, P2![-1,1,0]);
+D1 := EllipticCurve(D1, P);
+D2 := EllipticCurve(D2, P);
 F1 := EllipticCurve(F1, g(P));
 F2 := EllipticCurve(F2, g(P));
-IsIsomorphic(E1,F1) and IsIsomorphic(E2,F2);
+IsIsomorphic(E1,F1) and IsIsomorphic(E2,F2) and IsIsomorphic(E1,D1) and IsIsomorphic(E2,D2);
