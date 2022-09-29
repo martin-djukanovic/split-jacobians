@@ -68,7 +68,7 @@ f;
 
 
 /***********************************/
-/********** Example 3.6 ************/
+/********** Example 3.5 ************/
 /***********************************/
 R<x>:=PolynomialRing(Rationals());
 K<q>:=NumberField(x^4-3/4);
@@ -97,12 +97,14 @@ jInvariant(F2);
 
 
 /***********************************/
-/********** Example 3.7 ************/
+/********** Example 3.6 ************/
 /***********************************/
 R<x>:=PolynomialRing(Rationals());
 C:=HyperellipticCurve(x*(2*x^2 + 4*x + 3)*(3*x^2 + 4*x + 2));
 E1:=EllipticCurve(x*(x^2 + 44*x + 486));
 E2:=EllipticCurve(x^3 - x^2 + x + 3);
+F1:=EllipticCurve(x^3 - 67/81*x^2 - 13/81*x - 1/81);
+F2:=EllipticCurve(x^3 - 13*x^2 + 67*x + 81);
 L<x,y>:=FunctionField(C);
 inv:=map<C->C | [1/x, y/x^3,1]>;
 f1:=map<C->E1 | [18*x^3/(3*x^2 + 4*x + 2), y*18*x*(3*x^2 + 8*x + 6)/(3*x^2 + 4*x + 2)^2, 1]>;
@@ -110,9 +112,15 @@ g1:=map<C->E1 | [18/(x*(2*x^2 + 4*x + 3)), y*18*(6*x^2 + 8*x + 3)/(x*(2*x^2 + 4*
 f2:=map<C->E2 | [(-2*x^3 + 4*x^2 + 5*x + 2)/(x*(2*x^2 + 4*x + 3)), y*2*(2*x+1)*(2*x^2+1)/(x^2*(2*x^2 + 4*x + 3)^2), 1]>; // this is f2
 g2:=map<C->E2 | [(2*x^3 + 5*x^2 + 4*x - 2)/(3*x^2 + 4*x + 2), y*2*(x+2)*(x^2+2)/(3*x^2 + 4*x + 2)^2, 1]>; // this is f2∘inv
 
+// the degree-2 covering maps induced by inv
+h1:=map<C->E1|[81/4*( (x+1)^2/(x-1)^2 - 1), 81*y/(x-1)^3, 1]>;
+h2:=map<C->E2|[-1/4*( (x-1)^2/(x+1)^2 + 3), y/(x+1)^3, 1]>;
+
+
+
 
 /***********************************/
-/********** Example 3.8 ************/
+/********** Example 3.7 ************/
 /***********************************/
 // the only case where j(E)=0 and C-->E has a single ramification point
 K:=Rationals();
@@ -128,7 +136,7 @@ f2:=map<C->E2 | [(x+2)^3/(8*x^3 + 9*x^2 + 12*x + 4), y*(x+2)*(13*x^2 + 4*x + 4)/
 
 
 /***********************************/
-/********** Example 3.9 ************/
+/********** Example 3.8 ************/
 /***********************************/
 // the only case where j(E1)=j(E2) and C-->E2 has a single ramification point and C-->E1 has two ramification points
 QQ:=Rationals();
