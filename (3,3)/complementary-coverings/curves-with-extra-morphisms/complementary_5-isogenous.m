@@ -85,6 +85,9 @@ E2:=Curve(A2, -y^2 + (t^2 + 1)*x^3 - 2*(t - 1)*(t + 32)*(2*t - 11)*(t^2 + 1)*x^2
 // an additional involution on C
 inv:=map<C->C | [-(t*x + 1)/((2*t - 1)*x + t), (t - 1)^3*y/((2*t - 1)*x + t)^3]>;
 
+// a simpler model of C; by removing (t-1) we get an additional curve
+map<A2->A2|[ (2*t*x - x + 1)/(x + 1),  8*y/(x + 1)^3]>(C);
+
 // the degree-3 maps to elliptic curves E1 and E2
 f1:=map<C->E1|[
   x^2/((t^2 + 1)*x^3 - (t - 4)*(t^2 + 1)*x^2 + 2*(t + 2)*x + 2),
@@ -147,6 +150,9 @@ E2:=Curve(A2, -y^2 + x^3 + 2*t^2*(t^3 + 3)*x^2 + t*(t^3+3)^2*(t^3+2)^2*x + 3*(t^
 
 // an additional involution on C
 inv:=map<C->C|[ -x/(t*x + 1), y/(t*x + 1)^3 ]>;
+
+// a simpler model for C
+map<A2->A2|[-t*(t*x+2)/(t*x), t^3*y/(t*x)^3]>(C);
 
 // the degree-3 maps to elliptic curves E1 and E2
 f1:=map<C->E1|[
