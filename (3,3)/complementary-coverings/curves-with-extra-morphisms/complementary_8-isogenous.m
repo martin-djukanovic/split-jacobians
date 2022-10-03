@@ -18,6 +18,8 @@ p:=map<A1->X8| [3*t^4 + 6*t^3 - 16*t^2 + 18*t + 5, (t - 1)*(t + 1)^5*(3*t^2 - 11
 // the point defined by the parameter t defines the following family up to isomorphism
 K<t>:=FunctionField(QQ);
 A2<x,y>:=AffineSpace(K,2);
+R<X>:=PolynomialRing(K);
+h:=hom<Parent(x)->R|[X,0]>;
 C:=Curve(A2,  -y^2 + ((t - 1)*x + t + 1)*((t + 1)^3*x^2 + 2*(t^3 + 2*t^2 - 9*t - 2)*x + (t + 1)*(t^2 + 7)) * (t^2 + 7 + 4*(t^2 - 1)*x)*((t^2 + 7)*x^2 + 2*(t^2 - 9)*x + t^2 + 7));
 E1:=Curve(A2, -y^2 + x^3 + 4*(3*t - 1)*(7*t^4 + 8*t^3 - 22*t^2 + 104*t + 31)*x^2 + 4*(t + 3)*(3*t - 1)^2*(3*t + 1)*(27*t^6 + 54*t^5 + 117*t^4 + 852*t^3 - 1339*t^2 + 1270*t + 299)*x + 256*(t + 3)^2*(3*t - 1)^6*(3*t + 1)^2*(t^2 + 7));
 E2:=Curve(A2, -y^2 + x^3 - (3*t - 1)*(21*t^4 + 78*t^3 + 272*t^2 - 126*t - 373)*x^2 + (t^2 - 1)*(3*t - 1)^2*(363*t^6 + 1380*t^5 + 4183*t^4 + 10912*t^3 + 15849*t^2 - 31364*t - 46379)*x - (t - 5)^3*(t - 1)^2*(t + 1)^2*(3*t - 1)^3*(7*t + 13)^3*(t^2 + 7));
@@ -50,11 +52,10 @@ F2:=Curve(A2, -2*(3*t - 1)*(t^2 + 7)*y^2 + (t - 1)^2*(t + 1)*(t + 3)*x^3 - 4*(t^
 H1:=map<F1->A2|[(3*t + 1)/((t - 1)*(3*t - 1)*(t^2 + 7))*x, (3*t + 1)/((t - 1)^2*(3*t - 1)*(t^2 + 7)*(t + 3))*y]>(F1);
 H2:=map<F2->A2|[(t^2 + 4*t + 3)/(6*t^3 - 2*t^2 + 42*t - 14)*x, 1/(t-1)*(t^2 + 4*t + 3)/(6*t^3 - 2*t^2 + 42*t - 14)*y]>(F2);
 
-H1:=EllipticCurve(h(Basis(Ideal(H1))[1]));
-H2:=EllipticCurve(h(Basis(Ideal(H2))[1]));
+H1:=EllipticCurve(h(Equation(H1)));
+H2:=EllipticCurve(h(Equation(H2)));
 K2,k2:=IsogenyFromKernel(H1, 2*(3*t - 1)*(t^2 + 7)*(t - 1)^2*X + (t + 1)*(3*t + 1));
 IsIsomorphic(K2,H2);
-
 
 
 // a simpler model of C on which the additional involutions are of the form (x,y)->(-x,y) and (x,y)->(-x,-y) and degree-2 maps to F1 and F2
@@ -83,10 +84,8 @@ isog3:=map<F1->F2|[
 
 
 // the j-invariants of the four elliptic curves
-R:=PolynomialRing(K);
-h:=hom<CoordinateRing(A2)->R|[R.1, 0]>;
-p1:=Basis(Ideal(E1))[1]; p2:=Basis(Ideal(E2))[1];
-p3:=Basis(Ideal(F1))[1]; p4:=Basis(Ideal(F2))[1];
+p1:=Equation(E1); p2:=Equation(E2);
+p3:=Equation(F1); p4:=Equation(F2);
 j1:=jInvariant(EllipticCurve(h(p1)));
 j2:=jInvariant(EllipticCurve(h(p2)));
 j3:=jInvariant(EllipticCurve(h(p3/Coefficient(p3,x,3))));
