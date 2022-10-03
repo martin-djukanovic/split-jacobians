@@ -7,7 +7,7 @@
     Jac(C) = (E1 x E2)/G, where G is the graph of the isomorphism E1[3] --> E2[3] that is the restriction of the
     said isogeny to the 3-torsion.
     
-    Therefore this is a 1-dimensional family of curves like those in Example 3.7.
+    Therefore this is a 1-dimensional family of curves like those in Example 3.6.
 
     This family can be found as follows. Since (generically), a genus-2 curve C with a (3,3)-split Jacobian admits a model y^2 = P(x)Q(x),
     where P(x)=x^3 + a*x^2 + b*x + c and Q(x)=4*c*x^3 + b^2*x^2 + 2*b*c*x + c^2, we look for curves with automorphisms that swap the roots
