@@ -106,7 +106,7 @@ isog1:=map<E2->E1|[
 
 // the dual 5-isogeny E1 --> E2 with kernel polynomial being the square of 5*(t^2 + 1)*(t - 1)^6*x^2 + 10*(t^2 + 1)*(t - 1)^3*x + 5*t^2 + 4 if char(K)!=5
 isog2:=map<E1->E2|[
-	((t - 1)*(2*t - 11)*((2*t - 11)^2*(t^2 + 1)^2*(t - 1)^15*x^5 + 20*(t^2 + 1)^2*(t^2 - 10*t + 56)*(t - 1)^12*x^4 + 10*(t^2 + 1)*(4*t^4 - 36*t^3 + 335*t^2 - 60*t + 338)*(t - 1)^9*x^3 + 20*(t^2 + 1)*(2*t^4 - 16*t^3 + 223*t^2 - 50*t + 208)*(t - 1)^6*x^2 + 5*(4*t^6 - 28*t^5 + 565*t^4 - 184*t^3 + 976*t^2 - 176*t + 400)*(t - 1)^3*x + 4*(t^6 - 6*t^5 + 171*t^4 - 62*t^3 + 244*t^2 - 80*t + 56)))/(5*(t^2 + 1)*(t - 1)^6*x^2 + 10*(t^2 + 1)*(t - 1)^3*x + 5*t^2 + 4)^2,
+    ((t - 1)*(2*t - 11)*((2*t - 11)^2*(t^2 + 1)^2*(t - 1)^15*x^5 + 20*(t^2 + 1)^2*(t^2 - 10*t + 56)*(t - 1)^12*x^4 + 10*(t^2 + 1)*(4*t^4 - 36*t^3 + 335*t^2 - 60*t + 338)*(t - 1)^9*x^3 + 20*(t^2 + 1)*(2*t^4 - 16*t^3 + 223*t^2 - 50*t + 208)*(t - 1)^6*x^2 + 5*(4*t^6 - 28*t^5 + 565*t^4 - 184*t^3 + 976*t^2 - 176*t + 400)*(t - 1)^3*x + 4*(t^6 - 6*t^5 + 171*t^4 - 62*t^3 + 244*t^2 - 80*t + 56)))/(5*(t^2 + 1)*(t - 1)^6*x^2 + 10*(t^2 + 1)*(t - 1)^3*x + 5*t^2 + 4)^2,
     ((t - 1)^3*(2*t - 11)^3*((2*t - 11)*(t^2 + 1)^3*(t - 1)^18*x^6 + 6*(2*t - 11)*(t^2 + 1)^3*(t - 1)^15*x^5 + (t^2 + 1)^2*(30*t^3 - 165*t^2 + 8*t - 144)*(t - 1)^12*x^4 + 4*(t^2 + 1)^2*(10*t^3 - 55*t^2 - 12*t - 46)*(t - 1)^9*x^3 + 3*(t^2 + 1)*(10*t^5 - 55*t^4 - 24*t^3 - 116*t^2 - 48*t - 64)*(t - 1)^6*x^2 + 2*(t^2 + 1)*(6*t^5 - 33*t^4 - 32*t^3 - 96*t^2 - 80*t - 80)*(t - 1)^3*x + 2*t^7 - 11*t^6 - 16*t^5 - 60*t^4 - 80*t^3 - 112*t^2 - 64*t - 64)*y)/(5*(t^2 + 1)*(t - 1)^6*x^2 + 10*(t^2 + 1)*(t - 1)^3*x + 5*t^2 + 4)^3
 ]>;  
 
@@ -130,14 +130,15 @@ g2:=map<C->E2|[
 // the j-invariants of the two elliptic curves
 R:=PolynomialRing(K);
 h:=hom<CoordinateRing(A2)->R|[R.1, 0]>;
-j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])/((t - 1)^6*(2*t - 11)*(t^2 + 1))));
-j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
+j1:=jInvariant(EllipticCurve(h(Equation(E1))/((t - 1)^6*(2*t - 11)*(t^2 + 1))));
+j2:=jInvariant(EllipticCurve(h(Equation(E2))/(t^2+1)));
 j1 eq 64*(t^2 + 114*t + 124)^3/(2*t - 11)^5;
 j2 eq 64*(t^2 - 6*t + 4)^3/(2*t - 11);
 
 
 /*****************************************************************************************************/
 /* A simplified model on which the involution is (x,y)|-->(-x,y); this is a (t-1) twist of the above */
+/*****************************************************************************************************/
 R<x>:=PolynomialRing(K);
 C:=HyperellipticCurve(x^6 + (-4*t^2 + 12*t + 5)*x^4 + (8*t^2 + 72*t - 13)*x^2 - (2*t - 11)^2);
 E1:=EllipticCurve(x^3 + 2*(3*t - 14)*(t^2 + 1)*x^2 + (2*t - 11)*(t^2 + 1)*(6*t^3 - 23*t^2 + 10*t - 20)*x + 2*(2*t - 11)^2*(t^2 + 1)^2*(t - 1)^3);
@@ -180,7 +181,7 @@ f2:=map<C->A2|[
 ]>;
 
 
-// a separable 5-isogeny E1-->E2
+// a separable 5-isogeny E1-->E2 (unless t=0)
 isog1:=map<E1->E2|[
   -(t^3 + 3)*(((t^3 + 3)*x^5 + 3*t*x^4 - t^2*(t^3 + 3)^2*x^3 - t^3*(t^3 + 3)^2*x^2 - t*(t^3 + 3)^4*x + t^2*(t^3 + 3)^4)/(t*x^2 + 3*(t^3 + 3)^2)^2), 
    (t^3 + 3)^3 * y * ((2*x^6 + 2*t^2*(t^3 + 3)*x^4 - (t^3 + 3)^2*x^3 + 3*t*(t^3 + 3)^3*x^2 - (t^3 + 3)^5)/(t*x^2 + 3*(t^3 + 3)^2)^3)
@@ -199,6 +200,15 @@ g2:=map<C2->E2|[(t^3 + 3)^2/x^2 + t^8 + 2*t^5 + 2*t^2, (t^3 + 3)^3*y/x^3]>;
 // the j-invariants of the two elliptic curves
 R:=PolynomialRing(K);
 h:=hom<Parent(x)->R|[R.1,0]>;
-j1:=jInvariant(EllipticCurve(h(Basis(Ideal(E1))[1])));
-j2:=jInvariant(EllipticCurve(h(Basis(Ideal(E2))[1])));
+j1:=jInvariant(EllipticCurve(h(Equation(E1))));
+j2:=jInvariant(EllipticCurve(h(Equation(E2))));
 j2 eq 3*t^3/(t^3 + 3) and j1 eq j2^5;
+
+
+// We verify that this family contains only one new case
+K<t>:=FunctionField(GF(5));
+R<x>:=PolynomialRing(K);
+C1:=func<t|HyperellipticCurve(x^6 - (4*t^2 - 12*t - 5)*x^4 + (8*t^2 + 72*t - 13)*x^2 - (2*t - 11)^2)>;
+C2:=func<t|HyperellipticCurve(x^6 + 2*t^2*x^4 + t*(3*t^3 + 1)*x^2 - (t^3 + 3)^2)>;
+IsIsomorphic(C1(2*(t^3 + 2)/(t^3 + 3)), C2(t)); // the exception is t=0, for which C1 has a finite singularity but C2 is y^2=x^6+1
+
