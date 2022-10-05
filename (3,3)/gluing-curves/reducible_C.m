@@ -124,3 +124,50 @@ D2 := EllipticCurve(D2, P);
 F1 := EllipticCurve(F1, g(P));
 F2 := EllipticCurve(F2, g(P));
 IsIsomorphic(E1,F1) and IsIsomorphic(E2,F2) and IsIsomorphic(E1,D1) and IsIsomorphic(E2,D2);
+
+
+
+/************* below we verify that D1 and D2 are as claimed *************/
+// translation by (T1,T2)
+tr:=map<P8->P8|[
+    2*t^3*X2*X8 + t^2*X3*X7 - t*X4*X6 - 2*t^2*X5^2,
+    2*t^3*X1*X7 + t^2*X3*X8 - 2*t^2*X4^2 - t*X5*X6,
+    4*t^4*X2*X7 - t^2*X3*X9 - 4*t^3*X4*X5 + t*X6^2,
+    -t*X1*X3 - 2*t^2*X2^2 + 2*t^3*X5*X8 + t^2*X6*X7,
+    -2*t^2*X1^2 - t*X2*X3 + 2*t^3*X4*X7 + t^2*X6*X8,
+    -4*t^3*X1*X2 + t*X3^2 + 4*t^4*X5*X7 - t^2*X6*X9,
+    2*t*X2*X5 + X3*X4 - t^2*X7*X9 - 2*t^3*X8^2,
+    2*t*X1*X4 + X3*X5 - 2*t^3*X7^2 - t^2*X8*X9,
+    4*t^2*X2*X4 - X3*X6 - 4*t^4*X7*X8 + t^2*X9^2
+]>;
+
+// the map (P,Q)|-->(P,f(P))
+PfP:=map<P8->P8|[
+  X2^2*(t^2*X1^2 - t^2*X1*X4 - 2*t^2*X4^2 + 2*t^3*X1*X7 - X4*X7 + t*X7^2), 
+  -X2*(2*t^2*X1*X2*X4 + t^2*X2*X4^2 - t^2*X4^2*X5 + X2*X4*X7 - 2*t^3*X4*X5*X7 - t*X5*X7^2), 
+  -t*X2*X7*((-X1)*X2 - 2*X2*X4 - X4*X5 + t*X2*X7 + t*X5*X7 + 2*t^2*X7*X8), 
+  X2*(t^2*X1*X2*X4 - t^2*X2*X4^2 - 2*t^2*X4^2*X5 + 2*t^3*X2*X4*X7 - X4*X5*X7 + t*X5*X7^2), 
+  -2*t^2*X2^2*X4^2 - t^2*X2*X4^2*X5 + t^2*X4^2*X5^2 - X2*X4*X5*X7 + 2*t^3*X4*X5^2*X7 + t*X5^2*X7^2,
+  -t*X7*(-X2^2*X4 - 2*X2*X4*X5 - X4*X5^2 + t*X2*X5*X7 + t*X5^2*X7 + 2*t^2*X5*X7*X8),
+  X2*X7*(t^2*X1*X2 - t^2*X2*X4 - 2*t^2*X4*X5 + 2*t^3*X2*X7 - X5*X7 + t*X7*X8), 
+  X7*(-2*t^2*X2^2*X4 - t^2*X2*X4*X5 + t^2*X4*X5^2 - X2*X5*X7 + 2*t^3*X5^2*X7 + t*X5*X7*X8), 
+  -t*X7^2*(X2 + X5 + t*X8)*(-X2 - X5 + 2*t*X8)
+]>;
+
+// the map (P,Q)|-->(-f`(Q),Q)
+fQQ:=map<P8->P8|[
+  X4*(t*X4^2*X5 + 2*t*X4*X5^2 + t*X5^3 + X4^2*X6 + X4*X5*X6 + 2*t^2*X4*X6^2 + t*X6^3), 
+  X5*(t*X4^2*X5 + 2*t*X4*X5^2 + t*X5^3 + X4^2*X6 + X4*X5*X6 + 2*t^2*X4*X6^2 + t*X6^3), 
+  X6*(t*X4^2*X5 + 2*t*X4*X5^2 + t*X5^3 + X4^2*X6 + X4*X5*X6 + 2*t^2*X4*X6^2 + t*X6^3), 
+  X4*(t*X4^3 + 2*t*X4^2*X5 + t*X4*X5^2 + X4*X5*X6 + X5^2*X6 + 2*t^2*X5*X6^2 + t*X6^3), 
+  X5*(t*X4^3 + 2*t*X4^2*X5 + t*X4*X5^2 + X4*X5*X6 + X5^2*X6 + 2*t^2*X5*X6^2 + t*X6^3), 
+  X6*(t*X4^3 + 2*t*X4^2*X5 + t*X4*X5^2 + X4*X5*X6 + X5^2*X6 + 2*t^2*X5*X6^2 + t*X6^3), 
+  X4*(2*t*X4 + 2*t*X5 - X6)*X6*(t*X4 + t*X5 + X6), X5*(2*t*X4 + 2*t*X5 - X6)*X6*
+  (t*X4 + t*X5 + X6), (2*t*X4 + 2*t*X5 - X6)*X6^2*(t*X4 + t*X5 + X6)
+]>;
+
+// the curves E1 and E2 as divisors on E1 x E2
+E1:=Curve(P8,[X1+X2, X4+X5, X7+X8, X3, X6, X9, X2^3 + X5^3 + X8^3 + 3*a*X2*X5*X8 ]);
+E2:=Curve(P8,[X1+X4, X2+X5, X3+X6, X7, X8, X9, X4^3 + X5^3 + X6^3 + 3*b*X4*X5*X6 ]);
+PfP(E1) eq tr(D1);
+fQQ(E2) eq tr(D2);
