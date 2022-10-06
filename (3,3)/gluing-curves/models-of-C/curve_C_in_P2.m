@@ -5,24 +5,8 @@ function MyCurve(a,b)
   if Type(a) eq RngIntElt then K1:=Rationals(); end if;
   if Type(b) eq RngIntElt then K2:=Rationals(); end if;
   if IsField(K1) and IsField(K2) then
-    if K1 eq K2 then
-      K:=K1;
-    else
-	e1:=false; e2:=false;
-	try
-	  if IsSubfield(K1,K2) then K:=K2; end if;
-	catch e
-	  e1:=true;
-	end try;
-	try
-	  if IsSubfield(K2,K1) then K:=K1; end if;
-	catch e
-	  e2:=true;
-	end try;
-	if e1 and e2 then
-	  error "Cannot compare fields: ", K1, " and ", K2;
-	end if;
-    end if;
+    if a in K1 and b in K1 then K:=K1; end if;
+    if a in K2 and b in K2 then K:=K2; end if;
   else	
     error "Bad input type for parameters a and b ", "(", Type(a), ", ", Type(b), ")";
   end if;
