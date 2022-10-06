@@ -82,6 +82,12 @@ A23 := Scheme(P8, [
   X7 - X8
 ]);
 
+// Divisors E1, E2, E1 + E2 and 3(E1+E2)
+E1 := Scheme(P8, [X1^3 + X4^3 + X7^3 + s*X1*X4*X7, X3, X6, X9, X1 + X2, X4 + X5, X7 + X8]);
+E2 := Scheme(P8, [X1^3 + X2^3 + X3^3 + t*X1*X2*X3, X7, X8, X9, X1 + X4, X2 + X5, X3 + X6]);
+Th := Scheme(P8, [X1+X2+X4+X5, X3+X6, X7+X8, X9]) meet A;
+Th3 := Scheme(P8,[X1 + X2 + X4 + X5 - a*(X3 + X6) - b*(X7 + X8) + a*b*X9]) meet A;
+
 // the hyperplane section on A invariant under the actions of G and [-1]
 H1 := Scheme(P8, [ X1 + X5 + X9 ]);  // or X2 + X4 + X9 if G is the graph of the same isomorphism composed with [-1]
 D := H1 meet A;
