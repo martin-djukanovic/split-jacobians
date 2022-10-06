@@ -5,8 +5,13 @@ function MyCurve(a,b)
   if Type(a) eq RngIntElt then K1:=Rationals(); end if;
   if Type(b) eq RngIntElt then K2:=Rationals(); end if;
   if IsField(K1) and IsField(K2) then
-    if a in K1 and b in K1 then K:=K1; end if;
-    if a in K2 and b in K2 then K:=K2; end if;
+    if a in K1 and b in K1 then 
+    	K:=K1;
+    elif a in K2 and b in K2 then
+    	K:=K2;
+    else
+      error "Parameters a and b should be in the same field.";
+    end if;
   else	
     error "Bad input type for parameters a and b ", "(", Type(a), ", ", Type(b), ")";
   end if;
