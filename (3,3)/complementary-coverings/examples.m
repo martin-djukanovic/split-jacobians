@@ -68,7 +68,7 @@ f;
 
 
 /***********************************/
-/********** Example 3.5 ************/
+/********** Example 3.4 ************/
 /***********************************/
 R<x>:=PolynomialRing(Rationals());
 K<q>:=NumberField(x^4-3/4);
@@ -97,7 +97,7 @@ jInvariant(F2);
 
 
 /***********************************/
-/********** Example 3.6 ************/
+/********** Example 3.5 ************/
 /***********************************/
 R<x>:=PolynomialRing(Rationals());
 C:=HyperellipticCurve(x*(2*x^2 + 4*x + 3)*(3*x^2 + 4*x + 2));
@@ -120,17 +120,34 @@ h2:=map<C->E2|[-1/4*( (x-1)^2/(x+1)^2 + 3), y/(x+1)^3, 1]>;
 
 
 /***********************************/
-/********** Example 3.7 ************/
+/********** Example 3.6 ************/
 /***********************************/
 // the only case where j(E)=0 and C-->E has a single ramification point
-K:=Rationals();
-R<x>:=PolynomialRing(K);
+QQ:=Rationals();
+R<x>:=PolynomialRing(QQ);
 C:=HyperellipticCurve((x+2)*(x^2+x+1)*(8*x^3 + 9*x^2 + 12*x + 4));
 E1:=EllipticCurve(x^3 + 6*x^2 + 21*x + 8);
 E2:=EllipticCurve(x*(x^2 - 3*x + 3));
 L<x,y>:=FunctionField(C);
 f1:=map<C->E1 | [-3*x^2/((x+2)*(x^2+x+1)), y*(x^3-3*x-4)/((x+2)*(x^2+x+1))^2, 1]>;
 f2:=map<C->E2 | [(x+2)^3/(8*x^3 + 9*x^2 + 12*x + 4), y*(x+2)*(13*x^2 + 4*x + 4)/(8*x^3 + 9*x^2 + 12*x + 4)^2, 1]>; //triply ramified at x=-2
+[jInvariant(E1), jInvariant(E2)];
+
+
+
+
+/***********************************/
+/********** Example 3.7 ************/
+/***********************************/
+// the only case where j(E)=1728 and C-->E has a single ramification point, but the complement C-->E' does not
+QQ:=Rationals();
+R<x>:=PolynomialRing(QQ);
+C:=HyperellipticCurve((x - 2)*(x + 1)*(2*x - 1)*(16*x^3 + 9*x^2 - 12*x + 4));
+E1:=EllipticCurve(x^3 + 6*x^2 + 9*x + 8);
+E2:=EllipticCurve(x^3 + 9*x^2 + 18*x);
+L<x,y>:=FunctionField(C);
+f1:=map<C->E1|[	(9*x^2)/((x - 2)*(x + 1)*(2*x - 1)), ((2*x^3 + 3*x - 4)*y)/((x - 2)^2*(x + 1)^2*(2*x - 1)^2), 1]>;
+f2:=map<C->E2|[	(2*(x - 2)^3)/(16*x^3 + 9*x^2 - 12*x + 4),  (2*((x - 2)*(5*x + 2)*(7*x - 2)*y))/(16*x^3 + 9*x^2 - 12*x + 4)^2, 1]>;
 [jInvariant(E1), jInvariant(E2)];
 
 
