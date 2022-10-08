@@ -9,6 +9,8 @@
    of a and b), verifying the formula given by ComputedInvariants(a,b) is correct for sufficiently many cases proves their correctness.
 */
 
+QQ:=Rationals();
+
 // dehomogenize a homogeneous polynomial
 function Dehomogenize(f)
   S := Parent(f);
@@ -59,14 +61,11 @@ end function;
 
 function VerifyInvariants(a,b)
   if a^3 + 1 eq 0 then
-    print("Error: The curve defined by the first parameter is singular.");
-    return false;
+    error "The curve defined by the first parameter is singular.";
   elif b^3 + 1 eq 0 then
-    print("Error: The curve defined by the second parameter is singular.");
-    return false;
+    error "The curve defined by the second parameter is singular.";
   elif 3*a^2*b^2 + a^3 + b^3 - 3*a*b + 2 eq 0 then
-    print("Error: The 3-torsion isomorphism is induced by a 2-isogeny.");
-    return false;
+    error "The 3-torsion isomorphism is induced by a 2-isogeny.";
   end if;
 
   // parameters defining E1: x^3 + y^3 + z^3 + s x y z = 0 and E2: x^3 + y^3 + z^3 + t x y z = 0
