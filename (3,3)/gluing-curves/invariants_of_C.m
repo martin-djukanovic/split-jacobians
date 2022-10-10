@@ -55,7 +55,7 @@ function ComputedIgusaInvariants(a,b)
 end function;
 
 function IgusaToAbsolute(L)
-    J2:=L[1]; J4:=L[2]; J6:=L[3]; J8:=L[4]; J10:=L[6];
+    J2:=L[1]; J4:=L[2]; J6:=L[3]; J8:=L[4]; J10:=L[5];
     return [J2^5/J10, J2^3*J4/J10, J2^2*J6/J10, J2*J8/J10, J4*J6/J10, J4*J8^2/J10^2, J6^2*J8/J10^2, J6^5/J10^3, J6*J8^3/J10^3, J8^5/J10^4];
 end function;
 
