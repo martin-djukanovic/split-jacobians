@@ -76,14 +76,14 @@ g:=map<D(X2+X4+X9) -> C | [
   Applying a suitable isomorphism and projecting to IP^3 leaves us with the definition of f above;
   e.g. 
   isog:=map<P8->P8|[
-        // these four give hyperplanes
+        // hyperplanes
 	(X1 + X5 + X9)^3,
 	((X3 + X4 + X8)^3 + (X2 + X6 + X7)^3),
 	1/(w-w^2)*((w*X3 + w^2*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 - (w^2*X3 + w*X4 + X8)^3 + (w*X2 + w^2*X6 + X7)^3),
 	1/(w-w^2)*((w*X3 + w^2*X4 + X8)^3 - (w^2*X3 + w*X4 + X8)^3 + (w^2*X2 + w*X6 + X7)^3 - (w*X2 + w^2*X6 + X7)^3),
-	1/(w-w^2)*((w*X1 + w^2*X5 + X9)^3 - (w^2*X1 + w*X5 + X9)^3),
 	
-	// these five give four quadrics
+	// quadrics
+	1/(w-w^2)*((w*X1 + w^2*X5 + X9)^3 - (w^2*X1 + w*X5 + X9)^3),
 	((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),
 	((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
 	(w*X3 + w^2*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 + (w^2*X3 + w*X4 + X8)^3 - (w*X2 + w^2*X6 + X7)^3,
