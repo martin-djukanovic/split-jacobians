@@ -59,12 +59,6 @@ f:=map<D(X1+X5+X9) -> C | [
 	3/(w-w^2)*((w*X3 + w^2*X4 + X8)^3-(w^2*X2 + w*X6 + X7)^3 - (w^2*X3 + w*X4 + X8)^3 + (w*X2 + w^2*X6 + X7)^3)
 ]>;
 
-/* Where this map comes from: E1 x E2 --> (E1 x E2)/G is defined by the cubes of the linear forms that define
-   the hyperplanes that are invariant under translation by the points of G. These are:
-  (w*X1 + w^2*X5 + X9)^3, (w^2*X1 + w*X5 + X9)^3, (X3 + X4 + X8)^3, (X2 + X6 + X7)^3, (w*X3 + w^2*X4 + X8)^3
-  (w^2*X2 + w*X6 + X7)^3, (w^2*X3 + w*X4 + X8)^3, (w*X2 + w^2*X6 + X7)^3, (X1 + X5 + X9)^3
-  Applying a suitable isomorphism and projecting to IP^3 leaves us with the definition of f above. */
-  
 // When gluing along the E1[3]-->E2[3] determined by S |--> -S and T |--> -T we similarly have
 g:=map<D(X2+X4+X9) -> C | [
 	2*((w*X2 + w^2*X4 + X9)^3 + (w^2*X2 + w*X4 + X9)^3),
@@ -72,3 +66,29 @@ g:=map<D(X2+X4+X9) -> C | [
 	(w*X3 + w^2*X5 + X7)^3 - (w^2*X1 + w*X6 + X8)^3 + (w^2*X3 + w*X5 + X7)^3 - (w*X1 + w^2*X6 + X8)^3,
 	3/(w-w^2)*((w*X3 + w^2*X5 + X7)^3-(w^2*X1 + w*X6 + X8)^3 - (w^2*X3 + w*X5 + X7)^3 + (w*X1 + w^2*X6 + X8)^3)
 ]>;
+
+
+/****************************************************************************************************************************
+   Where this map comes from: E1 x E2 --> (E1 x E2)/G is defined by the cubes of the linear forms that define
+   the hyperplanes that are invariant under translation by the points of G. These are:
+  (w*X1 + w^2*X5 + X9)^3, (w^2*X1 + w*X5 + X9)^3, (X3 + X4 + X8)^3, (X2 + X6 + X7)^3, (w*X3 + w^2*X4 + X8)^3
+  (w^2*X2 + w*X6 + X7)^3, (w^2*X3 + w*X4 + X8)^3, (w*X2 + w^2*X6 + X7)^3, (X1 + X5 + X9)^3
+  Applying a suitable isomorphism and projecting to IP^3 leaves us with the definition of f above;
+  e.g. 
+  isog:=map<P8->P8|[
+        // these four give hyperplanes
+	(X1 + X5 + X9)^3,
+	((X3 + X4 + X8)^3 + (X2 + X6 + X7)^3),
+	1/(w-w^2)*((w*X3 + w^2*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 - (w^2*X3 + w*X4 + X8)^3 + (w*X2 + w^2*X6 + X7)^3),
+	1/(w-w^2)*((w*X3 + w^2*X4 + X8)^3 - (w^2*X3 + w*X4 + X8)^3 + (w^2*X2 + w*X6 + X7)^3 - (w*X2 + w^2*X6 + X7)^3),
+	1/(w-w^2)*((w*X1 + w^2*X5 + X9)^3 - (w^2*X1 + w*X5 + X9)^3),
+	
+	// these five give four quadrics
+	((w*X1 + w^2*X5 + X9)^3 + (w^2*X1 + w*X5 + X9)^3),
+	((X3 + X4 + X8)^3 - (X2 + X6 + X7)^3),
+	(w*X3 + w^2*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 + (w^2*X3 + w*X4 + X8)^3 - (w*X2 + w^2*X6 + X7)^3,
+	1/(w-w^2)*((w*X3 + w^2*X4 + X8)^3 - (w^2*X3 + w*X4 + X8)^3 - (w^2*X2 + w*X6 + X7)^3 + (w*X2 + w^2*X6 + X7)^3)
+  ]>;
+  Dropping the first five coordinates gives the intersection of a cubic and a quadric in P3, which is birational to isog(D).
+****************************************************************************************************************************/
+ 
