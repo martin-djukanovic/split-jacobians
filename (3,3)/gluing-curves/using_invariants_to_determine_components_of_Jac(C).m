@@ -7,7 +7,7 @@ function HasSplitJac33(C)
     ic := IgusaClebschInvariants(C);
     /* We equate, up to multiplication by a non-zero scalar u with the corresponding weights, the invariants of C with our formulas
        We equate j1 and j2 with the corresponding formulas in terms of a and b, respectively and then we eliminate a,b,u,
-       leaving the j-invariants of the two complementary curves, if the exist. */
+       leaving the j-invariants of the two complementary curves, if they exist. */
     R<u,a,b,j1,j2> := PolynomialRing(K,5);
     I:=ideal<R|[
       // Igusa-Clebsch invariants of C
