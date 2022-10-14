@@ -21,7 +21,7 @@ function HasSplitJac33(C)
     if #B eq 0 then
         return false;
     else
-        return true, {K!(j1 - B[1]), K!(j2-B[2])};
+        return true, {K!(j1 - B[1]), K!(j2 - B[2])};
     end if;
 end function;
 
