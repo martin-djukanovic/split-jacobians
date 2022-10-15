@@ -64,7 +64,7 @@ f:=[map<P2->P2| I> : I in [
    These 24 isomorphisms (or 12 after modding out [-1]) are precisely the ones inverting the Weil pairing.
    
    For example, if we want to glue E(a) and E(b) via (S,T) -> (T,S), we can instead apply an isomorphism to E(b) that sends (T,S) to (S,-T).
-   This is accomplish by the isomorphism E(b) --> E((-b + 2)/(b + 1)), so gluing E(a) and E(b) along (S,T) -> (T,S) gives a p.p.a.s.
+   This is accomplished by the isomorphism E(b) --> E((-b + 2)/(b + 1)), so gluing E(a) and E(b) along (S,T) -> (T,S) gives a p.p.a.s.
    that is isomorphic to the one obtained by gluing E(a) and E((-b + 2)/(b + 1)) along our chosen isomorphism (S,T) -> (S,-T).
 */
 
