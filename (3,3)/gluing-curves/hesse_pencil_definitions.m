@@ -48,7 +48,7 @@ f:=[map<P2->P2| I> : I in [
    For us it is of interest how these isomorphisms affect 3-torsion, so we will provide a table for reference.
    The points S=[-1:0:1] and T=[-w:1:0] are generators of E(a)[3] for all curves in the pencil. We fix these to rigidify the setup
    and compute (E(a) x E(b))/G where G is the graph of S |--> S, T |--> -T.
-   Other isomorphisms E1[3] --> E2[3] that can be used to glue E1 and E2 are defined by sending (S,T) to:
+   Isomorphisms E1[3] --> E2[3] that can be used to glue E1 and E2 are defined by sending (S,T) to:
    (T,S) or (-T,-S)
    (S+T,S) or (-S-T,-S)
    (-S+T,S) or (S-T,-S)
