@@ -1,4 +1,4 @@
-/* These are the curves from Example 3.7.
+/* These are the curves from Example 3.6.
    The elliptic curves
    y^2 = x^3 - x^2 + x + 3
    y^2 = x*(x^2 + 44*x + 486)
@@ -14,7 +14,7 @@ isog:=map<E1->E2|[
 ***************************************************************************************/
 
 R<x>:=PolynomialRing(QQ);
-K<w,a>:=ext<QQ | x^2 + x + 1, 243*x^12 - 5768*x^9 + 46848*x^6 - 124224*x^3 + 64] >;
+K<w,a>:=ext<QQ | [x^2 + x + 1, 243*x^12 - 5768*x^9 + 46848*x^6 - 124224*x^3 + 64] >;
 P2<x,y,z>:=ProjectiveSpace(K,2);
 
 // j=64/9
@@ -63,15 +63,15 @@ f:=map<E1->E2 | [f1, f2, f3]>;
 f(E1![-1, 0, 1]) eq E2![-1, 0, 1];
 f(E1![-w, 1, 0]) eq E2![-w^2, 1, 0];
 
-// Gluing the curves along the 3-torsion via the induced isomorphism yields the curve C (formula in Theorem 5.7)
+// Gluing the curves along the 3-torsion via the induced isomorphism yields the curve C (formula in Theorem 5.6)
 R<x>:=PolynomialRing(K);
 c1:=-3*a^2*b^2 - 4*a^3 - 4*b^3 - 6*a*b + 1;
 c2:=func < a, b | 9*(1 - a*b)*(a^2 + b)*(2*b^4 - a^3*b + 3*a*b^2 + 3*a^2 + b) >;
 c3:=func < a, b | 3*(-b^4 + 2*a^3*b - 3*a^2 - 2*b) >;
 d:=3*a^2*b^2 + a^3 + b^3 - 3*a*b + 2;
-C:=HyperellipticCurve((d*c1*x^3 + c2(a, b)*x^2 + d*c3(a, b)*x + d^2)*(d^2*x^3 + d*c3(b, a)*x^2 + c2(b, a)*x + d*c1));
+C:=HyperellipticCurve(-1/3/d/(d*c1*x^3 + c2(a, b)*x^2 + d*c3(a, b)*x + d^2)*(d^2*x^3 + d*c3(b, a)*x^2 + c2(b, a)*x + d*c1));
 
-// The coverings from Example 3.7 are indeed induced by the isogeny E1 --> E2:
+// The coverings from Example 3.6 are indeed induced by the isogeny E1 --> E2:
 AbsoluteInvariants(C) eq AbsoluteInvariants(HyperellipticCurve(x*(2*x^2 + 4*x + 3)*(3*x^2 + 4*x + 2)));
 
 /* Note: Here we glued the twists:
