@@ -77,5 +77,5 @@ AbsoluteInvariants(C) eq AbsoluteInvariants(HyperellipticCurve(x*(2*x^2 + 4*x + 
 /* Note: Here we glued the twists:
    u*y^2 = x^3 - x^2 + x + 3
    v*y^2 = x*(x^2 + 44*x + 486)
-   so the resulting curve is a twist of y^2 = x*(2*x^2 + 4*x + 3)*(3*x^2 + 4*x + 2)).
+   so the resulting curve is a twist of y^2 = x*(2*x^2 + 4*x + 3)*(3*x^2 + 4*x + 2). Over K(sqrt(u)) we have isomorphisms.
 */
