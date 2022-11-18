@@ -28,14 +28,14 @@ CC := Scheme(P3, [
 L0 := - (1 - 3*a + 2*a^3 - 3*b + 3*a*b +  6*a^2*b - 3*a^3*b + 3*b^2 - 3*a^2*b^2 - b^3)*x2
       + (1 + 6*a + 2*a^3 - 3*b + 3*a*b - 12*a^2*b - 3*a^3*b - 6*b^2 - 3*a^2*b^2 - b^3)*x3
       + (1 + 2*a^3 + 3*b + 3*a*b + 3*a^3*b - 3*a^2*b^2 - b^3)*x4;
-// S0 := ReducedSubscheme(C meet Scheme(P3, L0)); Degree(S0) eq 2;
+// S0 := ReducedSubscheme(CC meet Scheme(P3, L0)); Degree(S0) eq 2;
 
 
 /* A linear form defining a hyperplane that intersects C at the same two points, but with multiplicity 2, and two other points. */
 L1 := 9*(a - b)*(1 - 2*a - 2*b + a*b)*x2 + 2*(1 + 3*a + 6*a^2 + 2*a^3 + 3*b + 3*a^2*b + 6*b^2 + 3*a*b^2 + 3*a^2*b^2 + 2*b^3)*x4;
 L2 := 9*(a - b)*(1 - 2*a - 2*b + a*b)*x3 + (2 - 3*a - 6*a^2 + 4*a^3 - 3*b - 3*a^2*b - 6*b^2 - 3*a*b^2 + 6*a^2*b^2 + 4*b^3)*x4;
 L3 := (L1 - L2)/9; //(a - b)*(1 - 2*a - 2*b + a*b)*(x2 - x3) + (a + b + 2*a^2 + 2*b^2 + a^2*b + a*b^2)*x4; (preferred for simplicity)
-// S := ReducedSubscheme(C meet Scheme(P3, L3)); Degree(S) eq 4;
+// S := ReducedSubscheme(CC meet Scheme(P3, L3)); Degree(S) eq 4;
 
 /* There are exceptions:
    1) If a=b=0 then L3=0, so use L3=x4 instead. This yields the model -6y^2=(x^3+2)(2x^3+1), given in examples.m
