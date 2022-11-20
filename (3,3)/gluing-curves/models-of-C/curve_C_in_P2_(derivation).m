@@ -77,6 +77,8 @@ q1 := -1 - 6*a - 2*a^3 + 3*b - 3*a*b + 12*a^2*b + 3*a^3*b + 6*b^2 + 3*a^2*b^2 + 
 q2 := 1 - 2*a - 2*a^2 - 2*b - a*b + 3*a^2*b + b^2;
 q3 := -a + 2*a^2*b + b^2;
 
+// q1=q2=q3=0 if and only if b^2 + 5*b - 2 = 0 and 4*a + b - 1 = 0, which is dealt with separately (and yields the same C, up to isomorphism)
+
 C1 := map<P2->P2 | [q1^2*T1*Z, r1*T1*Y, q1^3*Z^2]>(C1);
 C2 := map<P2->P2 | [q2^2*T2*Z, r2*T2*Y, q2^3*Z^2]>(C2);
 C3 := map<P2->P2 | [q3^2*T3*Z, r3*T3*Y, q3^3*Z^2]>(C3);
@@ -132,7 +134,7 @@ L1 := x2 + (3*b + 17)*x3;
 C := map<P3 -> P2 | [L1, x1, L0]>(CC);  
 T := X + 1/162*(-155*b - 830)*Z;
 d := b^2*(b+5)*(2*b-1)^2;
-C := map<P2->P2 | [dd*T*Z, 1/3/(8*b-3)^3 * d^3 * (1-2*b)*b^3*T*Y, Z^2 ]>(C); // (8*b+43)*(8*b-3) = -1.
+C := map<P2->P2 | [d*T*Z, 1/3/(8*b-3)^3 * d^3 * (1-2*b)*b^3*T*Y, Z^2 ]>(C); // (8*b+43)*(8*b-3) = -1.
 // This curve is isomorphic to the curve given by the general formula when a^3 + 3*a*b + b^3 - 1 is not zero.
 
 
