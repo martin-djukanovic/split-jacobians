@@ -20,8 +20,10 @@ function HasSplitJac33(C)
     B:=Basis(PrimaryDecomposition(J)[1]);
     if #B eq 0 then
         return false;
-    else
+    elif Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
         return true, {K!(j1 - B[1]), K!(j2 - B[2])};
+    else
+        return true, B;
     end if;
 end function;
 
