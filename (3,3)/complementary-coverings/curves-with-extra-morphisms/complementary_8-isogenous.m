@@ -144,7 +144,12 @@ E2:=EllipticCurve(h(Equation(E2)));
 F1:=EllipticCurve(h(Equation(F1)));
 F2:=EllipticCurve(h(Equation(map<A2->A2|[x/((3*t + 1)*(t - 1)), y/((3*t + 1)*(t - 1))]>(F2))));
 
-jInvariant(E1) eq 2*(47*t^4 + 660*t^3 + 970*t^2 - 780*t - 1153)^3/((t - 1)*(t + 1)*(t + 3)^2*(3*t + 1)^8);
-jInvariant(E2) eq 2048*(t^4 - 10*t^2 + 1)^3/((t - 1)^2*(t + 1)^8*(t + 3)*(3*t + 1));
-jInvariant(F1) eq 4*(73*t^4 + 60*t^3 - 10*t^2 + 60*t + 73)^3/((t - 1)^2*(t + 1)^2*(t + 3)^4*(3*t + 1)^4);
-jInvariant(F2) eq 16*(13*t^4 + 60*t^3 + 110*t^2 + 60*t + 13)^3/((t - 1)^4*(t + 1)^4*(t + 3)^2*(3*t + 1)^2);
+j1:= jInvariant(E1); j2:= jInvariant(E2); j3:= jInvariant(F1); j4:= jInvariant(F2); 
+j1 eq 2*(47*t^4 + 660*t^3 + 970*t^2 - 780*t - 1153)^3/((t - 1)*(t + 1)*(t + 3)^2*(3*t + 1)^8);
+j2 eq 2048*(t^4 - 10*t^2 + 1)^3/((t - 1)^2*(t + 1)^8*(t + 3)*(3*t + 1));
+j3 eq 4*(73*t^4 + 60*t^3 - 10*t^2 + 60*t + 73)^3/((t - 1)^2*(t + 1)^2*(t + 3)^4*(3*t + 1)^4);
+j4 eq 16*(13*t^4 + 60*t^3 + 110*t^2 + 60*t + 13)^3/((t - 1)^4*(t + 1)^4*(t + 3)^2*(3*t + 1)^2);
+
+// these can be further simplified:
+h:=hom<K->K|(1-2*t)/(1+2*t)>;
+[h(j) : j in [j1,j2,j3,j4]];
