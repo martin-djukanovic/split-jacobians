@@ -5,6 +5,7 @@ R<x>:=PolynomialRing(QQ);
 K<q,r>:=NumberField([x^3-4, x^2+3]);
 R<x>:=PolynomialRing(K);
 C:=HyperellipticCurve((x^3+1)*(4*x^3+1));
+C2:=HyperellipticCurve(-1/2*(x^6 - 75*x^4 - 45*x^2 - 9)); // an alternative model of C
 
 // these curves are isogenous; F1 and F2 are 9-isogenous over Q, and E1,E2,F2 are isomorphic over Q(q,r)
 E1:=EllipticCurve(x^3+4);
@@ -13,14 +14,21 @@ F1:=EllipticCurve(x^3 + 150*x^2 - 180*x + 72);
 F2:=EllipticCurve(x^3 + 90*x^2 + 2700*x - 648);
 L<x,y>:=FunctionField(C);
 
+// involutions and isomorphism to the other model
+inv1:=map<C->C | [1/(q*x), -y/(2*x^3), 1]>;
+inv2:=map<C->C | [ (r - 1)*q^2/(8*x), y/(2*x^3), 1 ]>;
+iso:=map<C->C2| [(2*x-q)/(2*x+q), 32*y/(2*x+q)^3, 1]>;
+
 // degree-3 coverings
 f1:=map<C->E1 | [-3*x^2/(x^3+1), y*(x^3-2)/(x^3+1)^2, 1]>;
 f2:=map<C->E2 | [-3*x/(4*x^3+1), y*(8*x^3-1)/(4*x^3+1)^2, 1]>;
 
 // degree-2 coverings
-g1:=map<C->F1 | [-2*(2*x-q)^2/(2*x+q)^2, 128*y/(2*x+q)^3, 1]>;
-g2:=map<C->F2 | [18*(2*x + q)^2/(2*x - q)^2, 1152*y/(2*x - q)^3, 1]>; 
-inv:=map<C->C | [1/(q*x), -y/(2*x^3), 1]>;
+L<x,y>:=FunctionField(C2);
+g1:=map<C2->F1|[-2*x^2, 4*y, 1]>;
+g2:=map<C2->F2|[18/x^2,36*y/x^3, 1]>;
+h1:=map<C2->F1|[-2*(x + r)^2/(r*x + 1)^2, 32*y/(r*x + 1)^3, 1]>;
+h2:=map<C2->F2|[18*(r*x + 1)^2/(x + r)^2, 288*y/(x + r)^3, 1]>;
 
 L<x,y>:=FunctionField(E2);
 iso1:=map<E2->E1 | [q*x, 2*y, 1]>;
