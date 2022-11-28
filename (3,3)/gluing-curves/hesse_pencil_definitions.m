@@ -116,3 +116,141 @@ FindIso(add(S,inv(T)), add(S,T));
 
 // (S+T,-S+T)   ~ E(2 - b*w^2)/(1 + b*w^2)*w)
 FindIso(add(S,T), add(inv(S),T));
+
+
+
+
+
+// Weierstrass model of x^3 + y^3 + z^3 + 3*t*x*y*z = 0
+R<x>:=PolynomialRing(QQ);
+K<w>:=ext<QQ|1+x+x^2>;
+K<t>:=FunctionField(K);
+P2<x,y,z>:=ProjectiveSpace(K,2);
+a:=-3*t*(t^3 - 8);
+b:=-2*(t^6 + 20*t^3 - 8);
+E1:=Curve(P2, -y^2*z + x^3 + a*x*z^2 + b*z^3);
+E2:=Curve(P2, x^3 + y^3 + z^3 + 3*t*x*y*z);
+iso:=map<E1->E2|[3*t*x - (1 + 2*w)*y + 3*(t^3 + 4)*z,  3*t*x + (1 + 2*w)*y + 3*(t^3 + 4)*z, 6*(x - 3*t^2*z)]>;
+
+
+
+
+/*  If K=K(w) with 1+w+w^2=0 and E/K is an elliptic curve such that E[3](K) has nine points 
+    (i.e. E has fully K-rational 3-torsion) then E admits a Hessian model.  */
+    
+R<x>:=PolynomialRing(QQ);
+K<w>:=ext<QQ|1+x+x^2>;
+K<a,b>:=FunctionField(K,2);
+P2<x,y,z>:=ProjectiveSpace(K,2);
+F:=-y^2*z + x^3 + a*x*z^2 + b*z^3;
+dd:=func<F,x,y|Derivative(Derivative(F,x),y)>;
+M:=Matrix(CoordinateRing(P2), [
+   [dd(F,x,x), dd(F,x,y), dd(F,x,z)],
+   [dd(F,y,x), dd(F,y,y), dd(F,y,z)],
+   [dd(F,z,x), dd(F,z,y), dd(F,z,z)]
+]);
+H:=1/8*Determinant(M);
+S:=Scheme(P2,F) meet Scheme(P2,H);
+IC:=IrreducibleComponents(S);
+S:=IC[1]; if P2![0,1,0] in S then S:=IC[2]; end if;
+Basis(EliminationIdeal(Ideal(S),{x,z}))[1] eq x^4 + 2*a*x^2*z^2 + 4*b*x*z^3 - 1/3*a^2*z^4;
+
+
+
+
+/*  If #E[3](K)=9 then x^4 + 2*a*x^2 + 4*b*x- 1/3*a^2 splits completely over K, say as (x-t1)*(x-t2)*(x-t3)*(x-t4).
+    Using Vieta's formulas we find the relations between the roots t1,t2,t3,t4.  */
+
+R<x>:=PolynomialRing(QQ);
+K<w>:=ext<QQ|1+x+x^2>;
+R<T,a,b,t4,t1,t2,t3>:=PolynomialRing(K,7);
+I:=ideal<R|[
+   T*(4*a^3 + 27*b^2) - 1,
+   t1 + t2 + t3 + t4,
+   -2*a + t1*t2 + t1*t3 + t2*t3 + t1*t4 + t2*t4 + t3*t4, 
+   4*b + t1*t2*t3 + t1*t2*t4 + t1*t3*t4 + t2*t3*t4,
+   a^2 + 3*t1*t2*t3*t4
+]>;
+
+
+
+/* (t1,t2,t3) lies on the union of two quadric surfaces.  */
+J:=EliminationIdeal(I,4);
+J eq ideal<R| (t1^2  + w*t2^2 + w^2*t3^2 - 2*w^2*t1*t2 - 2*w*t1*t3 - 2*t2*t3)*(t1^2  + w^2*t2^2 + w*t3^2 - 2*w*t1*t2 - 2*w^2*t1*t3 - 2*t2*t3)>;
+
+
+
+/* (t1,t2,t3) cannot satisfy both equations because the discriminant of E is non-zero.
+   By renaming the roots, e.g. by swapping t2 and t3, we can ensure t1^2  + w*t2^2 + w^2*t3^2 - 2*w^2*t1*t2 - 2*w*t1*t3 - 2*t2*t3 = 0
+   Now set t = ((1+2w)t1 + (1 + 3w)t2 - (1 + 3w^2)t3)/(t3 - t2)  and  d = 12/(t1 + t2*w + t3*w^2)
+   and verify that ad^2 = -3t(t^3 - 8) and bd^3 = -2(t^6 + 20 t^3 - 8).
+   This will establish that the d-twist of E is isomorphic to x^3 + y^3 + z^3 + 3*t*x*y*z = 0, with the isomorphism given on line 131.  */
+
+R<x>:=PolynomialRing(QQ);
+K<w>:=ext<QQ|1+x+x^2>;
+R<T,t1,t2,t3,t4,a,b,t,d>:=PolynomialRing(K,9);
+I:=ideal<R|[
+   T*(4*a^3 + 27*b^2) - 1,
+   t1 + t2 + t3 + t4,
+   -2*a + t1*t2 + t1*t3 + t2*t3 + t1*t4 + t2*t4 + t3*t4, 
+   4*b + t1*t2*t3 + t1*t2*t4 + t1*t3*t4 + t2*t3*t4,
+   a^2 + 3*t1*t2*t3*t4,
+   t1^2  + w*t2^2 + w^2*t3^2 - 2*w^2*t1*t2 - 2*w*t1*t3 - 2*t2*t3,
+   -t*(t3 - t2) + (1+2*w)*t1 + (1 + 3*w)*t2 - (1 + 3*w^2)*t3,
+   d*(t1 + t2*w + t3*w^2) + 12
+]>;
+a*d^2 + 3*t*(t^3 - 8) in I and  b*d^3 + 2*(t^6 + 20*t^3 - 8) in I;
+
+
+
+/*  It remains to verify that d = u^2 in K. Suppose E[3] consists of [0:1:0] and [t1,±s1,1], [t2,±s2,1], [t3,±s3,1], [t4,±s4,1].
+    Just as we picked a numbering for t1,t2,t3, we will have to pick signs for s1,s2,s3 here.  */
+
+R<x>:=PolynomialRing(QQ);
+K<w>:=ext<QQ|1+x+x^2>;
+R<T,a,b,t1,t2,t3,t4,s1,s2,s3,s4>:=PolynomialRing(K,11);
+f:=func<x|x^3+a*x+b>;
+I:=ideal<R|[
+   T*(4*a^3 + 27*b^2) - 1,
+   t1 + t2 + t3 + t4,
+   -2*a + t1*t2 + t1*t3 + t2*t3 + t1*t4 + t2*t4 + t3*t4, 
+   4*b + t1*t2*t3 + t1*t2*t4 + t1*t3*t4 + t2*t3*t4,
+   a^2 + 3*t1*t2*t3*t4,
+   -s1^2 + f(t1),
+   -s2^2 + f(t2),
+   -s3^2 + f(t3),
+   -s4^2 + f(t4),
+   t1^2  + w*t2^2 + w^2*t3^2 - 2*w^2*t1*t2 - 2*w*t1*t3 - 2*t2*t3
+]>;
+
+
+
+/*  We find that the corresponding (s1,s2,s3) lies on exactly one of four quadric surfaces.  */
+J:=EliminationIdeal(I,{s1,s2,s3});
+J eq ideal<R| (s1*s2 + w*s1*s3 - w^2*s2*s3) * (s1*s2 + w*s1*s3 + w^2*s2*s3) * (s1*s2 - w*s1*s3 + w^2*s2*s3) * (s1*s2 - w*s1*s3 - w^2*s2*s3)>;
+
+
+
+/*  By changing the signs of s1,s2,s3, we can ensure the first equation is satisfied, i.e. s1*s2 + w*s1*s3 = w^2*s2*s3.
+    Now set u = (1 + 2*w)*(t3 - t2)/(w*s3 - w^2*s2) and verify that u^2 = d.  */
+
+R<x>:=PolynomialRing(QQ);
+K<w>:=ext<QQ|1+x+x^2>;
+R<T,a,b,d,u,t1,t2,t3,t4,s1,s2,s3,s4>:=PolynomialRing(K,13);
+f:=func<x|x^3+a*x+b>;
+I:=ideal<R|[
+   T*(4*a^3 + 27*b^2) - 1,
+   t1 + t2 + t3 + t4,
+   -2*a + t1*t2 + t1*t3 + t2*t3 + t1*t4 + t2*t4 + t3*t4, 
+   4*b + t1*t2*t3 + t1*t2*t4 + t1*t3*t4 + t2*t3*t4,
+   a^2 + 3*t1*t2*t3*t4,
+   -s1^2 + f(t1),
+   -s2^2 + f(t2),
+   -s3^2 + f(t3),
+   -s4^2 + f(t4),
+   t1^2  + w*t2^2 + w^2*t3^2 - 2*w^2*t1*t2 - 2*w*t1*t3 - 2*t2*t3,
+   s1*s2 + w*s1*s3 - w^2*s2*s3,
+   d*(t1 + t2*w + t3*w^2) + 12,
+   -u*(s1 + s3*w) + (1 + 2*w)*(t1 - t3)   //or -u*(s1 + w^2*s2) + (1 + 2*w)*(t1 - t2)  or  -u*(w*s3 - w^2*s2) + (1 + 2*w)*(t3 - t2)
+]>;
+d - u^2 in I;
