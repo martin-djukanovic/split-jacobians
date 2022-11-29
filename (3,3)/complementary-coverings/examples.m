@@ -175,20 +175,20 @@ f2:=map<C->E2|[	(2*(x - 2)^3)/(16*x^3 + 9*x^2 - 12*x + 4),  (2*((x - 2)*(5*x + 2
 /********** Example 3.10 ************/
 /***********************************/
 // the only case where j(E1)=j(E2) and C-->E2 has a single ramification point and C-->E1 has two ramification points
-QQ:=Rationals();
 R<x>:=PolynomialRing(QQ);
-K<q>:=NumberField(x^2+15);
+K<q>:=ext<QQ|x^2+15>;
+P2<X,Y,Z>:=ProjectiveSpace(K,2);
 R<x>:=PolynomialRing(K);
-P:=func<x | ((1+q)*x-32)*(4*x^2 - (7-q)*x - 8*(1+q))>;
-Q:=func<x | 32*x^3 - 9*(7-q)*x^2 - 96*(1 +q)*x + 512>;
-R:=func<x | (1+q)*x^3 - 12*(7 - q)*x - 128*(1 + q)>;
-S:=func<x | ((1+q)*x-32)*((479-9*q)*x^2 - 32*(7 - q)*x - 256*(1+q))>;
+E1:=EllipticCurve(x^3 + 12*x^2 + (3*q + 57)*x + 64);
+E2:=EllipticCurve(x^3 + (3*q - 9)*x^2 + (-15*q - 9)*x);
+P:=func<x | 4*x^3 + (9*q - 15)*x^2 + (-24*q - 24)*x + 256>;
+Q:=func<x | 2*(32*x^3 + (9*q - 63)*x^2 + (-96*q - 96)*x + 512)>;
+R:=func<x | x^3 + (6*q + 6)*x - 128>;
+S:=func<x | (x - 2 + 2*q)*((19 - 6*q)*x^2 + 4*(-1 + q)*x - 8*(7 + q))>;
 C:=HyperellipticCurve(P(x)*Q(x));
-E1:=EllipticCurve(x^3 - 4*x^2 + (19+q)/3*x - 64/27);
-E2:=EllipticCurve(x^3 + (3-q)*x^2 - (3+5*q)/3*x);
-L<x,y>:=FunctionField(E1);
-iso:=map<E1->E2 | [x-(7-q)/3, y, 1]>;
 L<x,y>:=FunctionField(C);
-f1:=map<C->E1 | [(-156+4*q)*x^2/P(x), 8*(3-q)/9*R(x)/P(x)^2*y, 1]>;
-f2:=map<C->E2 | [(11-3*q)/384*((1+q)*x - 32)^3/Q(x), 2*(27-19*q)/9216*S(x)/Q(x)^2*y, 1]>; 
-[jInvariant(E1), jInvariant(E2)];
+f1:=map<C->E1 | [2*(9 - 15*q)*x^2/P(x), 8*R(x)/P(x)^2*y, 1]>;
+f2:=map<C->E2 | [16*(x - 2 + 2*q)^3/Q(x), 32*S(x)/Q(x)^2*y, 1]>;
+_,iso:=IsIsomorphic(E1,E2);
+iso;
+jInvariant(E1);
