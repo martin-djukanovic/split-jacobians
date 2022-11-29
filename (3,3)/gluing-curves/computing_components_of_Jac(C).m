@@ -17,15 +17,19 @@ function HasSplitJac33(C)
       27*b^3*(-8 + b^3)^3 + j2 * (1 + b^3)^3
     ]>;
     J:=Radical(EliminationIdeal(I,3));
-    B:=Basis(PrimaryDecomposition(J)[1]);
-    if #B eq 0 then
+	PD:=PrimaryDecomposition(J);
+    if #PD eq 0 then
         return false;
-    elif Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
-        return true, {K!(j1 - B[1]), K!(j2 - B[2])};
     else
+		B:=Basis(PD[1]);
+	end if;
+    if Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
+		return true, {K!(j1 - B[1]), K!(j2 - B[2])};
+	else
         return true, B;
     end if;
 end function;
+
 
 R<x> := PolynomialRing(Rationals());
 C := HyperellipticCurve(x*(2*x^2 + 4*x + 3)*(3*x^2 + 4*x + 2));
