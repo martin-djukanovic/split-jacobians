@@ -7,7 +7,7 @@
    
    --  G = the subgroup of A[3] that is the graph of the isomorphism E1[3] -> E2[3] defined by [-1:0:1] -> [-1:0:1] and [-w:1:0] -> [-w^2:1:0]
    
-   --  Assuming 3 a^2 b^2 + a^3 + b^3 - 3 a b + 2 is non-zero, A/G is a Jac(C).
+   --  Assuming 3 a^2 b^2 + a^3 + b^3 - 3 a b + 2 is non-zero, A/G is Jac(C) for some C.
 */
 
 K<a,b>:=FunctionField(QQ,2);
@@ -88,3 +88,44 @@ E22 := Scheme(P8, [ 2*X5^3 + 3*b*X5^2*X6 + X6^3, X1 + X5, X2 + X5, X3 + X6, X4 -
 
 // the branch locus of the double cover C --> H, from which the (geometric) isomorphism class of C can be recovered
 B := q(Union(E12,E22));
+
+
+/*************************************************************************************************************************************/
+/* An alternative equation for the Kummer, on which the node that is the image of the identiy (O,O) of E1 x E2 is given by [0:0:0:1] */
+/*************************************************************************************************************************************/
+f2:=3*(	  4*(-1 + 4*a^3 + 6*a*b + 3*a^2*b^2 + 4*b^3)*X^2
+		- 4*(-9*a^2 - 4*b + 7*a^3*b - 3*a*b^2 + 3*a^2*b^3 - 2*b^4)*X*Y
+		- a*(-16 + a^3 + 24*a*b - 6*a^2*b^2 - 8*b^3 + 9*a*b^4)*Y^2
+		+ 4*(4*a + 2*a^4 + 3*a^2*b + 9*b^2 - 3*a^3*b^2 - 7*a*b^3)*X*Z
+		- 2*(-8 - 4*a^3 + 3*a^4*b + 15*a^2*b^2 - 4*b^3 - 9*a^3*b^3 + 3*a*b^4)*Y*Z
+		- b*(-16 - 8*a^3 + 24*a*b + 9*a^4*b - 6*a^2*b^2 + b^3)*Z^2
+);
+f3:=2*(   4*(1 + 5*a^3 + 3*a*b + 6*a^2*b^2 + 5*b^3)*X^3
+		- 18*(-2*a + a^2*b - b^2)*(a + b^2)*X^2*Y
+		- 3*(-10*a + a^4 + 6*a^2*b - 6*b^2 + 6*a^3*b^2 - 2*a*b^3 + 9*a^2*b^4)*X*Y^2
+		- (-8 + 5*a^3 + 12*a*b + 6*a^2*b^2 - 4*b^3 + 9*a*b^4)*Y^3
+		+ 18*(a^2 + b)*(a^2 + 2*b - a*b^2)*X^2*Z
+		- 3*(2 - 8*a^3 - 24*a*b + 3*a^4*b + 21*a^2*b^2 - 8*b^3 - 9*a^3*b^3 + 3*a*b^4)*X*Y*Z
+		- 3*(-3*a^2 - 4*b + 4*a^3*b + 6*a*b^2 + b^4)*Y^2*Z
+		- 3*(-6*a^2 - 10*b - 2*a^3*b + 6*a*b^2 + 9*a^4*b^2 + 6*a^2*b^3 + b^4)*X*Z^2
+		- 3*(-4*a + a^4 + 6*a^2*b - 3*b^2 + 4*a*b^3)*Y*Z^2
+		- (-8 - 4*a^3 + 12*a*b + 9*a^4*b + 6*a^2*b^2 + 5*b^3)*Z^3
+);
+f4:=4*(   4*(1 + 2*a^3 + 3*a^2*b^2 + 2*b^3)*X^4
+		+ 12*(a + b^2)^2*X^3*Y
+		- 3*a*(-4 + a^3 + 6*a^2*b^2 - 8*b^3 + 9*a*b^4)*X^2*Y^2
+		- 2*(-4 + a^3 + 6*a^2*b^2 - 8*b^3 + 9*a*b^4)*X*Y^3
+		- 3*(a + b^2)^2*Y^4 + 12*(a^2 + b)^2*X^3*Z
+		+ 12*(-1 + a + b)*(1 + a + a^2 + b - a*b + b^2)*X^2*Y*Z
+		- 18*a*(-1 + a*b)*(a + b^2)*X*Y^2*Z
+		- 6*(-1 + a*b)*(a + b^2)*Y^3*Z
+		- 3*b*(-4 - 8*a^3 + 9*a^4*b + 6*a^2*b^2 + b^3)*X^2*Z^2
+		- 18*b*(a^2 + b)*(-1 + a*b)*X*Y*Z^2
+		- 3*(1 + 2*a^3 + 3*a^2*b^2 + 2*b^3)*Y^2*Z^2
+		- 2*(-4 - 8*a^3 + 9*a^4*b + 6*a^2*b^2 + b^3)*X*Z^3
+		- 6*(a^2 + b)*(-1 + a*b)*Y*Z^3
+		- 3*(a^2 + b)^2*Z^4
+);
+Kum0:=Scheme(P3, W^2*f2 + 2*W*f3 + f4);
+iso:=map<Kum->Kum0|[ X - 1/2*W, Y, Z, W ]>;
+// The six tropes containing the node [0:0:0:1] are given by f3^2 - f2*f4 = 0; see Gonzalez-Dorego, p. 59
