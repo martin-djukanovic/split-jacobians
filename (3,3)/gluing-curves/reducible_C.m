@@ -117,15 +117,6 @@ F1:=g(D1);
 F2:=g(D2);
 Degree(F1 meet F2) eq 1;
 
-E1 := EllipticCurve(E1, P2![-1,1,0]);
-E2 := EllipticCurve(E2, P2![-1,1,0]);
-D1 := EllipticCurve(D1, P);
-D2 := EllipticCurve(D2, P);
-F1 := EllipticCurve(F1, g(P));
-F2 := EllipticCurve(F2, g(P));
-IsIsomorphic(E1,F1) and IsIsomorphic(E2,F2) and IsIsomorphic(E1,D1) and IsIsomorphic(E2,D2);
-
-
 
 /************* below we verify that D1 and D2 are as claimed *************/
 // translation by (T1,T2)
@@ -167,7 +158,17 @@ fQQ:=map<P8->P8|[
 ]>;
 
 // the curves E1 and E2 as divisors on E1 x E2
-E1:=Curve(P8,[X1+X2, X4+X5, X7+X8, X3, X6, X9, X2^3 + X5^3 + X8^3 + 3*a*X2*X5*X8 ]);
-E2:=Curve(P8,[X1+X4, X2+X5, X3+X6, X7, X8, X9, X4^3 + X5^3 + X6^3 + 3*b*X4*X5*X6 ]);
-PfP(E1) eq tr(D1);
-fQQ(E2) eq tr(D2);
+EE1:=Curve(P8,[X1+X2, X4+X5, X7+X8, X3, X6, X9, X2^3 + X5^3 + X8^3 + 3*a*X2*X5*X8 ]);
+EE2:=Curve(P8,[X1+X4, X2+X5, X3+X6, X7, X8, X9, X4^3 + X5^3 + X6^3 + 3*b*X4*X5*X6 ]);
+PfP(EE1) eq tr(D1);
+fQQ(EE2) eq tr(D2);
+
+
+// the divisors defining the polarizations are both isomorphic to E1 + E2:
+E1 := EllipticCurve(E1, P2![-1,1,0]);
+E2 := EllipticCurve(E2, P2![-1,1,0]);
+D1 := EllipticCurve(D1, P);
+D2 := EllipticCurve(D2, P);
+F1 := EllipticCurve(F1, g(P));
+F2 := EllipticCurve(F2, g(P));
+IsIsomorphic(E1,F1) and IsIsomorphic(E2,F2) and IsIsomorphic(E1,D1) and IsIsomorphic(E2,D2);
