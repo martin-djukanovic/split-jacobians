@@ -1,3 +1,4 @@
+// note: this code uses Igusa-Clebsch invariants so it should not be used in characteristic 2,3,5
 function HasSplitJac22(C)
     K :=  BaseField(C);
     ic := IgusaClebschInvariants(C);
@@ -11,16 +12,12 @@ function HasSplitJac22(C)
 	j2*(4*a^3 + 4*b^3 - a^2*b^2 - 18*a*b + 27) + 256*(b^2 - 3*a)^3
     ]>;
     J:=Radical(EliminationIdeal(I,3));
-	PD:=PrimaryDecomposition(J);
-    if #PD eq 0 then
+    B:=Basis(PrimaryDecomposition(J)[1]);
+    if #B eq 0 then
         return false;
-    else
-	B:=Basis(PD[1]);
-    end if;
-    if Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
-	return true, {K!(j1 - B[1]), K!(j2 - B[2])};
-    else
-        return true, B;
+    elif Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
+        return true, {K!(j1 - B[1]), K!(j2 - B[2])};
+    else return true, B;
     end if;
 end function;
 
