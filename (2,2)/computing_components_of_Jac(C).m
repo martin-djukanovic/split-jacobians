@@ -16,7 +16,7 @@ function HasSplitJac22(C)
     if #B eq 0 then
         return false;
     elif Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
-        return true, {K!(j1 - B[1]), K!(j2 - B[2])};
+        return true, [K!(j1 - B[1]), K!(j2 - B[2])];
     else return true, B;
     end if;
 end function;
