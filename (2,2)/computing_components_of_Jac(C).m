@@ -12,6 +12,7 @@ function HasSplitJac22(C)
 	j2*(4*a^3 + 4*b^3 - a^2*b^2 - 18*a*b + 27) + 256*(b^2 - 3*a)^3
     ]>;
     J:=Radical(EliminationIdeal(I,3));
+    if J eq R then return false; end if;
     B:=Basis(PrimaryDecomposition(J)[1]);
     if #B eq 0 then
         return false;
@@ -50,6 +51,7 @@ function HasSplitJac22(C)
             256*(b^2 - 3*a*c)^3 + c^2*(-a^2*b^2 + 4*b^3 + 4*a^3*c - 18*a*b*c + 27*c^2)*j2
         ]>;
     J:=Radical(EliminationIdeal(I,4));
+    if J eq R then return false; end if;
     B:=Basis(PrimaryDecomposition(J)[1]);
     if #B eq 0 then
         return false;
