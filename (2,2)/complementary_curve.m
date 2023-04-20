@@ -14,5 +14,5 @@ CC := Scheme (P8, [X[2] - X[4], X[3] + X[7], X[6] + X[8]]) meet J; // correspond
 P3:=ProjectiveSpace(K,3);
 g:=map<P8->P3|[X[1], X[5], X[2] + X[4], X[9]]>;    // this sends (x,y,u,v) to (u*x, v*y, v*x + u*y) = (-x^2, -y^2, -2*x*y), so that (x,y,u,v) and (u,v,x,y) have the same image
 EE:=g(CC);                                        // the quotient of CC under the S2 action is the complementary curve
-E:=EllipticCurve(Curve(EE),EE![0,-d,0,1]);       // EE![0,1,0,0] is singular and requires sqrt(a) to resolve
+E:=EllipticCurve(Curve(EE),EE![0,-d,0,1]);       // [0:-d:0:1] is a smooth point; [0:1:0:0] is a singularity whose resolution requires sqrt(a)
 IsIsomorphic(E,E2);                             // the complementary curve is indeed E2 (and not a twist of it)
