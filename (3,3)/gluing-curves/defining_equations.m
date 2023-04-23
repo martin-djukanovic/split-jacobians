@@ -13,8 +13,6 @@
 R<x> := PolynomialRing(QQ);
 K<w> := NumberField(1+x+x^2);
 L<a,b> := FunctionField(K,2);
-s:=3*a;
-t:=3*b;
 P8<X1,X2,X3,X4,X5,X6,X7,X8,X9> := ProjectiveSpace(L,8);
 
 // equations defining the surface A=SegreProduct([E1,E2])
