@@ -27,8 +27,9 @@ D:=DivisionPolynomial(E1,3);
 D:=Factorization(D)[1][1];
 E:=IsogenyFromKernel(E1,D^2);
 IsIsomorphic(E,E2);
-C;
 
+C:=HyperellipticCurve(s^3*x^6 + s^2*a*x^4 + s*b*x^2 + c);
+C;
 
 /****** CASE 2 ******/
 a:=t^4 + 8*t^3 + 42*t^2 + 144*t - 243;
@@ -72,3 +73,7 @@ D:=DivisionPolynomial(E1,3);
 D:=Factorization(D)[1][1];
 E:=IsogenyFromKernel(E1,D^2);
 IsIsomorphic(E,E2);
+
+C1:=HyperellipticCurve(s^3*x^6 + s^2*a*x^4 + s*b*x^2 + c);
+C2:=HyperellipticCurve(((t + 1)*x^2 + 16*(t + 9))*(t*x^4 + (t^4 + 4*t^3 - 10*t^2 + 36*t + 81)*x^2 + 256*t^3));
+IsQuadraticTwist(C1,C2);
