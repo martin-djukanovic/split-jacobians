@@ -4,7 +4,7 @@ R<T>:=PolynomialRing(QQ);
 h:=hom<K->R|T>;
 R<x>:=PolynomialRing(K);
 
-// the first family is genus-two curves with automorphism group D8 (dihedral group with 8 elements).
+// CASE 1: genus-two curves with automorphism group D8 (dihedral group with 8 elements).
 a:=t;
 b:=t;
 c:=1;
@@ -30,7 +30,7 @@ E:=IsogenyFromKernel(E1,x+1);
 IsIsomorphic(E,E2);
 
 
-// the second family
+// CASE 2
 a:=(t + 3);
 b:=t;
 c:=-1;
