@@ -26,7 +26,7 @@ j2:=jInvariant(E2);
 // this takes a while over QQ; it is better tested in characteristic p
 D:=DivisionPolynomial(E1,25);
 F:=[f[1] : f in Factorization(D)];
-E:=IsogenyFromKernel(E1,F[1]^2*F[2]^2);
+E:=IsogenyFromKernel(E1,F[1]*F[2]);
 IsIsomorphic(E,E2);
 
 C:=HyperellipticCurve(x^6 + a*x^4 + b*x^2 + c);
