@@ -45,7 +45,7 @@ Phi(5,j1,j2) eq 0;
 
 D:=DivisionPolynomial(E1,5);
 F:=[f[1] : f in Factorization(D)];
-E:=IsogenyFromKernel(E1,F[1]^2);
+E:=IsogenyFromKernel(E1,F[1]);
 IsIsomorphic(E,E2) eq true;
 
 
