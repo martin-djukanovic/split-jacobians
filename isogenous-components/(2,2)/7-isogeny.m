@@ -27,7 +27,7 @@ Phi(7,j1,j2) eq 0;
 
 D:=DivisionPolynomial(E1,7);
 D:=Factorization(D)[1][1];
-E:=IsogenyFromKernel(E1,D^2);
+E:=IsogenyFromKernel(E1,D);
 IsIsomorphic(E,E2);
 
 C:=HyperellipticCurve(x^6 + a*x^4 + b*x^2 + c);
@@ -52,7 +52,7 @@ Phi(7,j1,j2) eq 0;
 
 D:=DivisionPolynomial(E1,7);
 D:=Factorization(D)[1][1];
-E:=IsogenyFromKernel(E1,D^2);
+E:=IsogenyFromKernel(E1,D);
 IsIsomorphic(E,E2);
 
 C1:=HyperellipticCurve(s^3*x^6 + s^2*a*x^4 + s*b*x^2 + c);
