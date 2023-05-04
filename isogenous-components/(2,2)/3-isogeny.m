@@ -22,6 +22,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(3,j1,j2) eq 0;
+<j1,j2> eq <(t + 3)^3*(t + 27)/t, (t + 27)*(t + 243)^3/t^3>;
 
 D:=DivisionPolynomial(E1,3);
 D:=Factorization(D)[1][1];
@@ -44,6 +45,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(3,j1,j2) eq 0;
+<j1,j2> eq <(t^2 + 3)^3*(t^2 + 27)/t^2, (t^2 + 27)*(t^2 + 243)^3/t^6>;
 
 D:=DivisionPolynomial(E1,3);
 D:=Factorization(D)[1][1];
@@ -68,6 +70,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(3,j1,j2) eq 0;
+<j1,j2> eq <(t + 3)^3*(t^3 + 9*t^2 + 3*t + 3)^3/(t^2*(t + 1)^3*(t + 9)), (t + 3)^3*(t^3 + 9*t^2 + 243*t + 243)^3/(t^6*(t + 1)*(t + 9)^3)>;
 
 D:=DivisionPolynomial(E1,3);
 D:=Factorization(D)[1][1];
