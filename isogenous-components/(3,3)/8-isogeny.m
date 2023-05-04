@@ -30,7 +30,7 @@ f4 := map<C->E4|[ -1/(t^2*(t + 1))/x^2, 1/(t^2*(t + 1))^2*y/x^3 ]>;
 
 
 E:=[EllipticCurve(h(Basis(Ideal(e))[1])) : e in [E1,E2,E3,E4]];
-j:=[jInvariant(e) : e in E];
+J:=[jInvariant(e) : e in E];
 D1:=Factorization(DivisionPolynomial(E[1],2))[1][1];
 D2:=Factorization(DivisionPolynomial(E[2],2))[1][1];
 D3:=Factorization(DivisionPolynomial(E[3],2))[2][1];
@@ -42,9 +42,22 @@ F:=IsogenyFromKernel(E[4],D4); IsIsomorphic(F,E[2]);
 
 // The 8-isogeny E1->E2 is the composition of 2-isogenies E1->E3->E4->E2
 
-j eq [
+J eq [
 	-4*(16*t^4 + 32*t^3 - 40*t^2 - 56*t + 1)^3/(t*(t + 1)*(2*t + 1)^8),
 	-16*(t^4 - 28*t^3 - 10*t^2 + 4*t + 1)^3/(t^2*(t + 1)^8*(2*t + 1)), 
 	16*(16*t^4 + 32*t^3 + 20*t^2 + 4*t + 1)^3/(t^2*(t + 1)^2*(2*t + 1)^4), 
 	256*(t^4 + 2*t^3 + 5*t^2 + 4*t + 1)^3/(t^4*(t + 1)^4*(2*t + 1)^2)
+];
+
+/* To simplify the j-invariants, we can:
+   1) consider the twist of C defined by -2*y^2 + (x - t)*(x + t)*(1 + x^2 + 2*t*x^2)*(1 + t + 4*t*x^2) = 0
+   2) replace t by (t-1)/2
+   3) apply (x,y) -> (2*x, 8*y)    */
+
+h:=hom<K->K|(t-1)/2>;
+[h(j): j in J] eq [
+	-16*(t^4 - 16*t^2 + 16)^3/((t - 1)*t^8*(t + 1)), 
+	-4*(t^4 - 60*t^3 + 134*t^2 - 60*t + 1)^3/((t - 1)^2*t*(t + 1)^8), 
+	256*(t^4 - t^2 + 1)^3/((t - 1)^2*t^4*(t + 1)^2), 
+	16*(t^4 + 14*t^2 + 1)^3/((t - 1)^4*t^2*(t + 1)^4)
 ];
