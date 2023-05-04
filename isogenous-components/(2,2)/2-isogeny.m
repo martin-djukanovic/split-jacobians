@@ -23,6 +23,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(2,j1,j2) eq 0;
+<j1,j2> eq <64*(1 + 4*t^2)^3/t^2, 64*(4 + t^2)^3/t^4>;
 
 D:=DivisionPolynomial(E1,2);
 D:=Factorization(D)[1][1];
@@ -47,6 +48,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(2,j1,j2) eq 0;
+<j1,j2> eq <256*(t^4 - 4*t^3 + 5*t^2 - 2*t + 1)^3/((t - 2)^2*(t - 1)^4*t^2), 16*(t^4 - 4*t^3 + 20*t^2 - 32*t + 16)^3/((t - 2)^4*(t - 1)^2*t^4)>;
 
 D:=DivisionPolynomial(E1,2);
 D:=Factorization(D)[2][1];
