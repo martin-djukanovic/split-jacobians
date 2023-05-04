@@ -42,6 +42,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(5,j1,j2) eq 0;
+<j1,j2> eq <(t^2 + 230*t + 725)^3/(t - 10)^5, (t^2 - 10*t + 5)^3/(t - 10)>;
 
 D:=DivisionPolynomial(E1,5);
 F:=[f[1] : f in Factorization(D)];
@@ -53,7 +54,7 @@ IsIsomorphic(E,E2) eq true;
 
 /****** CASE 2 ******/
 // verification is very slow over Q
-F:=GF(11);
+F:=GF(11); F:=QQ;
 R<x>:=PolynomialRing(F);
 F<w>:=ext<QQ|x^2+x+1>;
 K<u>:=FunctionField(F);
@@ -84,6 +85,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(5,j1,j2) eq 0;
+<j1,j2> eq <-(t^6 - 250*t^3 + 3125)^3/t^15, -(t^6 - 10*t^3 + 5)^3/t^3>;
 
 p:=x^2 + (t^6 + 6*t^5 + 9*t^4 - 16*t^3 - 54*t^2 - 60*t - 25)/(128*t^3*(t^2 + 2*t + 5)^3*(t^4 - 2*t^3 - t^2 - 10*t + 25)^4*(t^4 + 4*t^3 + 5*t^2 - t - 5)^9)*x
 + (5*t^18 + 60*t^17 + 270*t^16 + 270*t^15 - 2415*t^14 - 11220*t^13 - 15165*t^12 + 33330*t^11 + 171840*t^10 + 247360*t^9
