@@ -22,6 +22,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(13,j1,j2) eq 0;
+<j1,j2> eq <(t^2 + 5*t + 13)*(t^4 + 7*t^3 + 20*t^2 + 19*t + 1)^3/t, (t^2 + 5*t + 13)*(t^4 + 247*t^3 + 3380*t^2 + 15379*t + 28561)^3/t^13>;
 
 D:=DivisionPolynomial(E1,13);
 D:=Factorization(D)[1][1];
