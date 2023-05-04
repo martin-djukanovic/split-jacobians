@@ -24,6 +24,8 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(5,j1,j2) eq 0;
+<j1,j2> eq <(t^2 + 10*t + 5)^3/t, (t^2 + 250*t + 3125)^3/t^5>;
+
 D:=DivisionPolynomial(E1,5);
 D:=Factorization(D)[1][1];
 E:=IsogenyFromKernel(E1,D);
@@ -45,6 +47,8 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(5,j1,j2) eq 0;
+<j1,j2> eq <(t^6 - 10*t^5 + 35*t^4 - 60*t^3 + 55*t^2 - 10*t + 5)^3/((t - 5)*(t - 1)^5*t^2), 
+            (t^6 - 10*t^5 + 275*t^4 - 1500*t^3 + 4375*t^2 - 6250*t + 3125)^3/((t - 5)^5*(t - 1)*t^10)>;
 
 D:=DivisionPolynomial(E1,5);
 D:=Factorization(D)[1][1];
