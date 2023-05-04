@@ -18,12 +18,12 @@ f2:=map<P2->P2|[X*Z^2, Y*Z^2, X^3]>;
 E1:=f1(C1);
 E1 eq f2(C1);
 E1:=EllipticCurve(E1,E1![0,1,0]);
-jInvariant(E1);
+jInvariant(E1) eq 256*t^3/(t + 1);
 
 E2:=f1(C2);
 E2 eq f2(C2);
 E2:=EllipticCurve(E2,E2![0,1,0]);
-jInvariant(E2);
+jInvariant(E2) eq -16*(t - 15)^3/(t + 1)^2;
 
 // the curves E1 and E2 are 2-isogenous.
 E:=IsogenyFromKernel(E1,x+1);
@@ -40,4 +40,4 @@ E2:=f2(C);
 E1:=EllipticCurve(E1,E1![0,1,0]);
 E2:=EllipticCurve(E2,E2![0,1,0]);
 IsIsomorphic(E1,E2);
-jInvariant(E1);
+jInvariant(E1) eq 256*(t^2 + 3*t + 9);
