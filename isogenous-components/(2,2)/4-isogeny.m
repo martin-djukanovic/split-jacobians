@@ -25,6 +25,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(4,j1,j2) eq 0;
+<j1,j2> eq <16*(16*t^4 + 16*t^2 + 1)^3/(t^2*(t^2 + 1)), 16*(t^4 + 16*t^2 + 16)^3/(t^8*(t^2 + 1))>;
 
 D:=DivisionPolynomial(E1,4);
 F:=[f[1] : f in Factorization(D)];
@@ -51,6 +52,7 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(4,j1,j2) eq 0;
+<j1,j2> eq <4*(t^8 + 60*t^6 + 134*t^4 + 60*t^2 + 1)^3/((t - 1)^8*t^2*(t + 1)^8*(t^2 + 1)^2), 256*(t^8 - t^4 + 1)^3/((t - 1)^2*t^8*(t + 1)^2*(t^2 + 1)^2)>;
 
 D2:=DivisionPolynomial(E1,2);
 D4:=Quotrem(DivisionPolynomial(E1,4),D2);
