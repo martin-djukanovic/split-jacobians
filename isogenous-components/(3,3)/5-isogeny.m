@@ -1,5 +1,5 @@
 QQ:=Rationals();
-K<t>:=FunctionField(K);
+K<t>:=FunctionField(QQ);
 A2:=AffineSpace(K,2);
 A1:=AffineSpace(K,1);
 Phi:=func<n,j1,j2|map<A2->A1|[CoordinateRing(A2)!ClassicalModularPolynomial(n)]>([j1,j2])[1]>;
