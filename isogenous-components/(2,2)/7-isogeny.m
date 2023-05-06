@@ -3,13 +3,10 @@ K<t>:=FunctionField(QQ);
 A2:=AffineSpace(K,2);
 A1:=AffineSpace(K,1);
 Phi:=func<n,j1,j2|map<A2->A1|[CoordinateRing(A2)!ClassicalModularPolynomial(n)]>([j1,j2])[1]>;
-R<T>:=PolynomialRing(QQ);
-h:=hom<K->R|T>;
 R<x>:=PolynomialRing(K);
 P2<X,Y,Z>:=ProjectiveSpace(K,2);
 f1:=map<P2->P2|[X^2, Y*Z, Z^2]>;
 f2:=map<P2->P2|[X*Z^2, Y*Z^2, X^3]>;
-
 
 
 /****** CASE 1 ******/
