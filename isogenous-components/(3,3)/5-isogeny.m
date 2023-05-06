@@ -3,38 +3,37 @@ K<t>:=FunctionField(QQ);
 A2:=AffineSpace(K,2);
 A1:=AffineSpace(K,1);
 Phi:=func<n,j1,j2|map<A2->A1|[CoordinateRing(A2)!ClassicalModularPolynomial(n)]>([j1,j2])[1]>;
-R<T>:=PolynomialRing(QQ);
-h:=hom<K->R|T>;
 R<x>:=PolynomialRing(K);
 P2<X,Y,Z>:=ProjectiveSpace(K,2);
+s:=t; // s:=t^3+10 would make them twists of the curves in case 2
 
 /****** CASE 1 ******/
-C:=Curve(P2, - Y^2*Z^4 + X^6 + (-t^2 + 4*t + 10)*X^4*Z^2 + (2*t^2 + 40*t + 25)*X^2*Z^4 + (- t^2 + 20*t - 100)*Z^6);
-E1:=Curve(P2, -2*Y^2*Z + (t - 10)*(t^2 + 2*t + 5)*X^3 + 8*(3*t - 25)*(t^2 + 2*t + 5)*X^2*Z + 64*(3*t^3 - 14*t^2 - 17*t - 80)*X*Z^2 + 512*(t - 1)^3*Z^3);
-E2:=Curve(P2, -Y^2*Z + 8*(t^2 + 2*t + 5)*X^3 - 4*(t - 10)*(t + 65)*(t^2 + 2*t + 5)*X^2*Z + 2*(t - 10)^2*(54*t^3 + 1395*t^2 + 3400*t + 6875)*X*Z^2 - (t - 10)^3*(9*t + 35)^3*Z^3);
+C:=Curve(P2, - Y^2*Z^4 + X^6 + (-s^2 + 4*s + 10)*X^4*Z^2 + (2*s^2 + 40*s + 25)*X^2*Z^4 + (- s^2 + 20*s - 100)*Z^6);
+E1:=Curve(P2, -2*Y^2*Z + (s - 10)*(s^2 + 2*s + 5)*X^3 + 8*(3*s - 25)*(s^2 + 2*s + 5)*X^2*Z + 64*(3*s^3 - 14*s^2 - 17*s - 80)*X*Z^2 + 512*(s - 1)^3*Z^3);
+E2:=Curve(P2, -Y^2*Z + 8*(s^2 + 2*s + 5)*X^3 - 4*(s - 10)*(s + 65)*(s^2 + 2*s + 5)*X^2*Z + 2*(s - 10)^2*(54*s^3 + 1395*s^2 + 3400*s + 6875)*X*Z^2 - (s - 10)^3*(9*s + 35)^3*Z^3);
 
 // degree-3 coverings
 f1:=map<C->E1|[
-	-8*(X + Z)^2*(X + t*Z)*(X^3 + t*X^2*Z + (2*t + 5)*X*Z^2 + (t - 10)*Z^3),
-	32*Y*Z^2*(X^3 - 5*X^2*Z +(15 - 4*t)*X*Z^2 + (12*t +  5)*Z^3),
-	(X^3 + t*X^2*Z + (2*t + 5)*X*Z^2 + (t - 10)*Z^3)^2
+	-8*(X + Z)^2*(X + s*Z)*(X^3 + s*X^2*Z + (2*s + 5)*X*Z^2 + (s - 10)*Z^3),
+	32*Y*Z^2*(X^3 - 5*X^2*Z +(15 - 4*s)*X*Z^2 + (12*s +  5)*Z^3),
+	(X^3 + s*X^2*Z + (2*s + 5)*X*Z^2 + (s - 10)*Z^3)^2
 ]>;
 f2:=map<C->E2|[
-	(t - 10)*(X - 5*Z)^2*(2*t*X - t*Z + 5*X + 10*Z)*(-(t*X^2*Z) + 2*t*X*Z^2 - t*Z^3 + X^3 +  5*X*Z^2 + 10*Z^3),
-	4*(t - 10)^3*Y*Z^2*(t*X^2*Z + t*X^3 - t*X*Z^2 - t*Z^3 + 10*X^2*Z + 2*X^3 + 10*X*Z^2 + 10*Z^3),
-	2*(-(t*X^2*Z) + 2*t*X*Z^2 - t*Z^3 + X^3 + 5*X*Z^2 + 10*Z^3)^2
+	(s - 10)*(X - 5*Z)^2*(2*s*X - s*Z + 5*X + 10*Z)*(-(s*X^2*Z) + 2*s*X*Z^2 - s*Z^3 + X^3 +  5*X*Z^2 + 10*Z^3),
+	4*(s - 10)^3*Y*Z^2*(s*X^2*Z + s*X^3 - s*X*Z^2 - s*Z^3 + 10*X^2*Z + 2*X^3 + 10*X*Z^2 + 10*Z^3),
+	2*(-(s*X^2*Z) + 2*s*X*Z^2 - s*Z^3 + X^3 + 5*X*Z^2 + 10*Z^3)^2
 ]>;
 
 // degree-2 coverings
 g1:=map<C->E1|[
-	-8*X*(t^2*X^2 + 3*t*X^2 + t*Z^2 + 5*X^2 - 10*Z^2),
-	16*(t - 10)*Y*Z^2,
-	(t^2 + 2*t + 5)*X^3
+	-8*X*(s^2*X^2 + 3*s*X^2 + s*Z^2 + 5*X^2 - 10*Z^2),
+	16*(s - 10)*Y*Z^2,
+	(s^2 + 2*s + 5)*X^3
 ]>;
 g2:=map<C->E2|[
-	(t - 10)*(27*t^2*Z^2 + t*X^2 + 35*t*Z^2 - 10*X^2 + 75*Z^2),
-	2*(t - 10)^3*Y*Z, 
-	2*(t^2 + 2*t + 5)*Z^2
+	(s - 10)*(27*s^2*Z^2 + s*X^2 + 35*s*Z^2 - 10*X^2 + 75*Z^2),
+	2*(s - 10)^3*Y*Z, 
+	2*(s^2 + 2*s + 5)*Z^2
 ]>;
 
 E1:=EllipticCurve(E1,E1![0,1,0]);
@@ -42,13 +41,12 @@ E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
 Phi(5,j1,j2) eq 0;
-<j1,j2> eq <(t^2 + 230*t + 725)^3/(t - 10)^5, (t^2 - 10*t + 5)^3/(t - 10)>;
+<j1,j2> eq <(s^2 + 230*s + 725)^3/(s - 10)^5, (s^2 - 10*s + 5)^3/(s - 10)>;  // <(t^2 + 250*t + 3125)^3/t^5, (t^2 + 10*t + 5)^3/t> for s=t+10
 
 D:=DivisionPolynomial(E1,5);
 F:=[f[1] : f in Factorization(D)];
 E:=IsogenyFromKernel(E1,F[1]);
 IsIsomorphic(E,E2) eq true;
-
 
 
 
