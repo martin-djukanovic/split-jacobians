@@ -21,7 +21,7 @@ E1:=EllipticCurve(E1,E1![0,1,0]);
 E2:=EllipticCurve(E2,E2![0,1,0]);
 j1:=jInvariant(E1);
 j2:=jInvariant(E2);
-// Phi(25,j1,j2) eq 0;  // not implemented in Magma, but phi25.m contains the function Phi25(x,y)
+// Phi(25,j1,j2) eq 0;  // not implemented in Magma, but phi25.m contains the function Phi25(x,y), see https://math.mit.edu/~drew/ClassicalModPolys.html
 <j1,j2> eq <(t^10 + 10*t^9 + 55*t^8 + 200*t^7 + 525*t^6 + 1010*t^5 + 1425*t^4 + 1400*t^3 + 875*t^2 + 250*t + 5)^3/(t*(t^4 + 5*t^3 + 15*t^2 + 25*t + 25)), 
             (t^10 + 250*t^9 + 4375*t^8 + 35000*t^7 + 178125*t^6 + 631250*t^5 + 1640625*t^4 + 3125000*t^3 + 4296875*t^2 + 3906250*t + 1953125)^3/(t^25*(t^4 + 5*t^3 + 15*t^2 + 25*t + 25))>;
 
