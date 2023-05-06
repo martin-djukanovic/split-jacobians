@@ -3,8 +3,6 @@ K<t>:=FunctionField(QQ);
 A2:=AffineSpace(K,2);
 A1:=AffineSpace(K,1);
 Phi:=func<n,j1,j2|map<A2->A1|[CoordinateRing(A2)!ClassicalModularPolynomial(n)]>([j1,j2])[1]>;
-R<T>:=PolynomialRing(QQ);
-h:=hom<K->R|T>;
 R<x>:=PolynomialRing(K);
 P2<X,Y,Z>:=ProjectiveSpace(K,2);
 f1:=map<P2->P2|[X^2, Y*Z, Z^2]>;
@@ -59,7 +57,7 @@ Phi(9,j1,j2) eq 0;
 D:=DivisionPolynomial(E1,9);
 F:=[f[1] : f in Factorization(D)];
 E:=IsogenyFromKernel(E1,F[1]*F[2]);
-IsIsomorphic(E,E2);
+IsIsomorphic(E,E2) eq true;
 
 C1:=HyperellipticCurve(s^3*x^6 + s^2*a*x^4 + s*b*x^2 + c);
 C2:=HyperellipticCurve((x^2 + 16*(t + 2)^4) * ((t^3 - 1)*x^4 + t^4*(t^12 - 8*t^11 + 24*t^10 - 24*t^9 - 32*t^8 + 96*t^7 - 64*t^6 + 64*t^5 - 288*t^4 + 352*t^3 + 192*t^2 + 384*t + 32)*x^2 + 256*(t^2 - t)^8*(t^3 - 1)));
