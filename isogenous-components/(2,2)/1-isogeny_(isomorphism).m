@@ -1,7 +1,5 @@
 QQ:=Rationals();
 K<t>:=FunctionField(QQ);
-R<T>:=PolynomialRing(QQ);
-h:=hom<K->R|T>;
 R<x>:=PolynomialRing(K);
 
 // CASE 1: genus-two curves with automorphism group D8 (dihedral group with 8 elements).
