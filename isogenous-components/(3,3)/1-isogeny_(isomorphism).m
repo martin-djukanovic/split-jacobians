@@ -1,4 +1,5 @@
 /****** CASE 1 ******/
+QQ:=Rationals();
 K<t>:=FunctionField(QQ);
 A2<x,y>:=AffineSpace(K,2);
 R<X>:=PolynomialRing(K);
