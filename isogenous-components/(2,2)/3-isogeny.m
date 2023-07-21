@@ -27,8 +27,6 @@ D:=Factorization(D)[1][1];
 E:=IsogenyFromKernel(E1,D);
 IsIsomorphic(E,E2);
 
-C:=HyperellipticCurve(s^3*x^6 + s^2*a*x^4 + s*b*x^2 + c);
-C;
 
 /****** CASE 2 ******/
 a:=t^4 + 8*t^3 + 42*t^2 + 144*t - 243;
