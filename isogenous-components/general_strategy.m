@@ -39,15 +39,26 @@ function genera(S,p)
   return g;
 end function;
 
+// check geometric irreducibility (modulo p); n is the level at which we glue.
+function isIrreducible(S,N,n)
+  for p in PrimesInInterval(3,11) do
+    if n mod p ne 0 and N mod p ne 0 then
+      return [IsAbsolutelyIrreducible(Curve(Reduction(s,p))) : s in S];
+    end if;
+  end for;
+end function;
+
+
 // example 3-isogenies and 2-torsion
-S:=comps(3,2);
+N:=3; n:=2;
+S:=comps(N,n);
 g:=genera(S,5);
-S[1];
-g[1];
+i:=isIrreducible(S,n);
+S[1]; g[1]; i[1];
 IsSingular(S[1],S[1]![2,1,0]);
 
 // a component of genus zero with a smooth rational point can be rationally parametrized
-// Parametrization(S[1],S[1]![2,1,0]);
+Parametrization(S[1],S[1]![2,1,0]);
 
 /* From the parametrization [a:b:c] = f(t) we obtain the family of curves C, whose Jacobian is (n,n)-split as E1 x E2 with E1 and E2
    are geometrically N-isogenous. To find the smallest field over which they are isogenous we can consider replacing C by a suitable twist,
