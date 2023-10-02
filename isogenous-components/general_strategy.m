@@ -40,11 +40,11 @@ function genera(S,p)
 end function;
 
 // check geometric irreducibility (modulo p); n is the level at which we glue.
-function isIrreducible(S,N,n)
+function isReducedAndIrreducible(S,N,n)
   for p in PrimesInInterval(3,11) do
     if n mod p ne 0 and N mod p ne 0 then
       Sp:=[Curve(Reduction(s,p)) : s in S];
-      return [<IsReduced(s), IsAbsolutelyIrreducible(s)> : s in Sp];
+      return [IsReduced(s) and IsAbsolutelyIrreducible(s) : s in Sp];
     end if;
   end for;
 end function;
