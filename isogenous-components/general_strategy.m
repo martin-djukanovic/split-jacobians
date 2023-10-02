@@ -43,7 +43,8 @@ end function;
 function isIrreducible(S,N,n)
   for p in PrimesInInterval(3,11) do
     if n mod p ne 0 and N mod p ne 0 then
-      return [IsAbsolutelyIrreducible(Curve(Reduction(s,p))) : s in S];
+      Sp:=[Curve(Reduction(s,p)) : s in S];
+      return [<IsReduced(s), IsAbsolutelyIrreducible(s)> : s in Sp];
     end if;
   end for;
 end function;
