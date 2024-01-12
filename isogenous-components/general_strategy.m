@@ -54,7 +54,7 @@ end function;
 N:=3; n:=2;
 S:=comps(N,n);
 g:=genera(S,5);
-i:=isIrreducible(S,n);
+i:=isReducedAndIrreducible(S,N,n);
 S[1]; g[1]; i[1];
 IsSingular(S[1],S[1]![2,1,0]);
 
@@ -63,8 +63,7 @@ Parametrization(S[1],S[1]![2,1,0]);
 
 /* From the parametrization [a:b:c] = f(t) we obtain the family of curves C, whose Jacobian is (n,n)-split as E1 x E2 with E1 and E2
    are geometrically N-isogenous. To find the smallest field over which they are isogenous we can consider replacing C by a suitable twist,
-   in case C has a large (geometric) automorphism group. If that strategy fails, we determine the "twisting factor" d(t) by which we
-   must twist E2 to obtain a curve N-isogenous to E1 so that E1 and E2 are N-isogenous over the ground field if s^2=d(t). This equation defines
-   a curve (not necessarily of genus zero) that parametrizes the curves C whose Jacobian is (n,n)-split as E1 x E2 with E1 and E2 N-isogenous
-   over the ground field.
+   in case C has a large (geometric) automorphism group (e.g. when n=2). If that strategy fails, we determine the "twisting factor" d(t) by which
+   we must twist E2 to obtain a curve N-isogenous to E1 so that E1 and E2 are N-isogenous over the ground field if s^2=d(t). This equation defines
+   a curve that parametrizes the curves C whose Jacobian is (n,n)-split as E1 x E2 with E1 and E2 N-isogenous over the ground field.
 */
