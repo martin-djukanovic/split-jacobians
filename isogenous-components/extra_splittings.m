@@ -658,7 +658,7 @@ j2:=jInvariant(E2);
 j:=jInvariantsParametrization(4, r, s);
 j3:=j[1];
 j4:=j[2];
-ConfirmSplitJacobian(C, 4, r, s) and {j3-j4, Phi(4,j1,j3)} eq {0};
+ConfirmSplitJacobian(C, 4, r, s) and {j3-j4, Phi(4,j1,j3), Phi(4,j2,j3)} eq {0};
 
 
 
