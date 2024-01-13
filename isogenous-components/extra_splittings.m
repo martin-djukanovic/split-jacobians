@@ -624,7 +624,7 @@ j2:=jInvariant(E2);
 j:=jInvariantsParametrization(8, r, s);
 j3:=j[1];
 j4:=j[2];
-ConfirmSplitJacobian(C, 8, r, s) and {j1,j2} eq {j3,j4};
+ConfirmSplitJacobian(C, 8, r, s) and Phi(3,j1,j2) eq 0 and {j1,j2} eq {j3,j4};
 
 
 // 3-isogenous components, case 3
@@ -641,7 +641,7 @@ j2:=jInvariant(E2);
 j:=jInvariantsParametrization(4, r, s);
 j3:=j[1];
 j4:=j[2];
-ConfirmSplitJacobian(C, 4, r, s) and {Phi(3,j3,j4), Phi(2,j1,j4), Phi(2,j2,j3)} eq {0};
+ConfirmSplitJacobian(C, 4, r, s) and {Phi(3,j1,j2), Phi(3,j3,j4), Phi(2,j1,j4), Phi(2,j2,j3)} eq {0};
 
 
 // 4-isogenous components, case 1
@@ -658,7 +658,7 @@ j2:=jInvariant(E2);
 j:=jInvariantsParametrization(4, r, s);
 j3:=j[1];
 j4:=j[2];
-ConfirmSplitJacobian(C, 4, r, s) and {j3-j4, Phi(4,j1,j3), Phi(4,j2,j3)} eq {0};
+ConfirmSplitJacobian(C, 4, r, s) and {j3-j4, Phi(4,j1,j2), Phi(4,j1,j3), Phi(4,j2,j3)} eq {0};
 
 
 
@@ -676,7 +676,7 @@ j2:=jInvariant(E2);
 j:=jInvariantsParametrization(3, r, s);
 j3:=j[1];
 j4:=j[2];
-ConfirmSplitJacobian(C, 3, r, s) and {j1,j2} eq {j3,j4};
+ConfirmSplitJacobian(C, 3, r, s) and {j1,j2} eq {j3,j4} and Phi(5,j1,j2) eq 0;
 
 
 
@@ -697,7 +697,6 @@ j4:=j[2];
 ConfirmSplitJacobian(C, 6, r, s) and {Phi(5,j1,j2), Phi(5,j3,j4)} eq {0};
 
 
-
 // 7-isogenous components, case 1
 a:=-(t^3 + 16*t^2 + 80*t + 98);
 b:=2*t^3 + 80*t^2 + 784*t + 2401;
@@ -712,7 +711,7 @@ j2:=jInvariant(E2);
 j:=jInvariantsParametrization(4, r, s);
 j3:=j[1];
 j4:=j[2];
-ConfirmSplitJacobian(C, 4, r, s) and {j1,j2} eq {j3,j4};
+ConfirmSplitJacobian(C, 4, r, s) and {j1,j2} eq {j3,j4} and Phi(7,j1,j2) eq 0;
 
 
 
@@ -758,7 +757,7 @@ j4:=j[2];
 j:=jInvariantsParametrization(6, rr, ss);
 j5:=j[1];
 j6:=j[2];
-ConfirmSplitJacobian(C, 10, r, s) and ConfirmSplitJacobian(C, 6, rr, ss) and {j5-j6, Phi(9,j3,j4), Phi(2,j1,j4), Phi(2,j2,j3), Phi(3,j5,j3), Phi(3,j5,j4)} eq {0};
+ConfirmSplitJacobian(C, 10, r, s) and ConfirmSplitJacobian(C, 6, rr, ss) and {j5-j6, Phi(9,j1,j2), Phi(9,j3,j4), Phi(2,j1,j4), Phi(2,j2,j3), Phi(3,j5,j3), Phi(3,j5,j4)} eq {0};
 
 
 
