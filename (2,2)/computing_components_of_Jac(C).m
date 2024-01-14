@@ -44,7 +44,7 @@ function HasSplitJac22(C)
 end function;
 
 // examples
-R<x>:=PolynomialRing(GF(3));
+R<x>:=PolynomialRing(GF(17));
 C:=HyperellipticCurve(x^6+x^4+x^2+1);
 HasSplitJac22(C);
 
