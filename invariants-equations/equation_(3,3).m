@@ -1,4 +1,4 @@
-/* The equation satisfied by the Igusa-Clebsch invariants [I2:I4:I6:10] of a genus-2 curve with a (3,3)-split Jacobian. */
+/* Equation satisfied by the Igusa-Clebsch invariants [I2:I4:I6:10] of a genus-2 curve with a (3,3)-split Jacobian. */
 
   - 2^4*3^31*5^5*19^10*29^5*I10^8
 
