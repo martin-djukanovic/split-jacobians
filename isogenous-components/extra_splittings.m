@@ -555,6 +555,13 @@ function jInvariantsParametrization(n,r,s)
 end function;
 
 
+/*****************************************************************************************************************************
+For given C and n, we can confirm that Jac(C) is (n,n)-split by finding parameters (r,s) for which
+Kumar's corresponding parametrization hits the point in the weighted projective space P(1:2:3:5) that
+corresponds to the Igusa-Clebsch invariants of C. We can verify that we found adequate parameters (r,s)
+by putting all the equations into an ideal and computing its Gröbner basis. If the ideal is not (1),
+we found good parameters.
+/*****************************************************************************************************************************/
 function ConfirmSplitJacobian(C,n,rr,ss)
 	F:=BaseField(C);
 	IC:=IgusaClebschInvariants(C);
