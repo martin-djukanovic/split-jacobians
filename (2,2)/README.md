@@ -1,8 +1,11 @@
 ## Background
 A genus-two curve _C: y<sup>2</sup> = ax<sup>6</sup> + bx<sup>4</sup> + cx<sup>2</sup> + d_ is a double cover of elliptic curves
+
 _E: y^2 = ax<sup>3</sup> + bx<sup>2</sup> + cx + d_
+
 _E': y^2 = dx<sup>3</sup> + cx<sup>2</sup> + bx + a_
-via the obvious morphisms _(x,y) ↦ (x<sup>2</sup>,y)_ and _(x,y) ↦ (1/x<sup>2</sup>,y/x<sup>3</sup>)._
+
+via the obvious morphisms _(x, y) ↦ (x<sup>2</sup>, y)_ and _(x, y) ↦ (1/x<sup>2</sup>, y/x<sup>3</sup>)._
 
 ### Verifying that _Jac(C)_ is _(2,2)_-isogenous to _E × E'._
 The file _complementary_curve.m_ contains verification of the fact that _Jac(C)/E=E'_ over the ground field,
