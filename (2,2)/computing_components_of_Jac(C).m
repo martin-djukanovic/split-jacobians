@@ -68,11 +68,28 @@ function HasSplitJac22(C)
     ]>;
     J:=Radical(EliminationIdeal(I,3));
     if J eq R then return false; end if;
-    B:=Basis(PrimaryDecomposition(J)[1]);
-    if #B eq 0 then
+    L1:={}; L2:={};
+    for P in PrimaryDecomposition(J) do
+        B:=Basis(P);
+        if #B ne 0 and Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
+            Include(~L1, {K!(j1 - B[1]), K!(j2 - B[2])});
+        else
+            Include(~L2, B);
+        end if;
+    end for;
+    L1:=[SetToSequence(s):s in L1];
+    for k in [1..#L1] do
+        if #L1[k] eq 1 then
+            L1[k]:=[L1[k][1],L1[k][1]];
+        end if;
+    end for;
+    if #L1 eq 0 and #L2 eq 0 then
         return false;
-    elif Degree(B[1]) eq 1 and Degree(B[2]) eq 1 then
-        return true, [K!(j1 - B[1]), K!(j2 - B[2])];
-    else return true, B;
+    elif #L1 ne 0 and #L2 eq 0 then
+        return true, L1;
+    elif #L2 ne 0 and #L1 eq 0 then
+        return true, L2;
+    else
+        return true, <L1,L2>;
     end if;
 end function;
