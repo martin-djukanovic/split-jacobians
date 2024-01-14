@@ -701,7 +701,7 @@ j2:=jInvariant(E2);
 j:=jInvariantsParametrization(6, r, s);
 j3:=j[1];
 j4:=j[2];
-ConfirmSplitJacobian(C, 6, r, s) and {Phi(5,j1,j2), Phi(5,j3,j4)} eq {0};
+ConfirmSplitJacobian(C, 6, r, s) and {Phi(5,j1,j2), Phi(5,j3,j4), Phi(2,j1,j4), Phi(2,j2,j3)} eq {0};
 
 
 // 7-isogenous components, case 1
